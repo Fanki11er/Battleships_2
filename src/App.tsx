@@ -1,8 +1,8 @@
-import React from "react";
-import { useEffect } from "react";
+import React from 'react';
+import { useEffect } from 'react';
 //import axios from "axios";
-import { io, Socket } from "socket.io-client";
-import { useState } from "react";
+import { io, Socket } from 'socket.io-client';
+import { useState } from 'react';
 
 function App() {
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
@@ -12,12 +12,12 @@ function App() {
     });
   }, []);*/
   useEffect(() => {
-    setSocket(io("http://localhost:8090"));
+    setSocket(io('http://localhost:8090'));
   }, []);
 
   useEffect(() => {
     socket &&
-      socket.on("message", (message) => {
+      socket.on('message', (message) => {
         console.log(message);
       });
   }, [socket]);
