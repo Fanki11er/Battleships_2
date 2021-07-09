@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
   //? User disconnection //
 
   socket.on("disconnect", () => {
-    io.emit("message", "User disconnected");
+    //io.emit("message", "User disconnected");
     Helpers.removeDisconnectedUser(rooms, socket.id);
     socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
   });
