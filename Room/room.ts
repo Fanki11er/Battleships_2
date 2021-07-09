@@ -14,8 +14,16 @@ export class Room {
     return this.users;
   }
   addUser(user: User) {
-    if (this.users.length < 3) {
+    if (this.users.length < 2) {
       this.users.push(user);
     }
+  }
+  getNumberOfUsers() {
+    return this.users.length;
+  }
+  clearDisconnectedUsers(userId: String) {
+    this.users = this.users.filter((user) => {
+      return user.getId() != userId;
+    });
   }
 }

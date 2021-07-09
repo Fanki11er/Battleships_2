@@ -4,6 +4,7 @@ import cors from "cors";
 import http from "http";
 import { Room } from "./Room/room";
 import { User } from "./User/user";
+import { Helpers } from "./Helpers/helpers";
 
 const PORT = 8090 || process.env.PORT;
 const app = express();
@@ -27,19 +28,24 @@ server.listen(PORT, () => {
   rooms.push(room);
 });
 
+//? User Connection //
+
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ userName, room }) => {
+  socket.on("joinRoom", ({ userName, roomName }) => {
     const user = new User(userName, socket.id);
-    socket.join(room);
-    const selectedRoom = rooms.find((currentRoom) => {
-      return currentRoom.getRoomName() === room;
-    });
+    socket.join(roomName);
+    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     selectedRoom?.addUser(user);
-    socket.emit("RoomsList", rooms);
+    socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
+    console.log(rooms[0].getNumberOfUsers(), "Connection");
   });
-  console.log("New user connected :)");
-  socket.emit("message", "Hello new user");
+  //socket.emit("message", "Hello new user");
+
+  //? User disconnection //
+
   socket.on("disconnect", () => {
     io.emit("message", "User disconnected");
+    Helpers.removeDisconnectedUser(rooms, socket.id);
+    socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
   });
 });
