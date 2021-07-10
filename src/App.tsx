@@ -11,6 +11,8 @@ import Board from './components/Organisms/Board/Board';
 import RoomsList from './Views/RoomsList/RoomsList';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import ShipsList from './components/Molecules/ShipsList/ShipsList';
+import { shipsList } from './Data/shipsList';
 
 function App() {
   /*useEffect(() => {
@@ -24,7 +26,7 @@ function App() {
       <GlobalStyles />
       <DndProvider backend={HTML5Backend}>
         <Board></Board>
-        <Ship />
+        <ShipsList shipsList={shipsList} />
       </DndProvider>
     </ThemeProvider>
   );

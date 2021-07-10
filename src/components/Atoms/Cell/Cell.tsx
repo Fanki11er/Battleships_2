@@ -43,7 +43,7 @@ const Cell = (props: Props) => {
   const renderCell = () => {
     return (
       <StyledCell ref={drop} isOver={isOver}>
-        {hasShip ? <Ship /> : null}
+        {hasShip ? <Ship size={1} position={'horizontal'} /> : null}
       </StyledCell>
     );
   };
