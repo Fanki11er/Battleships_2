@@ -1,11 +1,9 @@
-//import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Coordinates } from '../../../Class/Ship';
+import { Coordinates, BattleShip } from '../../../Class/BattleShip';
 import { checkIfHasShip, makeCoordinates } from '../../../Helpers/Helpers';
-import useShips from '../../../Hooks/useShips';
 import Cell from '../../Atoms/Cell/Cell';
+
 const StyledBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -17,20 +15,29 @@ const StyledBoard = styled.div`
   margin: 100px;
 `;
 
-const Board = (props: React.PropsWithChildren<React.ReactNode>) => {
+const Board = () => {
   const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
-  const { ships } = useShips();
+  const [ships, setShips] = useState<BattleShip[]>([]);
+
+  const addShip = (coordinates: Coordinates) => {
+    ships.push(new BattleShip(2, coordinates));
+    setShips([...ships]);
+  };
+
   useEffect(() => {
     setCoordinates(makeCoordinates(3));
   }, []);
+
   const renderCells = () => {
     return coordinates.map((coordinate) => {
       const hasShip = checkIfHasShip(coordinate, ships);
-      console.log(hasShip);
-      return <Cell coordinates={coordinate} />;
+      const key = `${coordinate.x}${coordinate.y}`;
+      return <Cell key={key} coordinates={coordinate} addShip={addShip} hasShip={hasShip} />;
     });
   };
   return <StyledBoard>{renderCells()}</StyledBoard>;
 };
 
 export default Board;
+/*
+props: React.PropsWithChildren<React.ReactNode> */

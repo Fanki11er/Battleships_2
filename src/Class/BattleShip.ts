@@ -1,7 +1,7 @@
 export type Position = 'horizontal' | 'vertical';
 export type Coordinates = { x: number; y: number };
 
-export class TestShip {
+export class BattleShip {
   coordinates: Coordinates[] = [];
   position: Position;
   size: number;

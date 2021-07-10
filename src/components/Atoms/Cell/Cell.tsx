@@ -3,9 +3,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useDrop } from 'react-dnd';
 import Ship from '../Ship/Ship';
-import { setOnBoard, ItemTypes } from '../../../Helpers/Helpers';
-import useShips from '../../../Hooks/useShips';
-import { Coordinates } from '../../../Class/Ship';
+import { ItemTypes } from '../../../Helpers/Helpers';
+import { Coordinates } from '../../../Class/BattleShip';
 
 type PR = {
   isOver: boolean;
@@ -19,18 +18,17 @@ const StyledCell = styled.div`
 
 type Props = {
   coordinates: Coordinates;
+  hasShip: boolean;
+  addShip: (coordinates: Coordinates) => void;
 };
 
 const Cell = (props: Props) => {
-  const { coordinates: cords } = props;
-  const { addShip, ships } = useShips();
+  const { coordinates: cords, addShip, hasShip } = props;
 
   useEffect(() => {
     setCoordinates(cords);
-    //setId(`${cords.x}${cords.y}`);
   }, [cords]);
   const [coordinates, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
-  const [id, setId] = useState('');
 
   const [{ isOver }, drop] = useDrop(
     () => ({
@@ -42,22 +40,30 @@ const Cell = (props: Props) => {
     }),
     [coordinates]
   );
+  const renderCell = () => {
+    return (
+      <StyledCell ref={drop} isOver={isOver}>
+        {hasShip ? <Ship /> : null}
+      </StyledCell>
+    );
+  };
 
-  const renderCell = (coordinates: Coordinates) => {
+  return <>{renderCell()}</>;
+};
+
+export default Cell;
+
+/*
+const renderCell = (coordinates: Coordinates) => {
     const { x, y } = coordinates;
     const hasShip = ships.filter((ship) => {
       return ship.coordinates.filter(({ x: sX, y: sY }) => {
         return sX === x && sY === y;
       });
     });
-    console.log(hasShip);
     return (
       <StyledCell ref={drop} isOver={isOver}>
         {hasShip.length ? <Ship /> : null}
       </StyledCell>
     );
-  };
-  return <>{renderCell(coordinates)}</>;
-};
-
-export default Cell;
+  }; */

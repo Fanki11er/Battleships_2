@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Coordinates, TestShip } from '../Class/Ship';
+import { Coordinates, BattleShip } from '../Class/BattleShip';
 
 const useShips = () => {
-  const [ships, setShips] = useState<TestShip[]>([]);
+  const [ships, setShips] = useState<BattleShip[]>([]);
 
   const addShip = (coordinates: Coordinates) => {
-    ships.push(new TestShip(2, coordinates));
+    const newShips = [...ships];
+    newShips.push(new BattleShip(2, coordinates));
+    setShips(newShips);
   };
   return {
     addShip,
