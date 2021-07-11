@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useDrag } from 'react-dnd';
-//import { useState } from 'react';
 import { ItemTypes } from '../../../Helpers/Helpers';
 import { Position } from '../../../Class/BattleShip';
 
@@ -12,17 +11,21 @@ const StyledShip = styled.div`
 type Props = {
   size: number;
   position: Position;
+  identifier?: number;
 };
 const Ship = (props: Props) => {
-  const { size, position } = props;
-  //const [position, setPosition] = useState('');
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.SHIP,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+  const { size, position, identifier } = props;
+  const [, drag] = useDrag(
+    () => ({
+      type: ItemTypes.SHIP,
+      item: { identifier },
+
+      /*collect: (monitor) => ({
+      //isDragging: !!monitor.isDragging(),
+    }),*/
     }),
-  }));
-  //const getPosition = () => position;
+    [identifier]
+  );
 
   return <StyledShip size={size} position={position} ref={drag}></StyledShip>;
 };

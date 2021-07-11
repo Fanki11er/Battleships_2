@@ -1,7 +1,8 @@
+import { useContext } from 'react';
 import { useEffect } from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import { ShipListCreator, ShipsToTake } from '../../../Data/shipsList';
+import { ShipsContext } from '../../../providers/shipsProvider';
 import Ship from '../../Atoms/Ship/Ship';
 const Wrapper = styled.div`
   width: 400px;
@@ -25,39 +26,20 @@ const ListElement = styled.li`
   margin: 10px;
 `;
 
-type Props = {
-  shipsList: ShipListCreator[];
-};
+type Props = {};
 const ShipsList = (props: Props) => {
-  const { shipsList } = props;
-
-  const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
-
-  useEffect(() => {
-    setShipsToTake(createShipsList(shipsList));
-  }, [shipsList]);
+  const { shipsToTake } = useContext(ShipsContext);
 
   const renderShips = (shipsToTake: ShipsToTake[]) => {
-    return shipsToTake.map(({ size }) => {
+    return shipsToTake.map(({ size, id }) => {
       return (
         <ListElement>
-          <Ship size={size} position={'horizontal'} />
+          <Ship size={size} position={'horizontal'} identifier={id} />
         </ListElement>
       );
     });
   };
 
-  const createShipsList = (shipsList: ShipListCreator[]) => {
-    const createdShipSList: ShipsToTake[] = [];
-    let counter = 0;
-    for (let i = 0; i < shipsList.length; i++) {
-      for (let j = 0; j < shipsList[i].quantity; j++) {
-        createdShipSList.push({ size: shipsList[i].size, id: counter });
-        counter++;
-      }
-    }
-    return createdShipSList;
-  };
   return (
     <Wrapper>
       <List>{renderShips(shipsToTake)}</List>

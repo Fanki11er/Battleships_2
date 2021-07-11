@@ -13,6 +13,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import ShipsList from './components/Molecules/ShipsList/ShipsList';
 import { shipsList } from './Data/shipsList';
+import useShips from './Hooks/useShips';
+import ShipsProvider from './providers/shipsProvider';
 
 function App() {
   /*useEffect(() => {
@@ -25,8 +27,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <DndProvider backend={HTML5Backend}>
-        <Board></Board>
-        <ShipsList shipsList={shipsList} />
+        <ShipsProvider>
+          <Board></Board>
+          <ShipsList />
+        </ShipsProvider>
       </DndProvider>
     </ThemeProvider>
   );
