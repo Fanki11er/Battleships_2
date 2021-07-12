@@ -28,13 +28,39 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   };
 
   const canMoveShip = (identifier: Identifier, coordinates: Coordinates, hasShip: boolean) => {
+    if (!checkIfThereIsEnoughSpaceInBoard(identifier, coordinates, hasShip)) return false;
+    if (!checkIfIsEnoughPlaceForMove(identifier, coordinates)) return false;
+    return true;
+  };
+
+  const checkIfThereIsEnoughSpaceInBoard = (identifier: Identifier, coordinates: Coordinates, hasShip: boolean) => {
     const { position, size } = identifier;
     const { x, y } = coordinates;
 
     if ((position === 'horizontal' && y + size > BOARD_SIZE) || hasShip) return false;
     if ((position === 'vertical' && x + size > BOARD_SIZE) || hasShip) return false;
-    if (!hasShip) return true;
+    //if (!hasShip) return true;
     return true;
+  };
+
+  const checkIfIsEnoughPlaceForMove = (identifier: Identifier, coordinates: Coordinates) => {
+    let isEnoughPlaceForMove = true;
+    const { position, size } = identifier;
+    const { x, y } = coordinates;
+    if (position === 'horizontal') {
+      for (let i = 0; i < ships.length; i++) {
+        const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = ships[i];
+        if (
+          shipPosition === 'horizontal' &&
+          shipCoordinates[0].x === x &&
+          (y + size >= shipCoordinates[0].y || y < shipCoordinates[shipSize - 1].y)
+        ) {
+          isEnoughPlaceForMove = false;
+          break;
+        }
+      }
+    }
+    return isEnoughPlaceForMove;
   };
 
   useEffect(() => {
