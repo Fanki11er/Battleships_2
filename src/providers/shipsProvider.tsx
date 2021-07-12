@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { BattleShip, Coordinates } from '../Class/BattleShip';
+import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
 import { Identifier } from '../Types/types';
 
@@ -8,6 +8,7 @@ export const ShipsContext = createContext({
   ships: [] as BattleShip[],
   moveShip: (coordinates: Coordinates, identifier: Identifier) => {},
   canMoveShip: (identifier: Identifier, coordinates: Coordinates, hasShip: boolean): boolean => false,
+  handleShipRotate: (identifier: number | undefined) => {},
   boardSize: 0,
 });
 
@@ -17,13 +18,13 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
 
-  const addShip = (coordinates: Coordinates) => {
-    ships.push(new BattleShip(2, coordinates));
+  const addShip = (coordinates: Coordinates, position: Position) => {
+    ships.push(new BattleShip(2, coordinates, position));
     setShips([...ships]);
   };
 
   const moveShip = (coordinates: Coordinates, identifier: Identifier) => {
-    addShip(coordinates);
+    addShip(coordinates, identifier.position);
     removeMovedShip(identifier.identifier);
   };
 
@@ -54,7 +55,6 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       for (let i = 0; i < test.length; i++) {
         const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = test[i];
         if (shipPosition === 'horizontal' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
-          console.log(y + size - 1, shipCoordinates[0].y);
           isEnoughPlaceForMove = false;
           break;
         }
@@ -72,7 +72,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     let counter = 0;
     for (let i = 0; i < shipsList.length; i++) {
       for (let j = 0; j < shipsList[i].quantity; j++) {
-        createdShipSList.push({ size: shipsList[i].size, id: counter });
+        createdShipSList.push({ size: shipsList[i].size, id: counter, position: 'horizontal' });
         counter++;
       }
     }
@@ -86,11 +86,26 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     setShipsToTake(newArray);
   };
 
+  const handleShipRotate = (identifier: number | undefined) => {
+    const shipToRotate = shipsToTake.filter((ship) => {
+      return ship.id === identifier;
+    });
+
+    if (shipToRotate.length && shipToRotate[0].position === 'horizontal') {
+      shipToRotate[0].position = 'vertical';
+      setShipsToTake([...shipsToTake]);
+    } else {
+      shipToRotate[0].position = 'horizontal';
+      setShipsToTake([...shipsToTake]);
+    }
+  };
+
   const shipsContext = {
     shipsToTake,
     ships,
     moveShip,
     canMoveShip,
+    handleShipRotate,
     boardSize: BOARD_SIZE,
   };
   return <ShipsContext.Provider value={shipsContext}>{children}</ShipsContext.Provider>;

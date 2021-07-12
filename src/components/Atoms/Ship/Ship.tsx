@@ -11,11 +11,12 @@ const StyledShip = styled.div`
 type Props = {
   size: number;
   position: Position;
+  handleShipRotate?: (identifier: number | undefined) => void;
   identifier?: number;
   isDraggable?: boolean;
 };
 const Ship = (props: Props) => {
-  const { size, position, identifier, isDraggable } = props;
+  const { size, position, identifier, isDraggable, handleShipRotate } = props;
   const [, drag] = useDrag(
     () => ({
       type: ItemTypes.SHIP,
@@ -25,10 +26,17 @@ const Ship = (props: Props) => {
       //isDragging: !!monitor.isDragging(),
     }),*/
     }),
-    [identifier]
+    [identifier, position]
   );
 
-  return <StyledShip size={size} position={position} ref={isDraggable ? drag : null}></StyledShip>;
+  return (
+    <StyledShip
+      size={size}
+      position={position}
+      ref={isDraggable ? drag : null}
+      onClick={() => handleShipRotate && handleShipRotate(identifier)}
+    ></StyledShip>
+  );
 };
 
 export default Ship;

@@ -31,13 +31,13 @@ const ListElement = styled.li`
 `;
 
 const ShipsList = () => {
-  const { shipsToTake } = useContext(ShipsContext);
+  const { shipsToTake, handleShipRotate } = useContext(ShipsContext);
 
   const renderShips = (shipsToTake: ShipsToTake[]) => {
-    return shipsToTake.map(({ size, id }) => {
+    return shipsToTake.map(({ size, id, position }) => {
       return (
         <ListElement>
-          <Ship size={size} position={'horizontal'} identifier={id} isDraggable={true} />
+          <Ship size={size} position={position} identifier={id} isDraggable={true} handleShipRotate={handleShipRotate} />
         </ListElement>
       );
     });
