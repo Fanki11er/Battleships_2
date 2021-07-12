@@ -12,7 +12,7 @@ export const ShipsContext = createContext({
 });
 
 const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
-  const BOARD_SIZE = 3;
+  const BOARD_SIZE = 5;
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
@@ -48,13 +48,13 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     const { position, size } = identifier;
     const { x, y } = coordinates;
     if (position === 'horizontal') {
-      for (let i = 0; i < ships.length; i++) {
-        const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = ships[i];
-        if (
-          shipPosition === 'horizontal' &&
-          shipCoordinates[0].x === x &&
-          (y + size >= shipCoordinates[0].y || y < shipCoordinates[shipSize - 1].y)
-        ) {
+      const test = ships.filter(({ coordinates }) => {
+        return coordinates[0].x === x;
+      });
+      for (let i = 0; i < test.length; i++) {
+        const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = test[i];
+        if (shipPosition === 'horizontal' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
+          console.log(y + size - 1, shipCoordinates[0].y);
           isEnoughPlaceForMove = false;
           break;
         }

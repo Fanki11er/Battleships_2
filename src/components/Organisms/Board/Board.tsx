@@ -8,11 +8,11 @@ import Cell from '../../Atoms/Cell/Cell';
 
 const StyledBoard = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(5, 100px);
 
-  width: 310px;
-  height: 310px;
+  width: 510px;
+  height: 510px;
   border: 5px solid black;
   margin: 100px;
 `;
