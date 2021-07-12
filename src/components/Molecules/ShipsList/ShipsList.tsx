@@ -1,7 +1,6 @@
 import { useContext } from 'react';
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ShipListCreator, ShipsToTake } from '../../../Data/shipsList';
+import { ShipsToTake } from '../../../Data/shipsList';
 import { ShipsContext } from '../../../providers/shipsProvider';
 import Ship from '../../Atoms/Ship/Ship';
 const Wrapper = styled.div`

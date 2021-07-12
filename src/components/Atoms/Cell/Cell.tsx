@@ -22,12 +22,11 @@ const StyledCell = styled.div`
 type Props = {
   coordinates: Coordinates;
   hasShip: boolean;
-  addShip: (coordinates: Coordinates, item: Identifier) => void;
 };
 
 const Cell = (props: Props) => {
-  const { coordinates: cords, addShip, hasShip } = props;
-  const { removeMovedShip, shipsToTake } = useContext(ShipsContext);
+  const { coordinates: cords, hasShip } = props;
+  const { moveShip, shipsToTake } = useContext(ShipsContext);
 
   useEffect(() => {
     setCoordinates(cords);
@@ -38,15 +37,14 @@ const Cell = (props: Props) => {
     () => ({
       accept: ItemTypes.SHIP,
       drop: (item: Identifier) => {
-        addShip(coordinates, item);
-        removeMovedShip(item.identifier);
+        moveShip(coordinates, item);
       },
 
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
       }),
     }),
-    [shipsToTake]
+    [coordinates, shipsToTake]
   );
 
   const renderCell = () => {

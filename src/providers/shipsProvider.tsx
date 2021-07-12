@@ -1,18 +1,31 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { BattleShip, Coordinates } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
+import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
   shipsToTake: [] as ShipsToTake[],
-  updateShipsToTake: (shipsToTake: ShipsToTake[]) => {},
-  removeMovedShip: (identifier: number) => {},
+  ships: [] as BattleShip[],
+  moveShip: (coordinates: Coordinates, identifier: Identifier) => {},
 });
 
 const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
+  const [ships, setShips] = useState<BattleShip[]>([]);
+
+  const addShip = (coordinates: Coordinates) => {
+    ships.push(new BattleShip(2, coordinates));
+    setShips([...ships]);
+  };
+
+  const moveShip = (coordinates: Coordinates, identifier: Identifier) => {
+    addShip(coordinates);
+    removeMovedShip(identifier.identifier);
+  };
 
   useEffect(() => {
-    updateShipsToTake(createShipsList(shipsList));
+    setShipsToTake(createShipsList(shipsList));
   }, []);
 
   const createShipsList = (shipsList: ShipListCreator[]) => {
@@ -27,21 +40,17 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     return createdShipSList;
   };
 
-  const updateShipsToTake = (shipsToTake: ShipsToTake[]) => {
-    setShipsToTake(shipsToTake);
-  };
-
   const removeMovedShip = (identifier: number) => {
     const newArray = shipsToTake.filter((element) => {
       return element.id !== identifier;
     });
-    updateShipsToTake(newArray);
+    setShipsToTake(newArray);
   };
 
   const shipsContext = {
     shipsToTake,
-    updateShipsToTake,
-    removeMovedShip,
+    ships,
+    moveShip,
   };
   return <ShipsContext.Provider value={shipsContext}>{children}</ShipsContext.Provider>;
 };
