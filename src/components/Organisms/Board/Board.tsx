@@ -19,11 +19,12 @@ const StyledBoard = styled.div`
 
 const Board = () => {
   const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
+  const { boardSize } = useContext(ShipsContext);
   const { ships } = useContext(ShipsContext);
 
   useEffect(() => {
-    setCoordinates(makeCoordinates(3));
-  }, []);
+    setCoordinates(makeCoordinates(boardSize));
+  }, [boardSize]);
 
   const renderCells = () => {
     return coordinates.map((coordinate) => {

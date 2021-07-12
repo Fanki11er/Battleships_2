@@ -12,13 +12,14 @@ type Props = {
   size: number;
   position: Position;
   identifier?: number;
+  isDraggable?: boolean;
 };
 const Ship = (props: Props) => {
-  const { size, position, identifier } = props;
+  const { size, position, identifier, isDraggable } = props;
   const [, drag] = useDrag(
     () => ({
       type: ItemTypes.SHIP,
-      item: { identifier },
+      item: { identifier, position, size },
 
       /*collect: (monitor) => ({
       //isDragging: !!monitor.isDragging(),
@@ -27,7 +28,7 @@ const Ship = (props: Props) => {
     [identifier]
   );
 
-  return <StyledShip size={size} position={position} ref={drag}></StyledShip>;
+  return <StyledShip size={size} position={position} ref={isDraggable ? drag : null}></StyledShip>;
 };
 
 export default Ship;

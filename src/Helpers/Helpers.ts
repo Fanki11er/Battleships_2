@@ -17,17 +17,10 @@ export const makeCoordinates = (size: number) => {
   return coordinates;
 };
 
-/*export const checkIfHasShip = (coordinates: Coordinates, ships: TestShip[]) => {
-  const { x, y } = coordinates;
-  const hasShip = ships.filter((ship) => {
-    return ship.coordinates.filter(({ x: sX, y: sY }) => {
-      console.log(x, sX, y, sY);
-      return sX === x && sY === y;
-    });
-  });
-
-  return !!hasShip.length;
-};*/
+export const setCellColor = (isOver: boolean, canDrop: boolean) => {
+  if (canDrop) return 'green';
+  if (!canDrop) return 'red';
+};
 
 export const checkIfHasShip = (coordinates: Coordinates, ships: BattleShip[]) => {
   const { x, y } = coordinates;

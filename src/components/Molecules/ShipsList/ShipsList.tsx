@@ -25,15 +25,14 @@ const ListElement = styled.li`
   margin: 10px;
 `;
 
-type Props = {};
-const ShipsList = (props: Props) => {
+const ShipsList = () => {
   const { shipsToTake } = useContext(ShipsContext);
 
   const renderShips = (shipsToTake: ShipsToTake[]) => {
     return shipsToTake.map(({ size, id }) => {
       return (
         <ListElement>
-          <Ship size={size} position={'horizontal'} identifier={id} />
+          <Ship size={size} position={'horizontal'} identifier={id} isDraggable={true} />
         </ListElement>
       );
     });
