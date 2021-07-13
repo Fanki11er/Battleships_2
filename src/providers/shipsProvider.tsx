@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
+import { checkAviableSpacesForHorizontalShipPosition } from '../Helpers/Helpers';
 import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
@@ -29,38 +30,27 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   };
 
   const canMoveShip = (identifier: Identifier, coordinates: Coordinates, hasShip: boolean) => {
-    if (!checkIfThereIsEnoughSpaceInBoard(identifier, coordinates, hasShip)) return false;
+    if (!checkIfThereIsEnoughSpaceOnBoard(identifier, coordinates, hasShip)) return false;
     if (!checkIfIsEnoughPlaceForMove(identifier, coordinates)) return false;
     return true;
   };
 
-  const checkIfThereIsEnoughSpaceInBoard = (identifier: Identifier, coordinates: Coordinates, hasShip: boolean) => {
+  const checkIfThereIsEnoughSpaceOnBoard = (identifier: Identifier, coordinates: Coordinates, hasShip: boolean) => {
     const { position, size } = identifier;
     const { x, y } = coordinates;
 
     if ((position === 'horizontal' && y + size > BOARD_SIZE) || hasShip) return false;
     if ((position === 'vertical' && x + size > BOARD_SIZE) || hasShip) return false;
-    //if (!hasShip) return true;
     return true;
   };
 
   const checkIfIsEnoughPlaceForMove = (identifier: Identifier, coordinates: Coordinates) => {
-    let isEnoughPlaceForMove = true;
-    const { position, size } = identifier;
-    const { x, y } = coordinates;
+    const { position } = identifier;
+
     if (position === 'horizontal') {
-      const test = ships.filter(({ coordinates }) => {
-        return coordinates[0].x === x;
-      });
-      for (let i = 0; i < test.length; i++) {
-        const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = test[i];
-        if (shipPosition === 'horizontal' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
-          isEnoughPlaceForMove = false;
-          break;
-        }
-      }
+      return checkAviableSpacesForHorizontalShipPosition(ships, coordinates, identifier);
     }
-    return isEnoughPlaceForMove;
+    return true;
   };
 
   useEffect(() => {

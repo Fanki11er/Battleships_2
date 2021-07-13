@@ -1,4 +1,5 @@
 import { Coordinates, BattleShip } from '../Class/BattleShip';
+import { Identifier } from '../Types/types';
 
 export const setOnBoard = (position: string, callback: (position: string) => {}) => {
   callback(position);
@@ -32,4 +33,35 @@ export const checkIfHasShip = (coordinates: Coordinates, ships: BattleShip[]) =>
   });
 
   return !!hasShip.length;
+};
+
+export const checkAviableSpacesForHorizontalShipPosition = (ships: BattleShip[], coordinates: Coordinates, identifier: Identifier) => {
+  let isEnoughPlaceForMove = true;
+  const { size } = identifier;
+  const { x, y } = coordinates;
+  let xCoordinate;
+  const filteredShips = ships.filter(({ coordinates, size }) => {
+    let isOnShipLine = false;
+    for (let i = 0; i < size; i++) {
+      if (x === coordinates[i].x) {
+        isOnShipLine = true;
+        xCoordinate = x;
+        break;
+      }
+    }
+    return isOnShipLine;
+  });
+  for (let i = 0; i < filteredShips.length; i++) {
+    const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = filteredShips[i];
+    if (shipPosition === 'horizontal' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
+      isEnoughPlaceForMove = false;
+      break;
+    } else if (shipPosition === 'vertical') {
+      if (xCoordinate !== undefined && y + size > shipCoordinates[0].y && y < shipCoordinates[0].y) {
+        isEnoughPlaceForMove = false;
+        break;
+      }
+    }
+  }
+  return isEnoughPlaceForMove;
 };
