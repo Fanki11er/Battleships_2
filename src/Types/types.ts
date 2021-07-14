@@ -5,3 +5,5 @@ export type Identifier = {
   position: Position;
   size: number;
 };
+
+export type PossibleCoordinates = 'x' | 'y';

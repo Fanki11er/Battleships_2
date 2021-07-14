@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
-import { checkAviableSpacesForHorizontalShipPosition } from '../Helpers/Helpers';
+import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition } from '../Helpers/Helpers';
 import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
@@ -49,6 +49,8 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
     if (position === 'horizontal') {
       return checkAviableSpacesForHorizontalShipPosition(ships, coordinates, identifier);
+    } else if (position === 'vertical') {
+      return checkAviableSpacesForVerticalShipPosition(ships, coordinates, identifier);
     }
     return true;
   };
