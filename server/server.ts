@@ -31,12 +31,13 @@ server.listen(PORT, () => {
 //? User Connection //
 
 io.on("connection", (socket) => {
+  socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
   socket.on("joinRoom", ({ userName, roomName }) => {
     const user = new User(userName, socket.id);
     socket.join(roomName);
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     selectedRoom?.addUser(user);
-    socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
+    //socket.emit("RoomsList", Helpers.prepareRoomsInfo(rooms));
     console.log(rooms[0].getNumberOfUsers(), "Connection");
   });
   //socket.emit("message", "Hello new user");
