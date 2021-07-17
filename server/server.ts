@@ -35,7 +35,7 @@ server.listen(PORT, () => {
 //? User Connection //
 
 io.on("connection", (socket) => {
-  socket.emit("RoomsList", rooms);
+  io.emit("RoomsList", rooms);
   socket.on("joinRoom", ({ userName, roomName }) => {
     const user = new User(userName, socket.id);
     socket.join(roomName);
@@ -51,11 +51,18 @@ io.on("connection", (socket) => {
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     socket.emit("usersStatusInRoom", selectedRoom?.getUsers())
     socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
-    io.emit('leaveTheRoom')
+    //io.emit('leaveTheRoom')
   })
 
-  
-  //socket.emit("message", "Hello new user");
+  socket.on('leaveTheRoom', (roomName)=> {
+   
+    socket.leave(roomName)
+    Helpers.removeDisconnectedUser(rooms, socket.id);
+    io.emit("RoomsList", rooms);
+    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+    socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
+  })
+
   //? User disconnection //
 
   socket.on("disconnect", () => {

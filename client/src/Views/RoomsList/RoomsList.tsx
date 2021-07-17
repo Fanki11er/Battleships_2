@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Room from '../../components/Organisms/Room/Room';
-import useSocket from '../../Hooks/useSocket';
 import { RoomType } from '../../Types/types';
 import { routes } from '../../router/routes';
 import { useContext } from 'react';
@@ -19,17 +18,21 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+type Props = {
+  userName: string;
+};
 
-const RoomsList = () => {
-  const { room } = routes;
+const RoomsList = (props: Props) => {
+  const { room, landingPage, roomsList: roomsRoute } = routes;
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
   const [roomToJoin, setRoomToJoin] = useState('');
   const { socket } = useContext(SocketContext);
+
   useEffect(() => {
+    socket?.connect();
     socket?.on('RoomsList', (rooms: RoomType[]) => {
       setRoomsList(rooms);
     });
-
     socket?.once('connectionAccepted', (roomName: string) => {
       setRoomToJoin(roomName);
     });
@@ -44,8 +47,10 @@ const RoomsList = () => {
   }, [socket]);
 
   const handleJoinToTheRoom = (roomName: string) => {
-    socket?.emit('joinRoom', { userName: 'Krzysiek', roomName });
+    socket?.emit('joinRoom', { userName: props.userName, roomName });
   };
+
+  if (!props.userName) return <Redirect to={{ pathname: landingPage }} />;
 
   if (roomToJoin) return <Redirect to={{ pathname: room, state: { roomName: roomToJoin } }} />;
   return (

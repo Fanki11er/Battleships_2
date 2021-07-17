@@ -11,7 +11,7 @@ const SocketProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const URL = 'http://localhost:8090';
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   useEffect(() => {
-    setSocket(io(URL));
+    setSocket(io(URL, { autoConnect: false }));
   }, [URL]);
 
   const socketContext = {

@@ -38,7 +38,6 @@ export class Helpers {
     let roomName = "";
     rooms.forEach((room)=> {
       const test = room.hasUser(userId)
-      console.log(test, userId,"HAS")
       if(room.hasUser(userId)) {
         
         roomName = room.getRoomName()
