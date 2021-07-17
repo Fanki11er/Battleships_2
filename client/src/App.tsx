@@ -10,6 +10,7 @@ import { routes } from './router/routes';
 import LandingPage from './Views/LandingPage/LandingPage';
 import MainPage from './templates/MainPage/MainPage';
 import SocketProvider from './providers/socketProvider';
+import UserProvider from './providers/userProvider';
 
 function App() {
   const { landingPage, mainPage } = routes;
@@ -24,11 +25,13 @@ function App() {
       <BrowserRouter>
         <GlobalStyles />
         <SocketProvider>
-          <Switch>
-            <Route exact path={landingPage} component={LandingPage}></Route>
-            <Route path={mainPage} component={MainPage}></Route>
-            <Route path={'*'} component={LandingPage} />
-          </Switch>
+          <UserProvider>
+            <Switch>
+              <Route exact path={landingPage} component={LandingPage}></Route>
+              <Route path={mainPage} component={MainPage}></Route>
+              <Route path={'*'} component={LandingPage} />
+            </Switch>
+          </UserProvider>
         </SocketProvider>
       </BrowserRouter>
     </ThemeProvider>
