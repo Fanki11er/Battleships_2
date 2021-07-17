@@ -7,6 +7,7 @@ import PreparingPage from '../../Views/PreparingPage/PreparingPage';
 import { useContext } from 'react';
 import { UserContext } from '../../providers/userProvider';
 import LandingPage from '../../Views/LandingPage/LandingPage';
+import ShipsProvider from '../../providers/shipsProvider';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,8 +25,10 @@ const MainPage = () => {
   return (
     <Wrapper>
       {pathname === roomsList && <RoomsList userName={userName} />}
-      {pathname === room && <PreparingPage />}
-      {pathname === game && <Game />}
+      <ShipsProvider>
+        {pathname === room && <PreparingPage />}
+        {pathname === game && <Game />}
+      </ShipsProvider>
     </Wrapper>
   );
 };

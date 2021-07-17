@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import FormField from '../../Molecules/FormField/FormField';
 import { useContext } from 'react';
 import { UserContext } from '../../../providers/userProvider';
+import { StandardButton } from '../../Atoms/Buttons/Buttons';
 
 const Form = styled.form`
   width: 500px;
@@ -21,7 +22,7 @@ const UserNameForm = () => {
       })}
     >
       <FormField type="text" name={'userName'} label={'Your name'} id={'userName'} register={register} />
-      <button type="submit">Submit</button>
+      <StandardButton type="submit">Submit</StandardButton>
     </Form>
   );
 };
