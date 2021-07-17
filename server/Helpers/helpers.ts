@@ -21,15 +21,30 @@ export class Helpers {
     return roomsInfo;
   }
 
-  public static findSelectedRoom(rooms: Room[], roomName: String) {
+  public static findSelectedRoom(rooms: Room[], roomName: string) {
     return rooms.find((currentRoom) => {
       return currentRoom.getRoomName() === roomName;
     });
   }
 
-  public static removeDisconnectedUser(rooms: Room[], userId: String) {
+  public static removeDisconnectedUser(rooms: Room[], userId: string) {
     rooms.forEach((room) => {
       room.clearDisconnectedUsers(userId);
     });
   }
+
+  public static findRoomNameByUserId(rooms: Room[], userId: string) {
+    console.log(userId)
+    let roomName = "";
+    rooms.forEach((room)=> {
+      const test = room.hasUser(userId)
+      console.log(test, userId,"HAS")
+      if(room.hasUser(userId)) {
+        
+        roomName = room.getRoomName()
+      }
+    })
+    return roomName
+  }
 }
+

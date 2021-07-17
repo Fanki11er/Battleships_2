@@ -44,14 +44,28 @@ io.on("connection", (socket) => {
     selectedRoom?.addUser(user);
     socket.emit('connectionAccepted', roomName);
     io.emit("userStatus", rooms)
-    socket.emit("usersStatusInRoom",selectedRoom?.getUsers() )
+    
   });
+
+  socket.on('usersJoinTheRoom', (roomName)=> {
+    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+    socket.emit("usersStatusInRoom", selectedRoom?.getUsers())
+    socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
+    io.emit('leaveTheRoom')
+  })
+
+  
   //socket.emit("message", "Hello new user");
   //? User disconnection //
 
   socket.on("disconnect", () => {
     //io.emit("message", "User disconnected");
+    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id)
+    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     Helpers.removeDisconnectedUser(rooms, socket.id);
+    //socket.leave(roomName)
+    socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
     io.emit("userStatus", rooms);
   });
+ 
 });

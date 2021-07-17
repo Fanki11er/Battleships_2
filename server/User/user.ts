@@ -4,7 +4,7 @@ export class User {
   private name;
   private id;
   private status: UserStatus = "";
-  constructor(name: String = "Unknown", id: String) {
+  constructor(name: string = "Unknown", id: string) {
     this.name = name;
     this.id = id;
   }

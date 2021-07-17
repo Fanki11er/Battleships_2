@@ -4,7 +4,7 @@ export class Room {
   private users: User[] = [];
   private roomName;
 
-  constructor(roomName: String) {
+  constructor(roomName: string) {
     this.roomName = roomName;
   }
   public getRoomName() {
@@ -21,9 +21,20 @@ export class Room {
   getNumberOfUsers() {
     return this.users.length;
   }
-  clearDisconnectedUsers(userId: String) {
+  clearDisconnectedUsers(userId: string) {
     this.users = this.users.filter((user) => {
       return user.getId() != userId;
     });
+  }
+
+  hasUser(userId: string){
+    let hasUser = false;
+    this.users.forEach((user)=> {
+     
+      if(user.getId() === userId)
+      hasUser = true;
+    })
+
+    return hasUser;
   }
 }
