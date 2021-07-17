@@ -1,11 +1,18 @@
+import { Board } from "../Board/Board";
 import { User } from "../User/user";
 
 export class Room {
   private users: User[] = [];
   private roomName;
+  private boards: Board[] = []
+  private game: any;
 
-  constructor(roomName: string) {
+  constructor(roomName: string, boardSize: number) {
     this.roomName = roomName;
+    for(let i = 0; i< 2; i++){
+      this.boards.push(new Board(boardSize))
+    }
+
   }
   public getRoomName() {
     return this.roomName;
@@ -36,5 +43,24 @@ export class Room {
     })
 
     return hasUser;
+  }
+
+  public getSanitized(){
+return {
+  users: this.users,
+  roomName: this.roomName,
+}
+  }
+
+  public getFreeBoard(){
+   for(let i=0; i< this.boards.length; i++){
+     if(!this.boards[i].hasUserId()){
+       return this.boards[i]
+     }
+   }
+  }
+
+  getBoards(){
+    return this.boards
   }
 }

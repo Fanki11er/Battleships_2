@@ -34,7 +34,6 @@ export class Helpers {
   }
 
   public static findRoomNameByUserId(rooms: Room[], userId: string) {
-    console.log(userId)
     let roomName = "";
     rooms.forEach((room)=> {
       const test = room.hasUser(userId)
@@ -45,5 +44,15 @@ export class Helpers {
     })
     return roomName
   }
+
+ public static sanitizeRooms(rooms: Room[]){
+    const sanitizedRooms: any = []
+    rooms.forEach((room)=> {
+      sanitizedRooms.push(room.getSanitized())
+    })
+    return sanitizedRooms;
+  }
 }
+
+
 
