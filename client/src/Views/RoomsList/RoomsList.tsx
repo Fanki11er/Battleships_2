@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Room from '../../components/Organisms/Room/Room';
 import useSocket from '../../Hooks/useSocket';
 import { RoomType } from '../../Types/types';
+import { routes } from '../../router/routes';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -17,19 +19,36 @@ const Wrapper = styled.div`
 `;
 
 const RoomsList = () => {
-  const socket = useSocket('http://localhost:8090');
+  const { room } = routes;
+  const socket = useSocket();
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
-
+  const [roomToJoin, setRoomToJoin] = useState('');
   useEffect(() => {
     socket?.on('RoomsList', (rooms: RoomType[]) => {
       setRoomsList(rooms);
     });
-  }, [socket, roomsList]);
+
+    socket?.once('connectionAccepted', (roomName: string) => {
+      setRoomToJoin(roomName);
+    });
+    socket?.on('userStatus', (rooms) => {
+      setRoomsList(rooms);
+    });
+    return () => {
+      socket?.io.off();
+    };
+  }, [socket]);
+
+  const handleJoinToTheRoom = (roomName: string) => {
+    socket?.emit('joinRoom', { userName: 'Krzysiek', roomName });
+  };
+
+  if (roomToJoin) return <Redirect to={{ pathname: room, state: { roomName: roomToJoin } }} />;
   return (
     <Wrapper>
       {roomsList.length ? (
         roomsList.map(({ roomName, users }) => {
-          return <Room roomName={roomName} users={users} key={roomName} />;
+          return <Room roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
         })
       ) : (
         <div>Sorry... something went wrong</div>
@@ -39,6 +58,3 @@ const RoomsList = () => {
 };
 
 export default RoomsList;
-/*useEffect(() => {
-    socket?.emit('joinRoom', { userName: 'Krzysiek', roomName: 'TestRoom' });
-  }, [socket]);*/

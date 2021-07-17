@@ -26,5 +26,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-/*
- <Route path={'*'} component={MainTemplate} /> */

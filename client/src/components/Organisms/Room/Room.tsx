@@ -1,13 +1,16 @@
 import styled from 'styled-components';
+import useSocket from '../../../Hooks/useSocket';
 import { User } from '../../../Types/types';
 import RoomUserInfo from '../../Atoms/RoomUserInfo/RoomUserInfo';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 400px;
   height: 200px;
   border: 2px solid blue;
   border-radius: 5px;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const RoomName = styled.div`
@@ -27,12 +30,21 @@ const EmptyUserSlot = styled.div`
   background-color: gray;
   border: 1px solid black;
 `;
+
+const JoinRoomButton = styled.button`
+  border: 1px solid black;
+  background-color: lightblue;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px; ;
+`;
 type Props = {
   roomName: string;
   users: User[];
+  handleJoinToTheRoom: (roomName: string) => void;
 };
 const Room = (props: Props) => {
-  const { roomName, users } = props;
+  const { roomName, users, handleJoinToTheRoom } = props;
 
   return (
     <Wrapper>
@@ -41,6 +53,7 @@ const Room = (props: Props) => {
         {users[0] ? <RoomUserInfo userName={users[0].name} userStatus={users[0].status} /> : <EmptyUserSlot />}
         {users[1] ? <RoomUserInfo userName={users[1].name} userStatus={users[1].status} /> : <EmptyUserSlot />}
       </UserSlotsWrapper>
+      {users.length < 2 ? <JoinRoomButton onClick={() => handleJoinToTheRoom(roomName)}>Join Room</JoinRoomButton> : null}
     </Wrapper>
   );
 };
