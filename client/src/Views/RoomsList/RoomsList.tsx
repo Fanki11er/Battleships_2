@@ -37,7 +37,9 @@ const RoomsList = () => {
       setRoomsList(rooms);
     });
     return () => {
-      socket?.io.off();
+      socket?.off('RoomsList');
+      socket?.off('userStatus');
+      socket?.off('connectionAccepted');
     };
   }, [socket]);
 

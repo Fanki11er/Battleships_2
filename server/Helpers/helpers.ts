@@ -3,7 +3,7 @@ import { RoomInfo } from "./Types";
 
 export class Helpers {
   private static createSingleRoomInfo(room: Room) {
-    const usersNames: String[] = [];
+    const usersNames: string[] = [];
     room.getUsers().forEach((user) => {
       usersNames.push(user.getName());
     });
