@@ -44,6 +44,7 @@ io.on("connection", (socket) => {
     selectedRoom?.addUser(user);
     socket.emit('connectionAccepted', roomName);
     io.emit("userStatus", rooms)
+    socket.emit("usersStatusInRoom",selectedRoom?.getUsers() )
   });
   //socket.emit("message", "Hello new user");
   //? User disconnection //

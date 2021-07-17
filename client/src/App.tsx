@@ -9,6 +9,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { routes } from './router/routes';
 import LandingPage from './Views/LandingPage/LandingPage';
 import MainPage from './templates/MainPage/MainPage';
+import SocketProvider from './providers/socketProvider';
 
 function App() {
   const { landingPage, mainPage } = routes;
@@ -22,11 +23,13 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <GlobalStyles />
-        <Switch>
-          <Route exact path={landingPage} component={LandingPage}></Route>
-          <Route path={mainPage} component={MainPage}></Route>
-          <Route path={'*'} component={LandingPage} />
-        </Switch>
+        <SocketProvider>
+          <Switch>
+            <Route exact path={landingPage} component={LandingPage}></Route>
+            <Route path={mainPage} component={MainPage}></Route>
+            <Route path={'*'} component={LandingPage} />
+          </Switch>
+        </SocketProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

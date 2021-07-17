@@ -5,6 +5,8 @@ import Room from '../../components/Organisms/Room/Room';
 import useSocket from '../../Hooks/useSocket';
 import { RoomType } from '../../Types/types';
 import { routes } from '../../router/routes';
+import { useContext } from 'react';
+import { SocketContext } from '../../providers/socketProvider';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -20,9 +22,9 @@ const Wrapper = styled.div`
 
 const RoomsList = () => {
   const { room } = routes;
-  const socket = useSocket();
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
   const [roomToJoin, setRoomToJoin] = useState('');
+  const { socket } = useContext(SocketContext);
   useEffect(() => {
     socket?.on('RoomsList', (rooms: RoomType[]) => {
       setRoomsList(rooms);
