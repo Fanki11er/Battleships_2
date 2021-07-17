@@ -10,8 +10,6 @@ const UserProvider = (props: React.PropsWithChildren<ReactNode>) => {
   const { children } = props;
   const [userName, setUserName] = useState('');
 
-  console.log(userName, 'NAme');
-
   const handleSetUserName = (userName: string) => {
     setUserName(userName);
   };

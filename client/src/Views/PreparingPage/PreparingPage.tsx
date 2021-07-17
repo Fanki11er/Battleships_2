@@ -53,6 +53,10 @@ const PreparingPage = () => {
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);
     });
+
+    return () => {
+      socket?.off('usersStatusInRoom');
+    };
   }, [socket, roomName]);
 
   const handleTest = () => {
@@ -67,8 +71,8 @@ const PreparingPage = () => {
     <Wrapper>
       <StatusWrapper>
         <UserInfo>
-          <div>{`Your status: ${users.length && users[0].status}`}</div>
-          <div>{`Opponent status: ${users.length > 1 ? users[1].status : 'No opponent'}`}</div>
+          <div>{`Your status: ${users && users.length && users[0].status}`}</div>
+          <div>{`Opponent status: ${users && users.length && users.length > 1 ? users[1].status : 'No opponent'}`}</div>
         </UserInfo>
       </StatusWrapper>
       <BoardWrapper>

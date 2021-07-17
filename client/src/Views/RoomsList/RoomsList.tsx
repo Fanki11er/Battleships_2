@@ -23,7 +23,7 @@ type Props = {
 };
 
 const RoomsList = (props: Props) => {
-  const { room, landingPage, roomsList: roomsRoute } = routes;
+  const { room, landingPage } = routes;
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
   const [roomToJoin, setRoomToJoin] = useState('');
   const { socket } = useContext(SocketContext);
