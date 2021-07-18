@@ -52,8 +52,16 @@ const PreparingPage = () => {
 
   useEffect(() => {
     socket?.emit('usersJoinTheRoom', roomName);
-    socket?.on('usersStatusInRoom', (users) => {
-      setUsers(users);
+    socket?.on('usersStatusInRoom', (users: User[]) => {
+      const newUsers: User[] = [];
+      users.forEach((user) => {
+        if (user.id === socket.id) {
+          newUsers[0] = user;
+        } else {
+          newUsers[1] = user;
+        }
+      });
+      setUsers(newUsers);
     });
 
     return () => {
@@ -68,7 +76,6 @@ const PreparingPage = () => {
 
   const handleSendBoard = () => {
     socket?.emit('setBoard', ships);
-    console.log(ships);
   };
 
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
