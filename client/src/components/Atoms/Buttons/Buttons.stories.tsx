@@ -6,7 +6,11 @@ export default {
   component: StandardButton,
 } as Meta;
 
-const Template: Story = (args) => <StandardButton {...args}>Join room</StandardButton>;
+const Template: Story = (args) => (
+  <StandardButton isActive={true} {...args}>
+    Join room
+  </StandardButton>
+);
 
 export const Button = Template.bind({});
 

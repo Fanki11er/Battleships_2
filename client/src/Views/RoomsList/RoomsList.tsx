@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  background-color: #010d26;
 `;
 type Props = {
   userName: string;

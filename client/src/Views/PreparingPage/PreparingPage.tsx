@@ -80,13 +80,17 @@ const PreparingPage = () => {
         <UserInfo>
           <div>{`Your status: ${users && users.length && users[0].status}`}</div>
           <div>{`Opponent status: ${users && users.length && users.length > 1 ? users[1].status : 'No opponent'}`}</div>
-          <StandardButton onClick={handleLeaveTheRoom}>Back</StandardButton>
+          <StandardButton isActive={true} onClick={handleLeaveTheRoom}>
+            Back
+          </StandardButton>
         </UserInfo>
       </StatusWrapper>
       <BoardWrapper>
         <DndProvider backend={HTML5Backend}>
           <Board></Board>
-          <StandardButton onClick={handleSendBoard}>Send board</StandardButton>
+          <StandardButton isActive={true} onClick={handleSendBoard}>
+            Send board
+          </StandardButton>
           <ShipsList />
         </DndProvider>
       </BoardWrapper>
