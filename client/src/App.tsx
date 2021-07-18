@@ -5,14 +5,15 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './assets/styles/GlobalStyle';
 import { theme } from './assets/styles/theme';
-import Board from './components/Organisms/Board/Board';
-//import RoomsList from './Views/RoomsList/RoomsList';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import ShipsList from './components/Molecules/ShipsList/ShipsList';
-import ShipsProvider from './providers/shipsProvider';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { routes } from './router/routes';
+import LandingPage from './Views/LandingPage/LandingPage';
+import MainPage from './templates/MainPage/MainPage';
+import SocketProvider from './providers/socketProvider';
+import UserProvider from './providers/userProvider';
 
 function App() {
+  const { landingPage, mainPage } = routes;
   /*useEffect(() => {
     axios.get("http://localhost:8090").then(({ data }) => { 
       console.log(data);
@@ -21,13 +22,18 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <DndProvider backend={HTML5Backend}>
-        <ShipsProvider>
-          <Board></Board>
-          <ShipsList />
-        </ShipsProvider>
-      </DndProvider>
+      <BrowserRouter>
+        <GlobalStyles />
+        <SocketProvider>
+          <UserProvider>
+            <Switch>
+              <Route exact path={landingPage} component={LandingPage}></Route>
+              <Route path={mainPage} component={MainPage}></Route>
+              <Route path={'*'} component={LandingPage} />
+            </Switch>
+          </UserProvider>
+        </SocketProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

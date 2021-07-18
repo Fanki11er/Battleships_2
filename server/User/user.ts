@@ -1,7 +1,10 @@
+import { UserStatus } from "../Helpers/Types";
+
 export class User {
   private name;
   private id;
-  constructor(name: String = "Unknown", id: String) {
+  private status: UserStatus = "";
+  constructor(name: string = "Unknown", id: string) {
     this.name = name;
     this.id = id;
   }
@@ -10,5 +13,11 @@ export class User {
   }
   getId() {
     return this.id;
+  }
+  getStatus(){
+    return this.status;
+  }
+  setStatus(status: UserStatus){
+    this.status = status;
   }
 }

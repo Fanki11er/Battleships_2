@@ -7,3 +7,16 @@ export type Identifier = {
 };
 
 export type PossibleCoordinates = 'x' | 'y';
+
+export type User = {
+  name: string;
+  id: string;
+  status: UserStatus;
+};
+
+export type UserStatus = 'preparing' | 'ready';
+
+export type RoomType = {
+  users: User[];
+  roomName: string;
+};

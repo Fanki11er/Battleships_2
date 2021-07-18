@@ -3,7 +3,7 @@ import { RoomInfo } from "./Types";
 
 export class Helpers {
   private static createSingleRoomInfo(room: Room) {
-    const usersNames: String[] = [];
+    const usersNames: string[] = [];
     room.getUsers().forEach((user) => {
       usersNames.push(user.getName());
     });
@@ -21,15 +21,46 @@ export class Helpers {
     return roomsInfo;
   }
 
-  public static findSelectedRoom(rooms: Room[], roomName: String) {
+  public static findSelectedRoom(rooms: Room[], roomName: string) {
     return rooms.find((currentRoom) => {
       return currentRoom.getRoomName() === roomName;
     });
   }
 
-  public static removeDisconnectedUser(rooms: Room[], userId: String) {
+  public static removeDisconnectedUser(rooms: Room[], userId: string) {
     rooms.forEach((room) => {
       room.clearDisconnectedUsers(userId);
     });
   }
+
+  public static findRoomNameByUserId(rooms: Room[], userId: string) {
+    let roomName = "";
+    rooms.forEach((room)=> {
+      const test = room.hasUser(userId)
+      if(room.hasUser(userId)) {
+        
+        roomName = room.getRoomName()
+      }
+    })
+    return roomName
+  }
+
+ public static sanitizeRooms(rooms: Room[]){
+    const sanitizedRooms: any = []
+    rooms.forEach((room)=> {
+      sanitizedRooms.push(room.getSanitized())
+    })
+    return sanitizedRooms;
+  }
+
+  public static resetBoard( userId: string, selectedRoom: Room | undefined,){
+    selectedRoom?.getBoards().forEach((board)=> {
+      if(board.getUserId() === userId){
+        board.resetBoard()
+      }
+    })
+  }
 }
+
+
+
