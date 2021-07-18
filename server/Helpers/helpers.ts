@@ -52,6 +52,14 @@ export class Helpers {
     })
     return sanitizedRooms;
   }
+
+  public static resetBoard( userId: string, selectedRoom: Room | undefined,){
+    selectedRoom?.getBoards().forEach((board)=> {
+      if(board.getUserId() === userId){
+        board.resetBoard()
+      }
+    })
+  }
 }
 
 

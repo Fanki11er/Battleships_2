@@ -39,6 +39,17 @@ export class Board {
     hasUserId(){
         return !!this.userId
     }
+
+    resetBoard(){
+        this.ships = [];
+        this.userId = "";
+        this.cells.forEach((cell)=> {
+            cell.resetCell();
+        })
+    }
+    getUserId(){
+        return this.userId;
+    }
 }
 
 class Cell {
@@ -68,7 +79,11 @@ isAvailable(){
     return false;
 }
 
-
+resetCell(){
+    this.isEmpty = true;
+    this.isForbidden = false;
+    this.status = "notTouched";
+}
 
 
 }

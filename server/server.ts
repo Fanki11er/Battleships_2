@@ -55,44 +55,44 @@ io.on("connection", (socket) => {
   socket.on('usersJoinTheRoom', (roomName)=> {
     const selectedRoom = Helpers.findSelectedRoom( rooms, roomName);
    if(selectedRoom) io.to(selectedRoom.getRoomName()).emit("usersStatusInRoom", selectedRoom.getUsers())
-    //if(selectedRoom) socket.broadcast.to(selectedRoom?.getRoomName()).emit ("usersStatusInRoom", selectedRoom?.getUsers())
-    //io.emit('leaveTheRoom')
+
   })
 
   socket.on('leaveTheRoom', (roomName)=> {
-   const sanitizedRooms =  Helpers.sanitizeRooms(rooms);
     socket.leave(roomName)
     Helpers.removeDisconnectedUser(rooms, socket.id);
-    io.emit("RoomsList", sanitizedRooms);
+    io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+    Helpers.resetBoard(socket.id, selectedRoom)
     if(selectedRoom)  io.to(selectedRoom.getRoomName()).emit("usersStatusInRoom", selectedRoom.getUsers())
-   // socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
   })
 
   socket.on('setBoard', (ships, )=> {
-    console.log('SET')
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id)
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    
+    let areUsersReady: boolean |undefined = false;
 
       const board = selectedRoom?.getFreeBoard()
       board?.pushShips(ships);
       board?.setUserId(socket.id)
+      selectedRoom?.changeUserStatus(socket.id, "ready");
+      if(selectedRoom)  io.to(selectedRoom.getRoomName()).emit("usersStatusInRoom", selectedRoom.getUsers())
+      areUsersReady =  selectedRoom?.areUsersReady()
+      if(areUsersReady){
+        console.log('USERS READY')
+      }
 
-      //!Add removing user from board when disconnected or ends the game
     
-    console.log(rooms[0].getBoards()[0].hasUserId(), "b1");
-      console.log(rooms[0].getBoards()[1].hasUserId(), "b2");
   })
 
   //? User disconnection //
 
   socket.on("disconnect", () => {
     const sanitizedRooms =  Helpers.sanitizeRooms(rooms);
-    //io.emit("message", "User disconnected");
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id)
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     Helpers.removeDisconnectedUser(rooms, socket.id);
+    Helpers.resetBoard(socket.id, selectedRoom)
     socket.leave(roomName)
     socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
     

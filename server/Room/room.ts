@@ -1,4 +1,5 @@
 import { Board } from "../Board/Board";
+import { UserStatus } from "../Helpers/Types";
 import { User } from "../User/user";
 
 export class Room {
@@ -62,5 +63,20 @@ return {
 
   getBoards(){
     return this.boards
+  }
+
+  changeUserStatus(userId: string, status: UserStatus){
+    this.users.forEach((user)=> {
+      if(user.getId() === userId){
+        user.setStatus(status)
+      }
+    })
+  }
+
+  areUsersReady(){
+    if(this.users.length === 2 && this.users[0].getStatus()=== 'ready' && this.users[1].getStatus()=== 'ready') {
+      return true
+    }
+    return false
   }
 }
