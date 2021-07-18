@@ -17,7 +17,7 @@ const Room = (props: Props) => {
       <RoomName>{roomName}</RoomName>
       <UserSlotsWrapper>
         {users[0] ? <RoomUserInfo isComputer={users[0].isComputer} userName={users[0].name} userStatus={users[0].status} /> : <EmptyRoomInfo />}
-        {users[1] ? <RoomUserInfo isComputer={users[0].isComputer} userName={users[1].name} userStatus={users[1].status} /> : <EmptyRoomInfo />}
+        {users[1] ? <RoomUserInfo isComputer={users[1].isComputer} userName={users[1].name} userStatus={users[1].status} /> : <EmptyRoomInfo />}
       </UserSlotsWrapper>
 
       <StandardButton isActive={users.length < 2 ? true : false} onClick={() => handleJoinToTheRoom(roomName)}>
