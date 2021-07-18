@@ -77,6 +77,7 @@ io.on("connection", (socket) => {
       board?.setUserId(socket.id)
       selectedRoom?.changeUserStatus(socket.id, "ready");
       if(selectedRoom)  io.to(selectedRoom.getRoomName()).emit("usersStatusInRoom", selectedRoom.getUsers())
+      io.emit("userStatus", Helpers.sanitizeRooms(rooms));
       areUsersReady =  selectedRoom?.areUsersReady()
       if(areUsersReady){
         console.log('USERS READY')
@@ -88,7 +89,6 @@ io.on("connection", (socket) => {
   //? User disconnection //
 
   socket.on("disconnect", () => {
-    const sanitizedRooms =  Helpers.sanitizeRooms(rooms);
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id)
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     Helpers.removeDisconnectedUser(rooms, socket.id);
@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
     socket.leave(roomName)
     socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers())
     
-    io.emit("userStatus", sanitizedRooms);
+    io.emit("userStatus",  Helpers.sanitizeRooms(rooms));
   });
  
 });
