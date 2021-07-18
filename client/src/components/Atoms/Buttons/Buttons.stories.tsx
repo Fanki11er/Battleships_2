@@ -9,3 +9,8 @@ export default {
 const Template: Story = (args) => <StandardButton {...args}>Join room</StandardButton>;
 
 export const Button = Template.bind({});
+
+export const NotActive = Template.bind({});
+NotActive.args = {
+  isActive: false,
+};
