@@ -12,6 +12,7 @@ export type User = {
   name: string;
   id: string;
   status: UserStatus;
+  isComputer?: boolean | undefined;
 };
 
 export type UserStatus = 'preparing' | 'ready';

@@ -10,16 +10,16 @@ type Props = {
 };
 
 export const Wrapper = styled.div`
-  width: 185px;
-  height: 50px;
+  width: 165px;
+  height: 40px;
   display: flex;
-  margin: 15px;
   padding: 0 15px;
   border-radius: 10px;
   border: 2px solid ${(props: StyledProps) => props.theme.colors.myBlue};
   justify-content: space-between;
   align-items: center;
   font-family: 'Montserrat';
+  user-select: none;
 `;
 
 export const UserName = styled.div`

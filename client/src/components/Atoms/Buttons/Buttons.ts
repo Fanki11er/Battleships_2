@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
 type Props = {
-  isActive?: boolean;
+  isActive: boolean;
 };
 
 const choseColor = (props: StyledProps & Props) => {
@@ -22,6 +22,6 @@ export const StandardButton = styled.button`
   color: ${(props: StyledProps & Props) => choseColor(props)};
   background-color: transparent;
   &:hover {
-    cursor: pointer;
+    cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
 `;

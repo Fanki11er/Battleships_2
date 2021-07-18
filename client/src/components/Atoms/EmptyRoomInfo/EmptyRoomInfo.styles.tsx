@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   font-family: 'Montserrat';
+  user-select: none;
 `;
 
 export const Label = styled.div`
@@ -24,6 +25,6 @@ export const Label = styled.div`
 `;
 
 export const StyledEmptyIcon = styled(IconEmpty)`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 `;
