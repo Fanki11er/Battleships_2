@@ -1,7 +1,7 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
-import ShipsProvider, { ShipsContext } from '../../providers/shipsProvider';
+import { ShipsContext } from '../../providers/shipsProvider';
 import ShipsList from '../../components/Molecules/ShipsList/ShipsList';
 import Board from '../../components/Organisms/Board/Board';
 import { Redirect, useLocation } from 'react-router-dom';
@@ -52,16 +52,8 @@ const PreparingPage = () => {
 
   useEffect(() => {
     socket?.emit('usersJoinTheRoom', roomName);
-    socket?.on('usersStatusInRoom', (users: User[]) => {
-      const newUsers: User[] = [];
-      users.forEach((user) => {
-        if (user.id === socket.id) {
-          newUsers[0] = user;
-        } else {
-          newUsers[1] = user;
-        }
-      });
-      setUsers(newUsers);
+    socket?.on('usersStatusInRoom', (users) => {
+      setUsers(users);
     });
 
     return () => {
@@ -76,6 +68,7 @@ const PreparingPage = () => {
 
   const handleSendBoard = () => {
     socket?.emit('setBoard', ships);
+    console.log(ships);
   };
 
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
