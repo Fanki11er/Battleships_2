@@ -3,10 +3,9 @@ import { StyledProps } from '../../../assets/styles/theme';
 import { ReactComponent as IconEmpty } from '../../../assets/icons/icon-forbidden.svg';
 
 export const Wrapper = styled.div`
-  width: 185px;
-  height: 50px;
+  width: 165px;
+  height: 40px;
   display: flex;
-  margin: 15px;
   padding: 0 20px;
   border-radius: 10px;
   border: 2px solid ${(props: StyledProps) => props.theme.colors.myBlue};

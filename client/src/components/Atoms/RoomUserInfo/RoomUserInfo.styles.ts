@@ -23,15 +23,15 @@ export const Wrapper = styled.div`
 `;
 
 export const UserName = styled.div`
-  font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+  font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   font-weight: bold;
   text-align: center;
   color: ${(props: StyledProps) => props.theme.colors.myBlue};
 `;
 
 export const StyledUserStatus = styled.div`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   background-color: ${(props: StyledProps & Props) =>
     props.userStatus === 'preparing' && !props.isComputer ? props.theme.colors.orange : props.theme.colors.green};
   border-radius: 50%;
@@ -39,11 +39,11 @@ export const StyledUserStatus = styled.div`
 `;
 
 export const StyledPersonIcon = styled(PersonIcon)`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 `;
 
 export const StyledComputerIcon = styled(ComputerIcon)`
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 `;

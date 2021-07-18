@@ -9,6 +9,7 @@ export const theme: Theme = {
   fontSizes: {
     S: '16px',
     M: '20px',
+    L: '25px',
   },
 };
 
@@ -23,6 +24,7 @@ export type Theme = {
   fontSizes: {
     S: string;
     M: string;
+    L: string;
   };
 };
 
