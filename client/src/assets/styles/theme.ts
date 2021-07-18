@@ -1,9 +1,21 @@
 export const theme: Theme = {
-  colors: {},
-  fontSizes: {},
+  colors: {
+    yellow: '#FFD21E',
+  },
+  fontSizes: {
+    M: '20px',
+  },
 };
 
 export type Theme = {
-  colors: {};
-  fontSizes: {};
+  colors: {
+    yellow: string;
+  };
+  fontSizes: {
+    M: string;
+  };
+};
+
+export type StyledProps = {
+  theme: Theme;
 };
