@@ -47,6 +47,8 @@ const PreparingPage = () => {
   const { ships } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
   const [isCancelled, setIsCanceled] = useState(false);
+  const [indexes, setIndexes] = useState({ myIndex: undefined, opponentIndex: undefined });
+
   const linkState = state as any;
   const roomName = linkState ? linkState.roomName : '';
 
@@ -54,6 +56,7 @@ const PreparingPage = () => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);
+      witchIsMyIndex(users, socket?.id);
     });
 
     return () => {
@@ -68,7 +71,20 @@ const PreparingPage = () => {
 
   const handleSendBoard = () => {
     socket?.emit('setBoard', ships);
-    console.log(ships);
+  };
+
+  const witchIsMyIndex = (users: User[], socketId: string | undefined) => {
+    let myIndex = undefined;
+    let opponentIndex = undefined;
+    socketId &&
+      users.forEach(({ id }, index) => {
+        if (id === socketId) {
+          myIndex = index;
+        } else {
+          opponentIndex = index;
+        }
+      });
+    setIndexes({ myIndex, opponentIndex });
   };
 
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
@@ -78,8 +94,8 @@ const PreparingPage = () => {
     <Wrapper>
       <StatusWrapper>
         <UserInfo>
-          <div>{`Your status: ${users && users.length && users[0].status}`}</div>
-          <div>{`Opponent status: ${users && users.length && users.length > 1 ? users[1].status : 'No opponent'}`}</div>
+          <div>{`Your status: ${indexes.myIndex !== undefined ? users[indexes.myIndex!]?.status : ''}`}</div>
+          <div>{`Opponent status: ${indexes.opponentIndex !== undefined ? users[indexes.opponentIndex!]?.status : 'No opponent'}`}</div>
           <StandardButton isActive={true} onClick={handleLeaveTheRoom}>
             Back
           </StandardButton>
