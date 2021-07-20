@@ -1,5 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/assets/styles/theme';
+import { GlobalStyles } from '../src/assets/styles/GlobalStyle';
 
 export const parameters = {
   backgrounds: {
@@ -23,6 +24,7 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <Story />
     </ThemeProvider>
   ),
