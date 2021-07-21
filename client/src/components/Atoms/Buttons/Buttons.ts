@@ -21,6 +21,7 @@ export const StandardButton = styled.button`
   font-weight: bold;
   color: ${(props: StyledProps & Props) => choseColor(props)};
   background-color: transparent;
+  user-select: ${(props: StyledProps & Props) => (props.isActive ? 'initial' : 'none')};
   &:hover {
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
