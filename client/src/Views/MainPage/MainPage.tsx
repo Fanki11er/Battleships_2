@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { routes } from '../../router/routes';
-import RoomsList from '../../Views/RoomsList/RoomsList';
-import Game from '../../Views/Game/Game';
-import PreparingPage from '../../Views/PreparingPage/PreparingPage';
+import RoomsList from '../RoomsList/RoomsList';
+import Game from '../Game/Game';
+import PreparingPage from '../PreparingPage/PreparingPage';
 import { useContext } from 'react';
 import { UserContext } from '../../providers/userProvider';
-import LandingPage from '../../Views/LandingPage/LandingPage';
+import LandingPage from '../LandingPage/LandingPage';
 import ShipsProvider from '../../providers/shipsProvider';
 
 const Wrapper = styled.div`

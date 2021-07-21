@@ -8,7 +8,7 @@ import { theme } from './assets/styles/theme';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { routes } from './router/routes';
 import LandingPage from './Views/LandingPage/LandingPage';
-import MainPage from './templates/MainPage/MainPage';
+import MainPage from './Views/MainPage/MainPage';
 import SocketProvider from './providers/socketProvider';
 import UserProvider from './providers/userProvider';
 
