@@ -6,11 +6,13 @@ export const theme: Theme = {
     orange: '#FF8C00',
     green: '#83B33B',
     darkBlue: '#010D26',
+    red: '#D91424',
   },
   fontSizes: {
     S: '16px',
     M: '20px',
     L: '25px',
+    XL: '30px',
   },
 };
 
@@ -22,11 +24,13 @@ export type Theme = {
     orange: string;
     green: string;
     darkBlue: string;
+    red: string;
   };
   fontSizes: {
     S: string;
     M: string;
     L: string;
+    XL: string;
   };
 };
 
