@@ -1,16 +1,17 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 import { ReactComponent as Loading } from '../../../assets/Images/LoadingInfo.svg';
 
 const Wrapper = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   background-color: transparent;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
+  margin-top: 50px;
 `;
 const LoadingSvg = styled(Loading)`
   width: 75%;

@@ -11,7 +11,6 @@ import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 const Wrapper = styled.div`
   width: 70%;
   height: 70%;
-  border: 2px solid black;
   border-radius: 10px;
   display: flex;
   flex-flow: wrap row;
@@ -19,6 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #010d26;
+  align-items: center;
 `;
 type Status = 'loading' | 'ready' | 'error';
 

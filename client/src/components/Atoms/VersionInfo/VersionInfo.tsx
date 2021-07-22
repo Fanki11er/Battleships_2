@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   font-weight: bold;
   user-select: none;
-  grid-column: 3/4;
+  grid-column: 3/3;
 `;
 const Version = styled.span`
   color: ${(props: StyledProps) => props.theme.colors.green};

@@ -7,7 +7,7 @@ const Wrapper = styled.footer`
   width: 100%;
   height: 100px;
   display: grid;
-  grid-template-columns: repeat(3, 33%);
+  grid-template-columns: 20% 60% 20%;
   align-items: center;
   justify-content: center;
 `;
@@ -17,6 +17,8 @@ const IconsWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 350px;
+  justify-self: center;
+  align-self: center;
   grid-column: 2/2;
 `;
 
