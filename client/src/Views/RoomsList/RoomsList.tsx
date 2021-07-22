@@ -6,6 +6,7 @@ import { RoomType } from '../../Types/types';
 import { routes } from '../../router/routes';
 import { useContext } from 'react';
 import { SocketContext } from '../../providers/socketProvider';
+import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -19,6 +20,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   background-color: #010d26;
 `;
+type Status = 'loading' | 'ready' | 'error';
+
 type Props = {
   userName: string;
 };
@@ -28,11 +31,13 @@ const RoomsList = (props: Props) => {
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
   const [roomToJoin, setRoomToJoin] = useState('');
   const { socket } = useContext(SocketContext);
+  const [status, setStatus] = useState<Status>('loading');
 
   useEffect(() => {
     socket?.connect();
     socket?.on('RoomsList', (rooms: RoomType[]) => {
       setRoomsList(rooms);
+      rooms.length ? setStatus('ready') : setStatus('error');
     });
     socket?.once('connectionAccepted', (roomName: string) => {
       setRoomToJoin(roomName);
@@ -56,6 +61,20 @@ const RoomsList = (props: Props) => {
   if (roomToJoin) return <Redirect to={{ pathname: room, state: { roomName: roomToJoin } }} />;
   return (
     <Wrapper>
+      {status === 'loading' && <LoadingInfo />}
+      {status === 'ready' &&
+        roomsList.length &&
+        roomsList.map(({ roomName, users }) => {
+          return <Room roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
+        })}
+      {status === 'error' && <div>Sorry... something went wrong</div>}
+    </Wrapper>
+  );
+};
+
+export default RoomsList;
+/*
+ <Wrapper>
       {roomsList.length ? (
         roomsList.map(({ roomName, users }) => {
           return <Room roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
@@ -64,7 +83,4 @@ const RoomsList = (props: Props) => {
         <div>Sorry... something went wrong</div>
       )}
     </Wrapper>
-  );
-};
-
-export default RoomsList;
+ */
