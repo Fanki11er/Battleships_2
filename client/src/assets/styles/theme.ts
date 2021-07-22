@@ -13,6 +13,7 @@ export const theme: Theme = {
     M: '20px',
     L: '25px',
     XL: '30px',
+    XXL: '50px',
   },
 };
 
@@ -31,6 +32,7 @@ export type Theme = {
     M: string;
     L: string;
     XL: string;
+    XXL: string;
   };
 };
 
