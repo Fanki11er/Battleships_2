@@ -6,9 +6,13 @@ export const UserContext = createContext({
   handleSetUserName: (userName: string) => {},
 });
 
-const UserProvider = (props: React.PropsWithChildren<ReactNode>) => {
+type Props = {
+  default?: string;
+};
+
+const UserProvider = (props: React.PropsWithChildren<ReactNode> & Props) => {
   const { children } = props;
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState(props.default || '');
 
   const handleSetUserName = (userName: string) => {
     setUserName(userName);

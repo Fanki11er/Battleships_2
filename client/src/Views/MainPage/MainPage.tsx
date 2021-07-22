@@ -4,7 +4,7 @@ import { routes } from '../../router/routes';
 import RoomsList from '../RoomsList/RoomsList';
 import Game from '../Game/Game';
 import PreparingPage from '../PreparingPage/PreparingPage';
-import { useContext } from 'react';
+import { PropsWithChildren, ReactNode, useContext } from 'react';
 import { UserContext } from '../../providers/userProvider';
 import LandingPage from '../LandingPage/LandingPage';
 import ShipsProvider from '../../providers/shipsProvider';
@@ -17,9 +17,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const MainPage = () => {
+const MainPage = (props: PropsWithChildren<ReactNode>) => {
   const { pathname } = useLocation();
   const { room, game, roomsList } = routes;
   const { userName } = useContext(UserContext);
