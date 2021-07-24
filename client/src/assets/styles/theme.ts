@@ -5,6 +5,7 @@ export const theme: Theme = {
     myBlue: '#13B3F2',
     orange: '#FF8C00',
     green: '#83B33B',
+    okGreen: '#00B45C',
     darkBlue: '#010D26',
     red: '#D91424',
   },
@@ -26,6 +27,7 @@ export type Theme = {
     green: string;
     darkBlue: string;
     red: string;
+    okGreen: string;
   };
   fontSizes: {
     S: string;
