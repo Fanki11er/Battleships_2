@@ -10,6 +10,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import ShipsProvider from '../../providers/shipsProvider';
 import TopWrapper from '../../components/Molecules/TopWrapper/TopWrapper';
 import Footer from '../../components/Molecules/Footer/Footer';
+import { StyledProps } from '../../assets/styles/theme';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
 `;
 
 const MainPage = (props: PropsWithChildren<ReactNode>) => {

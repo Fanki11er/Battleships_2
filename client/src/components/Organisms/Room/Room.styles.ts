@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 10px 5px;
+  margin: 25px;
 `;
 
 export const RoomName = styled.div`

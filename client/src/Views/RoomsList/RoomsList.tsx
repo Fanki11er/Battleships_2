@@ -9,16 +9,16 @@ import { SocketContext } from '../../providers/socketProvider';
 import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 
 const Wrapper = styled.div`
-  width: 70%;
-  height: 70%;
+  width: 90%;
+  height: 90%;
   border-radius: 10px;
   display: flex;
   flex-flow: wrap row;
   padding: 20px;
   display: flex;
-  flex-direction: column;
   background-color: #010d26;
   align-items: center;
+  justify-content: center;
 `;
 type Status = 'loading' | 'ready' | 'error';
 
