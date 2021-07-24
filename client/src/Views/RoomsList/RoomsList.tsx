@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import styled from 'styled-components';
 import Room from '../../components/Organisms/Room/Room';
 import { RoomType } from '../../Types/types';
 import { routes } from '../../router/routes';
 import { useContext } from 'react';
 import { SocketContext } from '../../providers/socketProvider';
 import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
+import { Wrapper } from './RoomsList.styles';
 
-const Wrapper = styled.div`
-  width: 90%;
-  height: 90%;
-  border-radius: 10px;
-  display: flex;
-  flex-flow: wrap row;
-  padding: 20px;
-  display: flex;
-  background-color: #010d26;
-  align-items: center;
-  justify-content: center;
-`;
 type Status = 'loading' | 'ready' | 'error';
 
 type Props = {
