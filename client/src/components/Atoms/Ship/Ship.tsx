@@ -3,7 +3,7 @@ import { ItemTypes } from '../../../Helpers/Helpers';
 import { Position } from '../../../Class/BattleShip';
 import { LargeShip, MediumShip, SmallShip, VeryLargeShip } from '../ShipsImages/ShipsImages';
 import test from '../../../assets/Images/anchor-image.svg';
-import { StyledShip } from './Ship.styles';
+import { StyledShip, Wrapper } from './Ship.styles';
 
 export type Props = {
   size: number;
@@ -29,7 +29,7 @@ const Ship = (props: Props) => {
   );
 
   return (
-    <>
+    <Wrapper size={size} position={position}>
       <DragPreviewImage connect={preview} src={test} />
       <StyledShip
         size={size}
@@ -43,7 +43,7 @@ const Ship = (props: Props) => {
         {size === 4 && <LargeShip />}
         {size === 5 && <VeryLargeShip />}
       </StyledShip>
-    </>
+    </Wrapper>
   );
 };
 

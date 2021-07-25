@@ -1,19 +1,20 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { StyledProps } from '../../../assets/styles/theme';
 import { ShipsToTake } from '../../../Data/shipsList';
 import { ShipsContext } from '../../../providers/shipsProvider';
 import Ship from '../../Atoms/Ship/Ship';
-const Wrapper = styled.div`
+/*const Wrapper = styled.div`
   width: 100%;
   height: 400px;
   border: 2px solid black;
   margin: 15px;
   padding: 15px;
-`;
+`;*/
 
 const List = styled.ul`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 130px;
   display: flex;
   flex-direction: row;
   list-style: none;
@@ -21,12 +22,12 @@ const List = styled.ul`
 `;
 
 const ListElement = styled.li`
-  width: 250px;
-  height: 250px;
-  margin: 10px;
-  border: 1px solid black;
+  width: 120px;
+  height: 120px;
+  background-color: ${(props: StyledProps) => props.theme.colors.water};
+  border-radius: 15px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -35,6 +36,7 @@ const ShipsList = () => {
 
   const renderShips = (shipsToTake: ShipsToTake[]) => {
     return shipsToTake.map(({ size, id, position }) => {
+      console.log(shipsToTake);
       return (
         <ListElement key={id}>
           <Ship size={size} position={position} identifier={id} isDraggable={true} handleShipRotate={handleShipRotate} />
@@ -43,11 +45,7 @@ const ShipsList = () => {
     });
   };
 
-  return (
-    <Wrapper>
-      <List>{renderShips(shipsToTake)}</List>
-    </Wrapper>
-  );
+  return <List>{renderShips(shipsToTake)}</List>;
 };
 
 export default ShipsList;

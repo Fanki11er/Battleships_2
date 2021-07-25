@@ -9,6 +9,7 @@ export const theme: Theme = {
     darkBlue: '#010D26',
     red: '#D91424',
     shipRectangle: '#84A7E8',
+    water: '#126A75',
   },
   fontSizes: {
     S: '16px',
@@ -33,6 +34,7 @@ export type Theme = {
     red: string;
     okGreen: string;
     shipRectangle: string;
+    water: string;
   };
   fontSizes: {
     S: string;
