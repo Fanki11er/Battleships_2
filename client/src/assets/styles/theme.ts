@@ -8,6 +8,7 @@ export const theme: Theme = {
     okGreen: '#00B45C',
     darkBlue: '#010D26',
     red: '#D91424',
+    shipRectangle: '#84A7E8',
   },
   fontSizes: {
     S: '16px',
@@ -15,6 +16,9 @@ export const theme: Theme = {
     L: '25px',
     XL: '30px',
     XXL: '40px',
+  },
+  otherDimensions: {
+    cellSize: '50px',
   },
 };
 
@@ -28,6 +32,7 @@ export type Theme = {
     darkBlue: string;
     red: string;
     okGreen: string;
+    shipRectangle: string;
   };
   fontSizes: {
     S: string;
@@ -35,6 +40,10 @@ export type Theme = {
     L: string;
     XL: string;
     XXL: string;
+  };
+
+  otherDimensions: {
+    cellSize: string;
   };
 };
 
