@@ -4,6 +4,7 @@ import { StyledProps } from '../../../assets/styles/theme';
 import { ShipsToTake } from '../../../Data/shipsList';
 import { ShipsContext } from '../../../providers/shipsProvider';
 import Ship from '../../Atoms/Ship/Ship';
+import ShipSizeInfo from '../../Atoms/ShipSizeInfo/ShipSizeInfo';
 /*const Wrapper = styled.div`
   width: 100%;
   height: 400px;
@@ -27,8 +28,10 @@ const ListElement = styled.li`
   background-color: ${(props: StyledProps) => props.theme.colors.water};
   border-radius: 15px;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding: 10px;
 `;
 
 const ShipsList = () => {
@@ -39,6 +42,7 @@ const ShipsList = () => {
       console.log(shipsToTake);
       return (
         <ListElement key={id}>
+          <ShipSizeInfo size={size} />
           <Ship size={size} position={position} identifier={id} isDraggable={true} handleShipRotate={handleShipRotate} />
         </ListElement>
       );
