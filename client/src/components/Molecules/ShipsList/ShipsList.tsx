@@ -7,10 +7,9 @@ import { List, ListElement } from './ShipList.styles';
 
 const ShipsList = () => {
   const { shipsToTake, handleShipRotate } = useContext(ShipsContext);
-
+  console.log(shipsToTake);
   const renderShips = (shipsToTake: ShipsToTake[]) => {
     return shipsToTake.map(({ size, id, position }) => {
-      console.log(shipsToTake);
       return (
         <ListElement key={id}>
           <ShipSizeInfo size={size} />

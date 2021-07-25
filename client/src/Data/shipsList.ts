@@ -9,7 +9,12 @@ export class ShipListCreator {
   }
 }
 
-export const shipsList: ShipListCreator[] = [new ShipListCreator(2, 3)];
+export const shipsList: ShipListCreator[] = [
+  new ShipListCreator(5, 1),
+  new ShipListCreator(4, 2),
+  new ShipListCreator(3, 3),
+  new ShipListCreator(2, 4),
+];
 
 export type ShipsToTake = {
   size: number;

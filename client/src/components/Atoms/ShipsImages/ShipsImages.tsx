@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import { ReactComponent as SizeTwoShip } from '../../../assets/Images/size-two-ship-image.svg';
-import { ReactComponent as SizeThreeShip } from '../../../assets/Images/size-3-ship-image.svg';
-import { ReactComponent as SizeFourShip } from '../../../assets/Images/size-4-ship-image.svg';
-import { ReactComponent as SizeFiveShip } from '../../../assets/Images/size-5-ship-image.svg';
+import SizeTwoShip from '../../../assets/Images/size-two-ship-image.svg';
+import SizeThreeShip from '../../../assets/Images/size-3-ship-image.svg';
+import SizeFourShip from '../../../assets/Images/size-4-ship-image.svg';
+import SizeFiveShip from '../../../assets/Images/size-5-ship-image.svg';
 
-export const SmallShip = styled(SizeTwoShip)``;
-export const MediumShip = styled(SizeThreeShip)``;
-export const LargeShip = styled(SizeFourShip)``;
-export const VeryLargeShip = styled(SizeFiveShip)``;
+const StyledImg = styled.img`
+  transform: scale(0.8);
+`;
+
+export const VeryLargeShip = () => <StyledImg src={SizeFiveShip} alt={'Very large ship'} />;
+export const LargeShip = () => <StyledImg src={SizeFourShip} alt={'Large ship'} />;
+export const MediumShip = () => <StyledImg src={SizeThreeShip} alt={'Medium ship'} />;
+export const SmallShip = () => <StyledImg src={SizeTwoShip} alt={'Small ship'} />;
