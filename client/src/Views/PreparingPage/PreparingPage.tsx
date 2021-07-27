@@ -11,43 +11,41 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { User } from '../../Types/types';
 import { routes } from '../../router/routes';
-import { StandardButton } from '../../components/Atoms/Buttons/Buttons';
+import PreparingPageStatusInfo from '../../components/Atoms/PreparingPageStatusInfo/PreparingPageStatusInfo';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
-const BoardWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 33% 1fr 33%;
+  grid-template-rows: 75% 1fr;
+  justify-content: center;
   align-items: center;
+  padding: 0 35px;
 `;
 
-const StatusWrapper = styled.div`
-  width: 100%;
-  height: 150px;
-  display: flex;
+const StyledBoard = styled(Board)`
+  grid-column: 2/3;
+  grid-row: 1/2;
 `;
 
-const UserInfo = styled.div`
+const ShipsListWrapper = styled.div`
   display: flex;
-  width: 800px;
-  justify-content: space-around;
+  grid-column: 1/5;
+  grid-row: 2/3;
+  justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const PreparingPage = () => {
-  const { roomsList: roomsRoute } = routes;
+  const { roomsList: roomsRoute, landingPage } = routes;
   const { state } = useLocation();
   const { socket } = useContext(SocketContext);
   const { ships } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
   const [isCancelled, setIsCanceled] = useState(false);
-  const [indexes, setIndexes] = useState({ myIndex: undefined, opponentIndex: undefined });
+  //const [indexes, setIndexes] = useState({ myIndex: undefined, opponentIndex: undefined });
 
   const linkState = state as any;
   const roomName = linkState ? linkState.roomName : '';
@@ -56,7 +54,7 @@ const PreparingPage = () => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);
-      witchIsMyIndex(users, socket?.id);
+      // witchIsMyIndex(users, socket?.id);
     });
 
     return () => {
@@ -73,7 +71,7 @@ const PreparingPage = () => {
     socket?.emit('setBoard', ships);
   };
 
-  const witchIsMyIndex = (users: User[], socketId: string | undefined) => {
+  /*const witchIsMyIndex = (users: User[], socketId: string | undefined) => {
     let myIndex = undefined;
     let opponentIndex = undefined;
     socketId &&
@@ -85,31 +83,21 @@ const PreparingPage = () => {
         }
       });
     setIndexes({ myIndex, opponentIndex });
-  };
+  };*/
 
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
   if (isCancelled) return <Redirect to={{ pathname: roomsRoute }} />;
+  if (!socket) return <Redirect to={{ pathname: landingPage }} />;
 
   return (
     <Wrapper>
-      <StatusWrapper>
-        <UserInfo>
-          <div>{`Your status: ${indexes.myIndex !== undefined ? users[indexes.myIndex!]?.status : ''}`}</div>
-          <div>{`Opponent status: ${indexes.opponentIndex !== undefined ? users[indexes.opponentIndex!]?.status : 'No opponent'}`}</div>
-          <StandardButton isActive={true} onClick={handleLeaveTheRoom}>
-            Back
-          </StandardButton>
-        </UserInfo>
-      </StatusWrapper>
-      <BoardWrapper>
-        <DndProvider backend={HTML5Backend}>
-          <Board></Board>
-          <StandardButton isActive={true} onClick={handleSendBoard}>
-            Send board
-          </StandardButton>
+      <PreparingPageStatusInfo users={users} socketId={socket!.id} />
+      <DndProvider backend={HTML5Backend}>
+        <StyledBoard />
+        <ShipsListWrapper>
           <ShipsList />
-        </DndProvider>
-      </BoardWrapper>
+        </ShipsListWrapper>
+      </DndProvider>
     </Wrapper>
   );
 };
