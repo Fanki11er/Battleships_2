@@ -1,26 +1,14 @@
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Coordinates } from '../../../Class/BattleShip';
 import { checkIfHasShip, makeCoordinates } from '../../../Helpers/Helpers';
 import { ShipsContext } from '../../../providers/shipsProvider';
 import Cell from '../../Atoms/Cell/Cell';
-
-const StyledBoard = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 100px);
-  grid-template-rows: repeat(5, 100px);
-
-  width: 510px;
-  height: 510px;
-  border: 5px solid black;
-  margin: 100px;
-`;
+import { StyledBoard } from './Board.styles';
 
 const Board = () => {
   const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
-  const { boardSize } = useContext(ShipsContext);
-  const { ships } = useContext(ShipsContext);
+  const { boardSize, ships } = useContext(ShipsContext);
 
   useEffect(() => {
     setCoordinates(makeCoordinates(boardSize));

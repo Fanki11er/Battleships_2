@@ -14,7 +14,7 @@ export const ShipsContext = createContext({
 });
 
 const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
-  const BOARD_SIZE = 5;
+  const BOARD_SIZE = 10;
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
