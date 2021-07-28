@@ -7,7 +7,6 @@ import { List, ListElement } from './ShipList.styles';
 
 const ShipsList = () => {
   const { shipsToTake, handleShipRotate } = useContext(ShipsContext);
-  console.log(shipsToTake);
   const renderShips = (shipsToTake: ShipsToTake[]) => {
     return shipsToTake.map(({ size, id, position }) => {
       return (
@@ -19,7 +18,7 @@ const ShipsList = () => {
     });
   };
 
-  return <List>{renderShips(shipsToTake)}</List>;
+  return <List numberOfElements={shipsToTake.length}>{renderShips(shipsToTake)}</List>;
 };
 
 export default ShipsList;
