@@ -18,7 +18,7 @@ const ShipsList = () => {
     });
   };
 
-  return <List numberOfElements={shipsToTake.length}>{renderShips(shipsToTake)}</List>;
+  return <List>{renderShips(shipsToTake)}</List>;
 };
 
 export default ShipsList;

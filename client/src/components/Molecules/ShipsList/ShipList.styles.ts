@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
-type Props = {
-  numberOfElements: number;
-};
-
 export const List = styled.ul`
-  width: calc(${(props: Props) => props.numberOfElements}* 120px + ${(props: Props) => (props.numberOfElements > 5 ? '500px' : '250px')});
+  width: fit-content;
+  padding: 0 50px;
   max-width: 90%;
   height: 130px;
   display: flex;
@@ -25,4 +22,5 @@ export const ListElement = styled.li`
   justify-content: space-around;
   align-items: center;
   padding: 10px;
+  margin: 0 25px;
 `;
