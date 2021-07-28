@@ -10,4 +10,6 @@ export const StyledBoard = styled.div`
   height: calc(10 * ${(props: StyledProps) => props.theme.otherDimensions.cellSize} + 40px);
   justify-content: center;
   align-items: center;
+  align-self: center;
+  justify-self: center;
 `;

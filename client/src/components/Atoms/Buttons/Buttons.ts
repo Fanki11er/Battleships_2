@@ -26,3 +26,8 @@ export const StandardButton = styled.button`
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
 `;
+
+export const ReadyButton = styled(StandardButton)`
+  opacity: ${(props: Props) => (props.isActive ? '1' : '0')};
+  transition: opacity 0.5s 0.2s;
+`;

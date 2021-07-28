@@ -9,7 +9,7 @@ export default {
 const firstSocketId = 'ffbacd';
 const secondSocketId = 'aabbve';
 
-const Template: Story = (args: Args) => <PreparingPageStatusInfo users={[]} socketId={''} {...args} />;
+const Template: Story = (args: Args) => <PreparingPageStatusInfo sortedUsers={{ me: undefined, opponent: undefined }} {...args} />;
 
 export const WithOneUser = Template.bind({});
 

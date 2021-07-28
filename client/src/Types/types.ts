@@ -21,3 +21,8 @@ export type RoomType = {
   users: User[];
   roomName: string;
 };
+
+export type SortedUsers = {
+  me: User | undefined;
+  opponent: User | undefined;
+};

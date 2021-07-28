@@ -1,39 +1,11 @@
-import { useEffect, useState } from 'react';
-import { User } from '../../../Types/types';
+import { SortedUsers } from '../../../Types/types';
 import { UserInfo, Wrapper } from './PreparingPageStatusInfo.styles';
 
-type SortedUsers = {
-  me: User | undefined;
-  opponent: User | undefined;
-};
-
 export type Props = {
-  users: User[];
-  socketId: string;
+  sortedUsers: SortedUsers;
 };
 const PreparingPageStatusInfo = (props: Props) => {
-  const { users, socketId } = props;
-  const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
-
-  useEffect(() => {
-    sortUsers(users, socketId);
-  }, [users, socketId]);
-
-  const sortUsers = (users: User[], socketId: string | undefined) => {
-    const sorted = {
-      me: undefined,
-      opponent: undefined,
-    } as SortedUsers;
-    socketId &&
-      users.forEach((user) => {
-        if (user.id === socketId) {
-          sorted.me = user;
-        } else {
-          sorted.opponent = user;
-        }
-      });
-    setSortedUsers(sorted);
-  };
+  const { sortedUsers } = props;
 
   return (
     <Wrapper>
