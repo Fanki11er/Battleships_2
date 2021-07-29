@@ -72,10 +72,10 @@ const PreparingPage = () => {
     <Wrapper>
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
       <DndProvider backend={HTML5Backend}>
-        <StyledBoard />
+        {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
           {ships.length === 10 ? (
-            <ReadyButton isActive={sortedUsers.me?.status === 'ready' ? false : true} onClick={handleSendBoard}>
+            <ReadyButton isActive={true} onClick={handleSendBoard} className={sortedUsers.me?.status === 'ready' ? 'hide' : 'show'}>
               Ready
             </ReadyButton>
           ) : (

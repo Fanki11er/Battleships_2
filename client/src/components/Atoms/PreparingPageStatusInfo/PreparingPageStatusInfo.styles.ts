@@ -19,6 +19,8 @@ export const Wrapper = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   padding: 25px 45px;
+  grid-column: 1/2;
+  grid-row: 1/2;
 `;
 
 export const UserInfo = styled.span`

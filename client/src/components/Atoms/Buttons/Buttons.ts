@@ -28,6 +28,35 @@ export const StandardButton = styled.button`
 `;
 
 export const ReadyButton = styled(StandardButton)`
-  opacity: ${(props: Props) => (props.isActive ? '1' : '0')};
-  transition: opacity 0.5s 0.2s;
+  /* animation-name: ${(props: Props) => (props.isActive ? 'show' : 'hide')};
+  animation-duration: 2s;
+  animation-fill-mode: forwards;*/
+
+  &.show {
+    visibility: hidden;
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    @keyframes show {
+      to {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  &.hide {
+    visibility: visible;
+    opacity: 1;
+    animation-name: hide;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    @keyframes hide {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
 `;
