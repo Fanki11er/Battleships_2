@@ -12,6 +12,7 @@ import { routes } from '../../router/routes';
 import PreparingPageStatusInfo from '../../components/Atoms/PreparingPageStatusInfo/PreparingPageStatusInfo';
 import { ShipsListWrapper, StyledBoard, Wrapper } from './PreparingPage.styles';
 import { ReadyButton } from '../../components/Atoms/Buttons/Buttons';
+import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage } = routes;
