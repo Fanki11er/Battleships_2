@@ -19,6 +19,7 @@ export const theme: Theme = {
     XXL: '40px',
   },
   otherDimensions: {
+    cellSizeNumber: 50,
     cellSize: '50px',
   },
 };
@@ -46,6 +47,7 @@ export type Theme = {
 
   otherDimensions: {
     cellSize: string;
+    cellSizeNumber: number;
   };
 };
 
