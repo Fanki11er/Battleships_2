@@ -1,4 +1,4 @@
-import { Position } from '../Class/BattleShip';
+import { Coordinates, Position } from '../Class/BattleShip';
 
 export type Identifier = {
   identifier: number;
@@ -32,4 +32,11 @@ export type ShipSettings = {
   row: string;
   width: string;
   height: string;
+};
+
+export type Status = 'miss' | 'hit' | '';
+
+export type Shot = {
+  coordinates: Coordinates;
+  status: Status;
 };
