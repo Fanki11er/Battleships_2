@@ -15,13 +15,14 @@ import { ReadyButton } from '../../components/Atoms/Buttons/Buttons';
 import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 
 const PreparingPage = () => {
-  const { roomsList: roomsRoute, landingPage } = routes;
+  const { roomsList: roomsRoute, landingPage, game } = routes;
   const { state } = useLocation();
   const { socket } = useContext(SocketContext);
   const { ships } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
   const [isCancelled, setIsCanceled] = useState(false);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
 
   const linkState = state as any;
   const roomName = linkState ? linkState.roomName : '';
@@ -30,6 +31,9 @@ const PreparingPage = () => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);
+      socket.once('startGame', () => {
+        setGameStarted(true);
+      });
     });
 
     return () => {
@@ -68,6 +72,7 @@ const PreparingPage = () => {
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
   if (isCancelled) return <Redirect to={{ pathname: roomsRoute }} />;
   if (!socket) return <Redirect to={{ pathname: landingPage }} />;
+  if (gameStarted) return <Redirect to={{ pathname: game }} />;
 
   return (
     <Wrapper>

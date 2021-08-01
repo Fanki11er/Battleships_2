@@ -7,6 +7,7 @@ export const GameContext = createContext({
 });
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
+  const { children } = props;
   const [shots, setShots] = useState<Shot[]>([]);
   const { socket } = useContext(SocketContext);
 
@@ -20,7 +21,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     shots,
   };
 
-  return <GameContext.Provider value={gameContext}></GameContext.Provider>;
+  return <GameContext.Provider value={gameContext}>{children}</GameContext.Provider>;
 };
 
 export default GameProvider;
