@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Board from '../../components/Organisms/Board/Board';
+import Board from '../../components/Molecules/Board/Board';
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
