@@ -22,7 +22,9 @@ const UserNameForm = () => {
       })}
     >
       <FormField type="text" name={'userName'} label={'Your name'} id={'userName'} register={register} />
-      <StandardButton type="submit">Submit</StandardButton>
+      <StandardButton isActive={true} type="submit">
+        Submit
+      </StandardButton>
     </Form>
   );
 };
