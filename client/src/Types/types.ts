@@ -26,3 +26,10 @@ export type SortedUsers = {
   me: User | undefined;
   opponent: User | undefined;
 };
+
+export type ShipSettings = {
+  column: string;
+  row: string;
+  width: string;
+  height: string;
+};
