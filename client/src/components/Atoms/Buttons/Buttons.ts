@@ -26,3 +26,37 @@ export const StandardButton = styled.button`
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
 `;
+
+export const ReadyButton = styled(StandardButton)`
+  /* animation-name: ${(props: Props) => (props.isActive ? 'show' : 'hide')};
+  animation-duration: 2s;
+  animation-fill-mode: forwards;*/
+
+  &.show {
+    visibility: hidden;
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    @keyframes show {
+      to {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  &.hide {
+    visibility: visible;
+    opacity: 1;
+    animation-name: hide;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    @keyframes hide {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+`;

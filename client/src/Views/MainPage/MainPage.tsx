@@ -10,6 +10,7 @@ import ShipsProvider from '../../providers/shipsProvider';
 import TopWrapper from '../../components/Molecules/TopWrapper/TopWrapper';
 import Footer from '../../components/Molecules/Footer/Footer';
 import { Wrapper } from './MainPage.styles';
+import GameProvider from '../../providers/gameProvider';
 
 const MainPage = () => {
   const { pathname } = useLocation();
@@ -22,7 +23,11 @@ const MainPage = () => {
       {pathname === roomsList && <RoomsList userName={userName} />}
       <ShipsProvider>
         {pathname === room && <PreparingPage />}
-        {pathname === game && <Game />}
+        {pathname === game && (
+          <GameProvider>
+            <Game />
+          </GameProvider>
+        )}
       </ShipsProvider>
       <Footer />
     </Wrapper>

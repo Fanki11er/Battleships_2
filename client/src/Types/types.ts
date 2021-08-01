@@ -1,4 +1,4 @@
-import { Position } from '../Class/BattleShip';
+import { Coordinates, Position } from '../Class/BattleShip';
 
 export type Identifier = {
   identifier: number;
@@ -20,4 +20,23 @@ export type UserStatus = 'preparing' | 'ready';
 export type RoomType = {
   users: User[];
   roomName: string;
+};
+
+export type SortedUsers = {
+  me: User | undefined;
+  opponent: User | undefined;
+};
+
+export type ShipSettings = {
+  column: string;
+  row: string;
+  width: string;
+  height: string;
+};
+
+export type Status = 'miss' | 'hit' | '';
+
+export type Shot = {
+  coordinates: Coordinates;
+  status: Status;
 };

@@ -18,9 +18,9 @@ export const makeCoordinates = (size: number) => {
   return coordinates;
 };
 
-export const setCellColor = (isOver: boolean, canDrop: boolean) => {
-  if (canDrop) return 'green';
-  if (!canDrop) return 'red';
+export const setCellColor = (canDrop: boolean, trueColor: string, falseColor: string) => {
+  if (canDrop) return trueColor;
+  if (!canDrop) return falseColor;
 };
 
 export const checkIfHasShip = (coordinates: Coordinates, ships: BattleShip[]) => {

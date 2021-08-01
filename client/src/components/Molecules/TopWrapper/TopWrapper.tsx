@@ -3,7 +3,7 @@ import AppLogo from '../../Atoms/AppLogo/AppLogo';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: 150px;
   display: flex;
   justify-items: flex-start;
   padding: 0 10px;

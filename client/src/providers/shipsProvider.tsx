@@ -14,18 +14,19 @@ export const ShipsContext = createContext({
 });
 
 const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
-  const BOARD_SIZE = 5;
+  const BOARD_SIZE = 10;
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
+  console.log(ships);
 
-  const addShip = (coordinates: Coordinates, position: Position) => {
-    ships.push(new BattleShip(2, coordinates, position));
+  const addShip = (coordinates: Coordinates, position: Position, size: number) => {
+    ships.push(new BattleShip(size, coordinates, position));
     setShips([...ships]);
   };
 
   const moveShip = (coordinates: Coordinates, identifier: Identifier) => {
-    addShip(coordinates, identifier.position);
+    addShip(coordinates, identifier.position, identifier.size);
     removeMovedShip(identifier.identifier);
   };
 
