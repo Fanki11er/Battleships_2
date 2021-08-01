@@ -12,7 +12,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
-    socket?.on('shot', (shots: Shot[]) => {
+    socket?.on('shotResult', (shots: Shot[]) => {
       setShots(shots);
     });
   });

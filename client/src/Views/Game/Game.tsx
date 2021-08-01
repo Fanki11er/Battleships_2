@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TargetingBoard from '../../components/Organisms/TargetingBoard/TrgetingBoard';
 import UserGameBoard from '../../components/Organisms/UserGameBoard/UserGameBoard';
 
 const Wrapper = styled.div`
@@ -13,6 +14,7 @@ const Game = () => {
   return (
     <Wrapper>
       <UserGameBoard />
+      <TargetingBoard />
     </Wrapper>
   );
 };

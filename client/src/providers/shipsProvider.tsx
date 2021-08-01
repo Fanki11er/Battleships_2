@@ -1,12 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
-import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition } from '../Helpers/Helpers';
+import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition, makeCoordinates } from '../Helpers/Helpers';
 import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
   shipsToTake: [] as ShipsToTake[],
   ships: [] as BattleShip[],
+  coordinates: [] as Coordinates[],
   moveShip: (coordinates: Coordinates, identifier: Identifier) => {},
   canMoveShip: (identifier: Identifier, coordinates: Coordinates, hasShip: boolean): boolean => false,
   handleShipRotate: (identifier: number | undefined) => {},
@@ -18,7 +19,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
-  console.log(ships);
+  const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
 
   const addShip = (coordinates: Coordinates, position: Position, size: number) => {
     ships.push(new BattleShip(size, coordinates, position));
@@ -60,6 +61,10 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     setShipsToTake(createShipsList(shipsList));
   }, []);
 
+  useEffect(() => {
+    setCoordinates(makeCoordinates(BOARD_SIZE));
+  }, [BOARD_SIZE]);
+
   const createShipsList = (shipsList: ShipListCreator[]) => {
     const createdShipSList: ShipsToTake[] = [];
     let counter = 0;
@@ -96,6 +101,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const shipsContext = {
     shipsToTake,
     ships,
+    coordinates,
     moveShip,
     canMoveShip,
     handleShipRotate,

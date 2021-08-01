@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
-import { Coordinates } from '../../../Class/BattleShip';
 import { Shot } from '../../../Types/types';
 import { StyledBoard } from '../Board/Board.styles';
 import hit from '../../../assets/Images/hit-image.svg';
 import miss from '../../../assets/Images/miss-image.svg';
+import { UsedCell } from '../../Atoms/UsedCell/UsedCell';
 
 type Props = {
   shots: Shot[];
 };
 
-type CellProps = {
-  coordinates: Coordinates;
-};
 type BoardProps = {
   boardSize: number;
 };
@@ -24,14 +21,6 @@ const Board = styled(StyledBoard)`
   position: absolute;
   left: 0;
   top: 0;
-`;
-
-const UsedCell = styled.div`
-  width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
-  height: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
-  border: none;
-  grid-row: ${(props: CellProps & StyledProps) => `${props.coordinates.x}/1`};
-  grid-column: ${(props: CellProps & StyledProps) => `${props.coordinates.y}/1`};
 `;
 
 const Image = styled.img`
