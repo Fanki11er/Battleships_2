@@ -6,11 +6,6 @@ import { StyledBoard } from '../Board/Board.styles';
 import hit from '../../../assets/Images/hit-image.svg';
 import miss from '../../../assets/Images/miss-image.svg';
 
-const Board = styled(StyledBoard)`
-  width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber * 10}px`};
-  height: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber * 10}px`};
-  grid-gap: 0;
-`;
 type Props = {
   shots: Shot[];
 };
@@ -18,6 +13,18 @@ type Props = {
 type CellProps = {
   coordinates: Coordinates;
 };
+type BoardProps = {
+  boardSize: number;
+};
+
+const Board = styled(StyledBoard)`
+  width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  grid-gap: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+`;
 
 const UsedCell = styled.div`
   width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
@@ -31,8 +38,8 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
 `;
-const OpponentShotsBoard = (props: Props) => {
-  const { shots } = props;
+const OpponentShotsBoard = (props: Props & BoardProps) => {
+  const { shots, boardSize } = props;
 
   const renderShots = (shots: Shot[]) => {
     return shots.map(({ coordinates, status }) => {
@@ -45,7 +52,7 @@ const OpponentShotsBoard = (props: Props) => {
     });
   };
 
-  return <Board>{renderShots(shots)}</Board>;
+  return <Board boardSize={boardSize}>{renderShots(shots)}</Board>;
 };
 
 export default OpponentShotsBoard;

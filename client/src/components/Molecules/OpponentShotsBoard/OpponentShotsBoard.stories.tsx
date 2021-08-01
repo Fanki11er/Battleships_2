@@ -24,4 +24,4 @@ const mockedShots: Shot[] = [
   },
 ];
 
-export const Default: Story = () => <OpponentShotsBoard shots={mockedShots} />;
+export const Default: Story = () => <OpponentShotsBoard shots={mockedShots} boardSize={10} />;
