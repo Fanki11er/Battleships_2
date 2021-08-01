@@ -16,10 +16,10 @@ export class BattleShip {
     this.coordinates.push(startCoordinates);
     const { x, y } = startCoordinates;
     for (let i = 1; i < this.size; i++) {
-      if (this.position === 'horizontal') {
-        this.coordinates.push({ x, y: y + i });
-      } else {
+      if (this.position === 'vertical') {
         this.coordinates.push({ x: x + i, y });
+      } else {
+        this.coordinates.push({ x, y: y + i });
       }
     }
   };

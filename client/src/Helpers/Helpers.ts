@@ -10,8 +10,8 @@ export const ItemTypes = {
 
 export const makeCoordinates = (size: number) => {
   const coordinates: Coordinates[] = [];
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
+  for (let i = 1; i <= size; i++) {
+    for (let j = 1; j <= size; j++) {
       coordinates.push({ x: i, y: j });
     }
   }
@@ -42,10 +42,10 @@ export const checkAviableSpacesForHorizontalShipPosition = (ships: BattleShip[],
   const { filteredShips, coordinate: xCoordinate } = filterShipsByCoordinate(ships, coordinates, 'x');
   for (let i = 0; i < filteredShips.length; i++) {
     const { position: shipPosition, coordinates: shipCoordinates, size: shipSize } = filteredShips[i];
-    if (shipPosition === 'horizontal' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
+    if (shipPosition === 'vertical' && y + size > shipCoordinates[0].y && y < shipCoordinates[shipSize - 1].y) {
       isEnoughPlaceForMove = false;
       break;
-    } else if (shipPosition === 'vertical') {
+    } else if (shipPosition === 'horizontal') {
       if (xCoordinate !== undefined && y + size > shipCoordinates[0].y && y < shipCoordinates[0].y) {
         isEnoughPlaceForMove = false;
         break;

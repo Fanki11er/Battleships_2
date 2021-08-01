@@ -79,8 +79,8 @@ io.on("connection", (socket) => {
       if(selectedRoom)  io.to(selectedRoom.getRoomName()).emit("usersStatusInRoom", selectedRoom.getUsers())
       io.emit("userStatus", Helpers.sanitizeRooms(rooms));
       areUsersReady =  selectedRoom?.areUsersReady()
-      if(areUsersReady){
-        console.log('USERS READY')
+      if(areUsersReady && selectedRoom){
+        io.to(selectedRoom.getRoomName()).emit("startGame")
       }
 
     
