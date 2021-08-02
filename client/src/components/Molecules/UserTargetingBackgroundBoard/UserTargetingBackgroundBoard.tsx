@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Shot } from '../../../Types/types';
+import { Shot, ShotResult } from '../../../Types/types';
 import { UsedCell } from '../../Atoms/UsedCell/UsedCell';
 import { StyledBoard } from '../Board/Board.styles';
 import hit from '../../../assets/Images/hit-image.svg';
 import miss from '../../../assets/Images/miss-image.svg';
+import radar from '../../../assets/Images/radar-image.svg';
 import { StyledProps } from '../../../assets/styles/theme';
 
 const Image = styled.img`
@@ -27,18 +28,18 @@ const TargetCell = styled.div`
 
 const Board = styled(StyledBoard)``;
 type Props = {
-  shots: Shot[];
+  shots: ShotResult[];
   boardSize: number;
 };
 const UserTargetingBackgroundBoard = (props: Props) => {
   const { shots, boardSize } = props;
 
-  const renderShots = (shots: Shot[]) => {
+  const renderShots = (shots: ShotResult[]) => {
     return shots.map(({ coordinates, status }) => {
       return (
         <ResultCell coordinates={coordinates}>
-          {status === 'hit' && <Image src={hit} />}
-          {status === 'miss' && <Image src={miss} />}
+          {status === 'hit' && <Image src={hit} alt={'hit image'} />}
+          {status === 'miss' && <Image src={miss} alt={'miss image'} />}
         </ResultCell>
       );
     });
@@ -51,7 +52,11 @@ const UserTargetingBackgroundBoard = (props: Props) => {
       cellsArray.push(TargetCell);
     }
 
-    return cellsArray.map((_, index) => <TargetCell key={index} />);
+    return cellsArray.map((_, index) => (
+      <TargetCell key={index}>
+        <Image src={radar} alt={'radar image'} />
+      </TargetCell>
+    ));
   };
   return (
     <Board>

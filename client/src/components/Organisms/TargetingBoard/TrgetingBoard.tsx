@@ -21,12 +21,13 @@ const Wrapper = styled.div`
 `;
 
 const TargetingBoard = () => {
-  const { shots } = useContext(GameContext);
+  const { shots, handleShot } = useContext(GameContext);
   const { boardSize, coordinates } = useContext(ShipsContext);
+
   return (
     <Wrapper boardSize={boardSize}>
       <UserTargetingBackgroundBoard shots={shots} boardSize={boardSize} />
-      <UserTargetingBoard boardSize={boardSize} coordinates={coordinates} />
+      <UserTargetingBoard boardSize={boardSize} coordinates={coordinates} handleShot={handleShot} />
     </Wrapper>
   );
 };

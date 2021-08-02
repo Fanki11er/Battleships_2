@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
-import { Shot } from '../../../Types/types';
+import { ShotResult } from '../../../Types/types';
 import { StyledBoard } from '../Board/Board.styles';
 import hit from '../../../assets/Images/hit-image.svg';
 import miss from '../../../assets/Images/miss-image.svg';
 import { UsedCell } from '../../Atoms/UsedCell/UsedCell';
 
 type Props = {
-  shots: Shot[];
+  shots: ShotResult[];
 };
 
 type BoardProps = {
@@ -30,7 +30,7 @@ const Image = styled.img`
 const OpponentShotsBoard = (props: Props & BoardProps) => {
   const { shots, boardSize } = props;
 
-  const renderShots = (shots: Shot[]) => {
+  const renderShots = (shots: ShotResult[]) => {
     return shots.map(({ coordinates, status }) => {
       return (
         <UsedCell coordinates={coordinates}>

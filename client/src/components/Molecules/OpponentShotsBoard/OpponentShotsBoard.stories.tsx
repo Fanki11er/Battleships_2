@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import { Shot } from '../../../Types/types';
+import { ShotResult } from '../../../Types/types';
 import OpponentShotsBoard from './OpponentShotsBoard';
 
 export default {
@@ -7,13 +7,14 @@ export default {
   component: OpponentShotsBoard,
 } as Meta;
 
-const mockedShots: Shot[] = [
+const mockedShots: ShotResult[] = [
   {
     coordinates: {
       x: 0,
       y: 0,
     },
     status: 'miss',
+    userId: '0',
   },
   {
     coordinates: {
@@ -21,6 +22,7 @@ const mockedShots: Shot[] = [
       y: 1,
     },
     status: 'hit',
+    userId: '0',
   },
 ];
 

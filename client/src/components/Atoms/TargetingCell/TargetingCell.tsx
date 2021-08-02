@@ -20,20 +20,24 @@ const Cell = styled.div`
 `;
 type Props = {
   coordinates: Coordinates;
-  //clickHandle: ()=>void
+  handleShot: (coordinates: Coordinates) => void;
 };
 const TargetingCell = (props: Props) => {
-  const { coordinates } = props;
+  const { coordinates, handleShot } = props;
   const [coord, setCoord] = useState<Coordinates>({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(true);
 
   const handleHide = () => {
     setIsVisible(false);
   };
+  const handleClick = () => {
+    handleHide();
+    handleShot(coord);
+  };
   useEffect(() => {
     setCoord(coordinates);
-  }, []);
-  return <Cell isVisible={isVisible} />;
+  }, [coordinates]);
+  return <Cell isVisible={isVisible} onClick={handleClick} />;
 };
 
 export default TargetingCell;

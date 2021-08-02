@@ -24,13 +24,14 @@ const Wrapper = styled.div`
 type Props = {
   boardSize: number;
   coordinates: Coordinates[];
+  handleShot: (coordinates: Coordinates) => void;
 };
 const UserTargetingBoard = (props: Props) => {
-  const { boardSize, coordinates } = props;
+  const { boardSize, coordinates, handleShot } = props;
 
   const renderCells = (coordinates: Coordinates[]) => {
     return coordinates.map((coordinate) => {
-      return <TargetingCell coordinates={coordinate} />;
+      return <TargetingCell coordinates={coordinate} handleShot={handleShot} />;
     });
   };
   return <Wrapper boardSize={boardSize}>{renderCells(coordinates)}</Wrapper>;

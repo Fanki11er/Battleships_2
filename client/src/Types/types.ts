@@ -38,5 +38,11 @@ export type Status = 'miss' | 'hit' | '';
 
 export type Shot = {
   coordinates: Coordinates;
+  userId: string;
+};
+
+export type ShotResult = {
+  coordinates: Coordinates;
   status: Status;
+  userId: string;
 };
