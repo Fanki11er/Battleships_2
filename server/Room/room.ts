@@ -1,17 +1,18 @@
 import { Board } from "../Board/Board";
+import { Game } from "../Game/Game";
 import { UserStatus } from "../Helpers/Types";
 import { User } from "../User/user";
 
 export class Room {
   private users: User[] = [];
   private roomName;
-  private boards: Board[] = []
-  private game: any;
+  private boards: Board[] = [] 
+  private game: Game | undefined;
 
-  constructor(roomName: string, boardSize: number) {
+  constructor(roomName: string) {
     this.roomName = roomName;
     for(let i = 0; i< 2; i++){
-      this.boards.push(new Board(boardSize))
+      this.boards.push(new Board())
     }
 
   }
@@ -78,5 +79,12 @@ return {
       return true
     }
     return false
+  }
+
+  startGame= ()=> {
+    this.game = new Game(this.roomName, this.boards, this.users);
+  }
+  getGame = ()=> {
+    return this.game;
   }
 }

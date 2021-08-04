@@ -1,8 +1,9 @@
 import { BattleShip } from "../Battleship/Battleship";
+import { Status } from "../Board/Board";
 
 export type RoomInfo = {
   roomName: String;
-  users: String[];
+  users: string[];
 };
 export type UserStatus = 'preparing' | 'ready'| ""
 export type Coordinates = { x: number; y: number };
@@ -10,3 +11,27 @@ export type Position = 'horizontal' | 'vertical';
 
 export type Ship = Omit<BattleShip, "isSunk"> & Omit<BattleShip, "hits"> & Position
 
+export type Shot = {
+  coordinates: Coordinates;
+  userId: string;
+  roomName: string;
+};
+
+export class ShotResult  {
+  coordinates: Coordinates;
+  status: Status;
+  userId: string;
+  sunkShip: Coordinates[] | undefined 
+
+  constructor(coordinates: Coordinates, result: Result, userId: string){
+    this.coordinates = coordinates;
+    this.status = result.status
+    this.userId = userId;
+    this.sunkShip = result.sunkShipCoordinates
+  }
+};
+
+export type Result = {
+  status: Status;
+  sunkShipCoordinates: Coordinates[] | undefined
+}

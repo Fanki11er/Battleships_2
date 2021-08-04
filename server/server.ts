@@ -5,14 +5,15 @@ import http from "http";
 import { Room } from "./Room/room";
 import { User } from "./User/user";
 import { Helpers } from "./Helpers/helpers";
+import { Shot } from "./Helpers/Types";
 
 const PORT = 8090 || process.env.PORT;
-const USER_STATUSES = {
+/*const USER_STATUSES = {
   preparing: 'preparing',
   ready: 'ready'
-}
+}*/
 const NUMBER_OF_ROOMS = 2;
-const BOARD_SIZE = 5;
+//const BOARD_SIZE = 5;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -32,7 +33,7 @@ server.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 
   for(let i= 1; i<= NUMBER_OF_ROOMS; i++ ){
-    rooms.push(new Room(`Room_#${i}`, BOARD_SIZE))
+    rooms.push(new Room(`Room_#${i}`))
   }
   
 });
@@ -80,11 +81,30 @@ io.on("connection", (socket) => {
       io.emit("userStatus", Helpers.sanitizeRooms(rooms));
       areUsersReady =  selectedRoom?.areUsersReady()
       if(areUsersReady && selectedRoom){
-        io.to(selectedRoom.getRoomName()).emit("startGame")
+        selectedRoom.startGame();
+        setTimeout(()=> {
+          io.to(selectedRoom.getRoomName()).emit("startGame")
+        },2000)
       }
 
+    })
     
-  })
+    socket.on('shot', (shot: Shot )=> {
+      
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id)
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      const game = selectedRoom?.getGame();
+      const shotResult = game?.handleShot(shot);
+      const winner = game?.isSomeBodyWon();
+      if(selectedRoom && shotResult)  io.to(selectedRoom.getRoomName()).emit("shotResult", shotResult)
+      if( winner && selectedRoom){
+        io.to(selectedRoom.getRoomName()).emit("Winner", winner)
+        //!Add end of the game
+      }
+
+      
+
+    })
 
   //? User disconnection //
 
