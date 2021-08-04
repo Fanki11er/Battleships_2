@@ -82,8 +82,9 @@ io.on("connection", (socket) => {
       areUsersReady =  selectedRoom?.areUsersReady()
       if(areUsersReady && selectedRoom){
         selectedRoom.startGame();
+        selectedRoom.getGame()?.getCurrentPlayer();
         setTimeout(()=> {
-          io.to(selectedRoom.getRoomName()).emit("startGame")
+          io.to(selectedRoom.getRoomName()).emit("startGame", selectedRoom.getGame()?.getCurrentPlayer());
         },2000)
       }
 
@@ -96,7 +97,10 @@ io.on("connection", (socket) => {
       const game = selectedRoom?.getGame();
       const shotResult = game?.handleShot(shot);
       const winner = game?.isSomeBodyWon();
-      if(selectedRoom && shotResult)  io.to(selectedRoom.getRoomName()).emit("shotResult", shotResult)
+      const currentPlayer = game?.getCurrentPlayer();
+      if(selectedRoom && shotResult)  {
+        io.to(selectedRoom.getRoomName()).emit("shotResult", {shotResult, currentPlayer});
+      }
       if( winner && selectedRoom){
         io.to(selectedRoom.getRoomName()).emit("Winner", winner)
         //!Add end of the game

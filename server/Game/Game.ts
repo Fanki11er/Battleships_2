@@ -3,17 +3,15 @@ import { Result, Shot, ShotResult } from "../Helpers/Types";
 import { User } from "../User/user";
 
 export class Game  {
-  private roomName;
   private boards: Board[] = [] 
   private users: User[] = []
   private currentPlayer: string | undefined = undefined;
   private theWinner: string | undefined = undefined
 
-  constructor(roomName: string, boards: Board[],  users: User[]){
-this.roomName = roomName
+  constructor( boards: Board[],  users: User[]){
 this.boards =boards
 this.users = users
-this.drawFirstUser(users);
+this.drawFirstUser(this.users);
   }
 
   setCurrentPlayer = (userId: string)=> {
@@ -41,6 +39,7 @@ return false;
          selectedBoard =  this.boards.filter((board)=> {
             return board.getUserId() !== userId
         })
+        this.setCurrentPlayer(selectedBoard[0].getUserId())
         if(selectedBoard[0].notUsedCoordinates(coordinates)){
           result  = selectedBoard[0].checkShips(coordinates)
           if(selectedBoard[0].areAllShipsSunk()){
