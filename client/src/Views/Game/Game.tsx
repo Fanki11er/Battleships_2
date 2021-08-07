@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TurnIndicator from '../../components/Atoms/TurnIndicator/TurnIndicator';
 import TargetingBoard from '../../components/Organisms/TargetingBoard/TrgetingBoard';
 import UserGameBoard from '../../components/Organisms/UserGameBoard/UserGameBoard';
 
@@ -15,6 +16,7 @@ const Game = () => {
     <Wrapper>
       <UserGameBoard />
       <TargetingBoard />
+      <TurnIndicator />
     </Wrapper>
   );
 };
