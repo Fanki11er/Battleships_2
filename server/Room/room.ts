@@ -6,15 +6,14 @@ import { User } from "../User/user";
 export class Room {
   private users: User[] = [];
   private roomName;
-  private boards: Board[] = [] 
+  private boards: Board[] = [];
   private game: Game | undefined;
 
   constructor(roomName: string) {
     this.roomName = roomName;
-    for(let i = 0; i< 2; i++){
-      this.boards.push(new Board())
+    for (let i = 0; i < 2; i++) {
+      this.boards.push(new Board());
     }
-
   }
   public getRoomName() {
     return this.roomName;
@@ -36,55 +35,57 @@ export class Room {
     });
   }
 
-  hasUser(userId: string){
+  hasUser(userId: string) {
     let hasUser = false;
-    this.users.forEach((user)=> {
-     
-      if(user.getId() === userId)
-      hasUser = true;
-    })
+    this.users.forEach((user) => {
+      if (user.getId() === userId) hasUser = true;
+    });
 
     return hasUser;
   }
 
-  public getSanitized(){
-return {
-  users: this.users,
-  roomName: this.roomName,
-}
+  public getSanitized() {
+    return {
+      users: this.users,
+      roomName: this.roomName,
+    };
   }
 
-  public getFreeBoard(){
-   for(let i=0; i< this.boards.length; i++){
-     if(!this.boards[i].hasUserId()){
-       return this.boards[i]
-     }
-   }
-  }
-
-  getBoards(){
-    return this.boards
-  }
-
-  changeUserStatus(userId: string, status: UserStatus){
-    this.users.forEach((user)=> {
-      if(user.getId() === userId){
-        user.setStatus(status)
+  public getFreeBoard() {
+    for (let i = 0; i < this.boards.length; i++) {
+      if (!this.boards[i].hasUserId()) {
+        return this.boards[i];
       }
-    })
-  }
-
-  areUsersReady(){
-    if(this.users.length === 2 && this.users[0].getStatus()=== 'ready' && this.users[1].getStatus()=== 'ready') {
-      return true
     }
-    return false
   }
 
-  startGame= ()=> {
-    this.game = new Game(this.roomName, this.boards, this.users);
+  getBoards() {
+    return this.boards;
   }
-  getGame = ()=> {
+
+  changeUserStatus(userId: string, status: UserStatus) {
+    this.users.forEach((user) => {
+      if (user.getId() === userId) {
+        user.setStatus(status);
+      }
+    });
+  }
+
+  areUsersReady() {
+    if (
+      this.users.length === 2 &&
+      this.users[0].getStatus() === "ready" &&
+      this.users[1].getStatus() === "ready"
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  startGame = () => {
+    this.game = new Game(this.boards, this.users);
+  };
+  getGame = () => {
     return this.game;
-  }
+  };
 }
