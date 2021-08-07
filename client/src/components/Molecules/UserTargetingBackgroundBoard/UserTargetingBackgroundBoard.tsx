@@ -42,7 +42,7 @@ const UserTargetingBackgroundBoard = (props: Props) => {
   const renderShots = (shots: ShotResult[]) => {
     return shots.map(({ coordinates, status }) => {
       return (
-        <ResultCell coordinates={coordinates}>
+        <ResultCell coordinates={coordinates} key={`${coordinates.x}${coordinates.y}`}>
           {status === 'hit' && <Image src={hit} alt={'hit image'} />}
           {status === 'miss' && <Image src={miss} alt={'miss image'} />}
         </ResultCell>
@@ -50,7 +50,7 @@ const UserTargetingBackgroundBoard = (props: Props) => {
     });
   };
 
-  const renderSelectedCells = (boardSize: number, shots: Shot[]) => {
+  const renderSelectedCells = (boardSize: number, shots: ShotResult[]) => {
     const numberOfCells = boardSize * boardSize - shots.length;
     const cellsArray: unknown[] = [];
     for (let i = 0; i < numberOfCells; i++) {

@@ -33,7 +33,7 @@ const UserTargetingBoard = (props: Props) => {
 
   const renderCells = (coordinates: Coordinates[]) => {
     return coordinates.map((coordinate) => {
-      return <TargetingCell coordinates={coordinate} handleShot={handleShot} isMyTurn={isMyTurn} />;
+      return <TargetingCell coordinates={coordinate} handleShot={handleShot} isMyTurn={isMyTurn} key={`${coordinate.x}${coordinate.y}`} />;
     });
   };
   return <Wrapper boardSize={boardSize}>{renderCells(coordinates)}</Wrapper>;

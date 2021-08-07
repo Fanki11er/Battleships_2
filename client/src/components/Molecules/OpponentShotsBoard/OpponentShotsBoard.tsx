@@ -33,7 +33,7 @@ const OpponentShotsBoard = (props: Props & BoardProps) => {
   const renderShots = (shots: ShotResult[]) => {
     return shots.map(({ coordinates, status }) => {
       return (
-        <UsedCell coordinates={coordinates}>
+        <UsedCell coordinates={coordinates} key={`${coordinates.x}${coordinates.y}`}>
           {status === 'hit' && <Image src={hit} />}
           {status === 'miss' && <Image src={miss} />}
         </UsedCell>

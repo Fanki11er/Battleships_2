@@ -30,8 +30,6 @@ const UserBoardCell = (props: Props) => {
       column: position === 'horizontal' ? `${y}/${y + size}` : `${y}/${y + 1}`,
       row: position === 'horizontal' ? `${x}/${x + 1}` : `${x}/${x + size}`,
     };
-    console.log(settings, 'Set');
-    console.log(ship);
 
     setShipSettings(settings);
   };
