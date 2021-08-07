@@ -41,8 +41,8 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     const { position, size } = identifier;
     const { x, y } = coordinates;
 
-    if ((position === 'horizontal' && y + size > BOARD_SIZE) || hasShip) return false;
-    if ((position === 'vertical' && x + size > BOARD_SIZE) || hasShip) return false;
+    if ((position === 'horizontal' && y + size - 1 > BOARD_SIZE) || hasShip) return false;
+    if ((position === 'vertical' && x + size - 1 > BOARD_SIZE) || hasShip) return false;
     return true;
   };
 
