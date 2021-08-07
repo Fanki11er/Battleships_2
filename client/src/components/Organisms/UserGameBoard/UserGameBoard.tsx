@@ -28,7 +28,7 @@ const UserGameBoard = () => {
   return (
     <Wrapper boardSize={boardSize}>
       <UserBoard ships={ships} boardSize={boardSize} />
-      <OpponentShotsBoard shots={shots} boardSize={boardSize} />
+      <OpponentShotsBoard shots={shots.opponentShots} boardSize={boardSize} />
     </Wrapper>
   );
 };

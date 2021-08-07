@@ -22,12 +22,10 @@ const MainPage = () => {
       <TopWrapper />
       {pathname === roomsList && <RoomsList userName={userName} />}
       <ShipsProvider>
-        {pathname === room && <PreparingPage />}
-        {pathname === game && (
-          <GameProvider>
-            <Game />
-          </GameProvider>
-        )}
+        <GameProvider>
+          {pathname === room && <PreparingPage />}
+          {pathname === game && <Game />}
+        </GameProvider>
       </ShipsProvider>
       <Footer />
     </Wrapper>

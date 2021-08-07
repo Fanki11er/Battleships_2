@@ -24,9 +24,14 @@ const TargetCell = styled.div`
   background-color: ${(props: StyledProps) => props.theme.colors.water};
   user-select: none;
   cursor: not-allowed;
+  grid-auto-flow: dense;
 `;
 
-const Board = styled(StyledBoard)``;
+const Board = styled(StyledBoard)`
+  grid-auto-flow: dense;
+  user-select: none;
+  cursor: none;
+`;
 type Props = {
   shots: ShotResult[];
   boardSize: number;

@@ -19,19 +19,21 @@ const Wrapper = styled.div`
   grid-template-rows: repeat(10, ${(props: StyledProps) => props.theme.otherDimensions.cellSize});
   grid-template-columns: repeat(10, ${(props: StyledProps) => props.theme.otherDimensions.cellSize});
   grid-gap: 2px;
+  cursor: none;
 `;
 
 type Props = {
   boardSize: number;
   coordinates: Coordinates[];
   handleShot: (coordinates: Coordinates) => void;
+  isMyTurn: boolean;
 };
 const UserTargetingBoard = (props: Props) => {
-  const { boardSize, coordinates, handleShot } = props;
+  const { boardSize, coordinates, handleShot, isMyTurn } = props;
 
   const renderCells = (coordinates: Coordinates[]) => {
     return coordinates.map((coordinate) => {
-      return <TargetingCell coordinates={coordinate} handleShot={handleShot} />;
+      return <TargetingCell coordinates={coordinate} handleShot={handleShot} isMyTurn={isMyTurn} />;
     });
   };
   return <Wrapper boardSize={boardSize}>{renderCells(coordinates)}</Wrapper>;

@@ -18,13 +18,13 @@ import { GameContext } from '../../providers/gameProvider';
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
   const { state } = useLocation();
-  const { isGameStarted } = useContext(GameContext);
+  const { isGameStarted, checkIfItIsMyTurn } = useContext(GameContext);
   const { socket } = useContext(SocketContext);
   const { ships } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
   const [isCancelled, setIsCanceled] = useState(false);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
-  //const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
 
   const linkState = state as any;
   const roomName = linkState ? linkState.roomName : '';
@@ -33,9 +33,6 @@ const PreparingPage = () => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);
-      //socket.once('startGame', () => {
-      //setGameStarted(true);
-      //});
     });
 
     return () => {
@@ -47,6 +44,10 @@ const PreparingPage = () => {
     setIsCanceled(true);
     socket?.emit('leaveTheRoom', roomName);
   };
+
+  useEffect(() => {
+    isGameStarted && setGameStarted(true);
+  }, [isGameStarted]);
 
   const handleSendBoard = () => {
     socket?.emit('setBoard', ships);
@@ -74,7 +75,7 @@ const PreparingPage = () => {
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
   if (isCancelled) return <Redirect to={{ pathname: roomsRoute }} />;
   if (!socket) return <Redirect to={{ pathname: landingPage }} />;
-  if (isGameStarted) return <Redirect to={{ pathname: game }} />;
+  if (gameStarted) return <Redirect to={{ pathname: game }} />;
 
   return (
     <Wrapper>

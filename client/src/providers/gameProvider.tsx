@@ -1,31 +1,40 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Coordinates } from '../Class/BattleShip';
-import { Shot, ShotResult } from '../Types/types';
+import { Shot, ShotResult, Shots } from '../Types/types';
 import { SocketContext } from './socketProvider';
 
 export const GameContext = createContext({
-  shots: [] as ShotResult[],
+  shots: {} as Shots,
   handleShot: (coordinates: Coordinates) => {},
   isMyTurn: false,
   isGameStarted: false,
+  checkIfItIsMyTurn: (currentPlayer: string) => {},
 });
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
-  const [shots, setShots] = useState<ShotResult[]>([]);
+  const [shots, setShots] = useState<Shots>({ myShots: [], opponentShots: [] });
   const { socket } = useContext(SocketContext);
   const [isGameStarted, setGameStarted] = useState<boolean>(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
 
   useEffect(() => {
-    socket?.on('shotResult', ({ shots, currentPlayer }) => {
-      setShots(shots as ShotResult[]);
+    socket?.once('shotResult', ({ shotResult, currentPlayer }) => {
+      let newShots = Object.assign({}, { ...shots });
+      currentPlayer === socket.id ? newShots.opponentShots.push(shotResult) : newShots.myShots.push(shotResult);
+      setShots(newShots);
       checkIfItIsMyTurn(currentPlayer as string);
     });
-  });
+  }, [shots, socket]);
 
   useEffect(() => {
-    socket?.once('startGame', (currentPlayer) => {
+    socket?.once('Winner', () => {
+      console.log('Winner');
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on('startGame', (currentPlayer) => {
       setGameStarted(true);
       checkIfItIsMyTurn(currentPlayer as string);
     });
@@ -47,6 +56,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     handleShot,
     isMyTurn,
     isGameStarted,
+    checkIfItIsMyTurn,
   };
 
   return <GameContext.Provider value={gameContext}>{children}</GameContext.Provider>;
