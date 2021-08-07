@@ -22,13 +22,13 @@ const Wrapper = styled.div`
 
 const UserGameBoard = () => {
   const { ships } = useContext(ShipsContext);
-  const { shots } = useContext(GameContext);
+  const { opponentShots } = useContext(GameContext);
   const { boardSize } = useContext(ShipsContext);
 
   return (
     <Wrapper boardSize={boardSize}>
       <UserBoard ships={ships} boardSize={boardSize} />
-      <OpponentShotsBoard shots={shots.opponentShots} boardSize={boardSize} />
+      <OpponentShotsBoard shots={opponentShots} boardSize={boardSize} />
     </Wrapper>
   );
 };

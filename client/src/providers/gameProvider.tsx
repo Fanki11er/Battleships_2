@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Coordinates } from '../Class/BattleShip';
-import { Shot, ShotResult, Shots } from '../Types/types';
+import { Result, Shot, ShotResult, Shots } from '../Types/types';
 import { SocketContext } from './socketProvider';
 
 export const GameContext = createContext({
-  shots: {} as Shots,
+  myShots: [] as ShotResult[],
+  opponentShots: [] as ShotResult[],
   handleShot: (coordinates: Coordinates) => {},
   isMyTurn: false,
   isGameStarted: false,
@@ -13,19 +14,34 @@ export const GameContext = createContext({
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
-  const [shots, setShots] = useState<Shots>({ myShots: [], opponentShots: [] });
+  //const [shots, setShots] = useState<Shots>({ myShots: [], opponentShots: [] });
+  const [myShots, setShots] = useState<ShotResult[]>([]);
+  const [opponentShots, setOpponentShots] = useState<ShotResult[]>([]);
   const { socket } = useContext(SocketContext);
   const [isGameStarted, setGameStarted] = useState<boolean>(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
 
   useEffect(() => {
+    socket?.once('shotResult', (result: Result) => {
+      const { shotResult, currentPlayer } = result;
+      if (shotResult.userId === socket.id) {
+        setShots([...myShots, shotResult]);
+      } else {
+        setOpponentShots([...opponentShots, shotResult]);
+      }
+
+      checkIfItIsMyTurn(currentPlayer as string);
+    });
+  }, [myShots, opponentShots, socket]);
+
+  /*useEffect(() => {
     socket?.once('shotResult', ({ shotResult, currentPlayer }) => {
       let newShots = Object.assign({}, { ...shots });
       currentPlayer === socket.id ? newShots.opponentShots.push(shotResult) : newShots.myShots.push(shotResult);
       setShots(newShots);
       checkIfItIsMyTurn(currentPlayer as string);
     });
-  }, [shots, socket]);
+  }, [shots, socket]);*/
 
   useEffect(() => {
     socket?.once('Winner', () => {
@@ -52,7 +68,8 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   };
 
   const gameContext = {
-    shots,
+    myShots,
+    opponentShots,
     handleShot,
     isMyTurn,
     isGameStarted,

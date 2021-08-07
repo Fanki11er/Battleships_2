@@ -47,6 +47,11 @@ export type ShotResult = {
   userId: string;
 };
 
+export type Result = {
+  shotResult: ShotResult;
+  currentPlayer: string;
+};
+
 export type Shots = {
   myShots: ShotResult[];
   opponentShots: ShotResult[];

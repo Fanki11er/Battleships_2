@@ -57,7 +57,7 @@ const UserTargetingBackgroundBoard = (props: Props) => {
       cellsArray.push(TargetCell);
     }
 
-    return cellsArray.map((_, index) => (
+    return cellsArray.map((cell, index) => (
       <TargetCell key={index}>
         <Image src={radar} alt={'radar image'} />
       </TargetCell>

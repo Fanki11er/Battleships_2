@@ -12,6 +12,7 @@ type Props = {
 
 type BoardProps = {
   boardSize: number;
+  shots: ShotResult[];
 };
 
 const Board = styled(StyledBoard)`
@@ -21,6 +22,7 @@ const Board = styled(StyledBoard)`
   position: absolute;
   left: 0;
   top: 0;
+  //background-color: ${(props: StyledProps & BoardProps) => (props.shots.length ? 'transparent' : `rgba(1,1,1,0.1)`)};
 `;
 
 const Image = styled.img`
@@ -41,7 +43,11 @@ const OpponentShotsBoard = (props: Props & BoardProps) => {
     });
   };
 
-  return <Board boardSize={boardSize}>{renderShots(shots)}</Board>;
+  return (
+    <Board boardSize={boardSize} shots={shots}>
+      {shots.length && renderShots(shots)}
+    </Board>
+  );
 };
 
 export default OpponentShotsBoard;
