@@ -10,6 +10,7 @@ export const GameContext = createContext({
   isMyTurn: false,
   isGameStarted: false,
   checkIfItIsMyTurn: (currentPlayer: string) => {},
+  winner: '',
 });
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
@@ -20,6 +21,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { socket } = useContext(SocketContext);
   const [isGameStarted, setGameStarted] = useState<boolean>(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
+  const [winner, setWinner] = useState('');
 
   useEffect(() => {
     socket?.once('shotResult', (result: Result) => {
@@ -44,8 +46,8 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   }, [shots, socket]);*/
 
   useEffect(() => {
-    socket?.once('Winner', () => {
-      console.log('Winner');
+    socket?.once('Winner', (winner) => {
+      setWinner(winner);
     });
   }, [socket]);
 
@@ -74,6 +76,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     isMyTurn,
     isGameStarted,
     checkIfItIsMyTurn,
+    winner,
   };
 
   return <GameContext.Provider value={gameContext}>{children}</GameContext.Provider>;
