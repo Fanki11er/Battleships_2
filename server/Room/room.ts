@@ -82,10 +82,20 @@ export class Room {
     return false;
   }
 
+  resetUsers() {
+    this.users=[]
+  }
+
   startGame = () => {
     this.game = new Game(this.boards, this.users);
   };
   getGame = () => {
     return this.game;
   };
+  endGame = ()=> {
+    this.game = undefined;
+    this.boards.forEach((board)=> {
+      board.resetBoard();
+    })
+  }
 }

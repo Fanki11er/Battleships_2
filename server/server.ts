@@ -40,7 +40,7 @@ server.listen(PORT, () => {
 //? User Connection //
 
 io.on("connection", (socket) => {
-  io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
+ // io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
   socket.on("joinRoom", ({ userName, roomName }) => {
     const user = new User(userName, socket.id);
     socket.join(roomName);
@@ -50,6 +50,10 @@ io.on("connection", (socket) => {
     socket.emit("connectionAccepted", roomName);
     io.emit("userStatus", Helpers.sanitizeRooms(rooms));
   });
+
+  socket.on("getRoomsList",()=> {
+    io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
+  })
 
   socket.on("usersJoinTheRoom", (roomName) => {
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
@@ -116,9 +120,13 @@ io.on("connection", (socket) => {
     }
     if (winner && selectedRoom) {
       io.to(selectedRoom.getRoomName()).emit("Winner", winner);
-      //!Add end of the game
+      setTimeout(()=> {
+        io.to(selectedRoom.getRoomName()).emit("GameEnded");
+        selectedRoom.endGame();
+        selectedRoom.resetUsers();
+      },5000)
     }
-  });
+  })
 
   //? User disconnection //
 

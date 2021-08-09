@@ -21,7 +21,7 @@ export const StandardButton = styled.button`
   font-weight: bold;
   color: ${(props: StyledProps & Props) => choseColor(props)};
   background-color: transparent;
-  user-select: ${(props: StyledProps & Props) => (props.isActive ? 'initial' : 'none')};
+  user-select: ${(props: StyledProps & Props) => (props.isActive ? 'auto' : 'none')};
   &:hover {
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
@@ -32,13 +32,13 @@ export const ReadyButton = styled(StandardButton)`
   animation-duration: 2s;
   animation-fill-mode: forwards;*/
 
-  &.show {
+  &.shows {
     visibility: hidden;
     opacity: 0;
     animation-name: show;
     animation-duration: 1s;
     animation-fill-mode: forwards;
-    @keyframes show {
+    @keyframes shows {
       to {
         visibility: visible;
         opacity: 1;

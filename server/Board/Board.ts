@@ -3,30 +3,13 @@ import { Coordinates, Ship } from "../Helpers/Types";
 
 export class Board {
   private userId: string = "";
-  //private cells: Cell[] = [];
   private ships: BattleShip[] = [];
   private usedCoordinates: Coordinates[] = [];
   private sunkShips = 0;
   constructor() {
-    //this.fillCells(size)
   }
 
-  /*fillCells(size: number){
-       const coordinates = this.makeCoordinates(size);
-       coordinates.forEach((coordinate)=>{
-           this.cells.push(new Cell(coordinate))
-       })
-    }*/
-
-  /*makeCoordinates(size: number) {
-        const coordinates: Coordinates[] = [];
-        for (let i = 0; i < size; i++) {
-          for (let j = 0; j < size; j++) {
-            coordinates.push({ x: i, y: j });
-          }
-        }
-        return coordinates;
-      };*/
+ 
 
   pushShips(ships: Ship[]) {
     ships.forEach(({ coordinates, size }) => {
@@ -47,22 +30,14 @@ export class Board {
     this.userId = "";
     this.sunkShips = 0;
     this.usedCoordinates = [];
-    /* this.cells.forEach((cell)=> {
-            cell.resetCell();
-        })*/
+ 
   }
+
+ 
   getUserId() {
     return this.userId;
   }
 
-  /* public selectCell = (coordinates: Coordinates)=> {
-        const {x,y} = coordinates;
-        let cell: Cell | undefined;
-        cell  = this.cells.find((cell)=> {
-           return cell.getCoordinates().x === x && cell.getCoordinates().y === y;
-        })
-        return cell;
-    }*/
 
   notUsedCoordinates = (coordinates: Coordinates) => {
     const { x, y } = coordinates;
@@ -115,45 +90,5 @@ this.usedCoordinates.push(coordinates);
   };
 }
 
-/*class Cell {
-    private coordinates: Coordinates = {x:0, y:0}
-    private isEmpty = false;
-    private isForbidden = false;
-    private status: Status = "notTouched"
-    constructor(coordinates: Coordinates){
-        this.coordinates.x = coordinates.x;
-        this.coordinates.y = coordinates.y;
-    }
-getStatus(){
-    return this.status;
-}
-changeStatus(){
-    if(!this.isEmpty){
-        this.status = 'hit'; 
-    }
-    else {
-        this.status = 'miss';
-    }
-    return this.getStatus()
-}
-isAvailable(){
-    if(this.isEmpty && !this.isForbidden){
-        return true;
-    }
-    return false;
-}
-
-resetCell(){
-    this.isEmpty = true;
-    this.isForbidden = false;
-    this.status = "notTouched";
-}
-
-getCoordinates = ()=> {
-    return this.coordinates;
-}
-
-
-}*/
 
 export type Status = "miss" | "hit" | "notTouched";

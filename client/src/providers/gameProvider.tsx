@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Coordinates } from '../Class/BattleShip';
-import { Result, Shot, ShotResult, Shots } from '../Types/types';
+import { Result, Shot, ShotResult } from '../Types/types';
 import { SocketContext } from './socketProvider';
 
 export const GameContext = createContext({
@@ -15,7 +15,6 @@ export const GameContext = createContext({
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
-  //const [shots, setShots] = useState<Shots>({ myShots: [], opponentShots: [] });
   const [myShots, setShots] = useState<ShotResult[]>([]);
   const [opponentShots, setOpponentShots] = useState<ShotResult[]>([]);
   const { socket } = useContext(SocketContext);
@@ -36,27 +35,35 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     });
   }, [myShots, opponentShots, socket]);
 
-  /*useEffect(() => {
-    socket?.once('shotResult', ({ shotResult, currentPlayer }) => {
-      let newShots = Object.assign({}, { ...shots });
-      currentPlayer === socket.id ? newShots.opponentShots.push(shotResult) : newShots.myShots.push(shotResult);
-      setShots(newShots);
-      checkIfItIsMyTurn(currentPlayer as string);
-    });
-  }, [shots, socket]);*/
-
   useEffect(() => {
-    socket?.once('Winner', (winner) => {
+    socket?.on('Winner', (winner) => {
       setWinner(winner);
     });
+
+    return () => {
+      socket?.off('Winner');
+    };
   }, [socket]);
 
   useEffect(() => {
-    socket?.on('startGame', (currentPlayer) => {
+    socket?.once('startGame', (currentPlayer) => {
       setGameStarted(true);
       checkIfItIsMyTurn(currentPlayer as string);
     });
   });
+
+  useEffect(() => {
+    socket?.on('GameEnded', () => {
+      setGameStarted(false);
+      setShots([]);
+      setOpponentShots([]);
+      setIsMyTurn(false);
+      setWinner('');
+    });
+    return () => {
+      socket?.off('GameEnded');
+    };
+  }, [socket]);
   const handleShot = (coordinates: Coordinates) => {
     socket?.emit('shot', { coordinates, userId: socket.id } as Shot);
   };

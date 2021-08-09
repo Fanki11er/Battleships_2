@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoseStatus, WonStatus } from '../../components/Atoms/EndGameStatus/EndGameStatus';
 import TurnIndicator from '../../components/Atoms/TurnIndicator/TurnIndicator';
@@ -8,6 +9,7 @@ import UserGameBoard from '../../components/Organisms/UserGameBoard/UserGameBoar
 import useModal from '../../Hooks/useModal';
 import { GameContext } from '../../providers/gameProvider';
 import { SocketContext } from '../../providers/socketProvider';
+import { routes } from '../../router/routes';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,8 +20,9 @@ const Wrapper = styled.div`
 `;
 
 const Game = () => {
+  const { roomsList } = routes;
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const { winner } = useContext(GameContext);
+  const { winner, isGameStarted } = useContext(GameContext);
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
@@ -30,7 +33,11 @@ const Game = () => {
     return () => {
       handleCloseModal();
     };
-  }, [winner]);
+  }, [winner, handleCloseModal, handleOpenModal]);
+
+  if (!isGameStarted) {
+    return <Redirect to={{ pathname: roomsList }} />;
+  }
   return (
     <Wrapper>
       <UserGameBoard />

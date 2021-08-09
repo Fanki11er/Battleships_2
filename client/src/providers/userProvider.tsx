@@ -1,9 +1,11 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { createContext } from 'react';
 
 export const UserContext = createContext({
   userName: '' as string,
+  roomName: '' as string,
   handleSetUserName: (userName: string) => {},
+  handleSetRoomName: (roomName: string) => {},
 });
 
 type Props = {
@@ -13,14 +15,21 @@ type Props = {
 const UserProvider = (props: React.PropsWithChildren<ReactNode> & Props) => {
   const { children } = props;
   const [userName, setUserName] = useState(props.default || '');
+  const [roomName, setRoomName] = useState('');
 
-  const handleSetUserName = (userName: string) => {
+  const handleSetUserName = useCallback((userName: string) => {
     setUserName(userName);
+  }, []);
+
+  const handleSetRoomName = (roomName: string) => {
+    setRoomName(roomName);
   };
 
   const userContext = {
     userName,
+    roomName,
     handleSetUserName,
+    handleSetRoomName,
   };
 
   return <UserContext.Provider value={userContext}>{children}</UserContext.Provider>;

@@ -6,4 +6,4 @@ export default {
   component: RoomsList,
 } as Meta;
 
-export const Empty: Story = (args: Args) => <RoomsList userName={'Krzysiek'} {...args} />;
+export const Empty: Story = (args: Args) => <RoomsList {...args} />;

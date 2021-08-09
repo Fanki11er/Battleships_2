@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
 import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition, makeCoordinates } from '../Helpers/Helpers';
@@ -11,6 +11,7 @@ export const ShipsContext = createContext({
   moveShip: (coordinates: Coordinates, identifier: Identifier) => {},
   canMoveShip: (identifier: Identifier, coordinates: Coordinates, hasShip: boolean): boolean => false,
   handleShipRotate: (identifier: number | undefined) => {},
+  handleResetShips: () => {},
   boardSize: 0,
 });
 
@@ -98,6 +99,11 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     }
   };
 
+  const handleResetShips = useCallback(() => {
+    setShipsToTake(createShipsList(shipsList));
+    setShips([]);
+  }, []);
+
   const shipsContext = {
     shipsToTake,
     ships,
@@ -105,6 +111,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     moveShip,
     canMoveShip,
     handleShipRotate,
+    handleResetShips,
     boardSize: BOARD_SIZE,
   };
   return <ShipsContext.Provider value={shipsContext}>{children}</ShipsContext.Provider>;

@@ -15,6 +15,8 @@ export const Board = styled(StyledBoard)`
   position: absolute;
   left: 0;
   top: 0;
+  color: transparent;
+  font-size: 0;
 `;
 
 export const Image = styled.img`
