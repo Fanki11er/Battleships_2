@@ -4,6 +4,7 @@ import miss from '../../../assets/Images/miss-image.svg';
 import radar from '../../../assets/Images/radar-image.svg';
 import { Board, Image, ResultCell, TargetCell } from './UserTargetingBackgroundBoard.styles';
 import { useCallback } from 'react';
+import { v4 as uniqId } from 'uuid';
 
 type Props = {
   shots: ShotResult[];
@@ -15,7 +16,7 @@ const UserTargetingBackgroundBoard = (props: Props) => {
   const renderShots = useCallback((shots: ShotResult[]) => {
     return shots.map(({ coordinates, status }) => {
       return (
-        <ResultCell coordinates={coordinates} key={`${coordinates.x}${coordinates.y}`}>
+        <ResultCell coordinates={coordinates} key={uniqId()}>
           {status === 'hit' && <Image src={hit} alt={'hit image'} />}
           {status === 'miss' && <Image src={miss} alt={'miss image'} />}
         </ResultCell>
@@ -36,8 +37,8 @@ const UserTargetingBackgroundBoard = (props: Props) => {
       cellsArray.push(TargetCell);
     }
 
-    return cellsArray.map((_, index) => (
-      <TargetCell key={index}>
+    return cellsArray.map(() => (
+      <TargetCell key={uniqId()}>
         <Image src={radar} alt={'radar image'} />
       </TargetCell>
     ));
