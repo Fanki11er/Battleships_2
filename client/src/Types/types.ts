@@ -56,3 +56,9 @@ export type Shots = {
   myShots: ShotResult[];
   opponentShots: ShotResult[];
 };
+
+export type shipsLeftListElement = {
+  size: number;
+  isSunk: boolean;
+  id: string;
+};
