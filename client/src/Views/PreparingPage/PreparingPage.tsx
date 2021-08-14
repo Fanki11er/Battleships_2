@@ -2,7 +2,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ShipsContext } from '../../providers/shipsProvider';
 import ShipsList from '../../components/Molecules/ShipsList/ShipsList';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import { SocketContext } from '../../providers/socketProvider';
 import { useEffect } from 'react';
@@ -18,7 +18,6 @@ import { UserContext } from '../../providers/userProvider';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
-  //const { state } = useLocation();
   const { isGameStarted } = useContext(GameContext);
   const { socket } = useContext(SocketContext);
   const { ships, handleResetShips } = useContext(ShipsContext);
@@ -26,10 +25,7 @@ const PreparingPage = () => {
   const [isCancelled, setIsCanceled] = useState(false);
   const { roomName } = useContext(UserContext);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
-  //const [gameStarted, setGameStarted] = useState<boolean>(false);
 
-  //const linkState = state as any;
-  //const roomName = linkState ? linkState.roomName : '';
   useEffect(() => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {

@@ -21,9 +21,9 @@ const UserProvider = (props: React.PropsWithChildren<ReactNode> & Props) => {
     setUserName(userName);
   }, []);
 
-  const handleSetRoomName = (roomName: string) => {
+  const handleSetRoomName = useCallback((roomName: string) => {
     setRoomName(roomName);
-  };
+  }, []);
 
   const userContext = {
     userName,

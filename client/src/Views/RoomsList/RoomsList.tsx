@@ -14,14 +14,13 @@ type Status = 'loading' | 'ready' | 'error';
 const RoomsList = () => {
   const { room, landingPage } = routes;
   const [roomsList, setRoomsList] = useState<RoomType[]>([]);
-  //const [roomToJoin, setRoomToJoin] = useState('');
   const { socket } = useContext(SocketContext);
   const [status, setStatus] = useState<Status>('loading');
   const { userName, roomName, handleSetRoomName } = useContext(UserContext);
 
   useEffect(() => {
     handleSetRoomName('');
-  }, []);
+  }, [handleSetRoomName]);
 
   useEffect(() => {
     socket?.connect();
@@ -31,7 +30,6 @@ const RoomsList = () => {
       rooms.length ? setStatus('ready') : setStatus('error');
     });
     socket?.once('connectionAccepted', (roomName: string) => {
-      //setRoomToJoin(roomName);
       handleSetRoomName(roomName);
     });
     socket?.on('userStatus', (rooms) => {
@@ -42,7 +40,7 @@ const RoomsList = () => {
       socket?.off('userStatus');
       socket?.off('connectionAccepted');
     };
-  }, [socket]);
+  }, [socket, handleSetRoomName]);
 
   const handleJoinToTheRoom = (roomName: string) => {
     socket?.emit('joinRoom', { userName: userName, roomName });

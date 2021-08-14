@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { Coordinates } from '../Class/BattleShip';
 import { ShipListCreator, shipsList } from '../Data/shipsList';
 import { Result, shipsLeftListElement, Shot, ShotResult } from '../Types/types';
@@ -29,6 +29,43 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [isMyTurn, setIsMyTurn] = useState(false);
   const [winner, setWinner] = useState('');
 
+  const checkIfItIsMyTurn = useCallback(
+    (currentTurnId: string) => {
+      if (currentTurnId === socket?.id) {
+        setIsMyTurn(true);
+      } else {
+        setIsMyTurn(false);
+      }
+    },
+    [socket]
+  );
+
+  const handleSunkShip = useCallback(
+    (userId: string, size: number) => {
+      console.log('SUNK');
+      if (userId === socket?.id) {
+        const opponentList = [...opponentShipsList];
+        for (let i = 0; i < opponentList.length; i++) {
+          if (!opponentList[i].isSunk && opponentList[i].size === size) {
+            opponentList[i].isSunk = true;
+            return;
+          }
+        }
+        setOpponentShipsList(opponentList);
+      } else {
+        const myList = [...myShipsList];
+        for (let i = 0; i < myList.length; i++) {
+          if (!myList[i].isSunk && myList[i].size === size) {
+            myList[i].isSunk = true;
+            return;
+          }
+        }
+        setMyShipsList(myList);
+      }
+    },
+    [myShipsList, opponentShipsList, socket]
+  );
+
   useEffect(() => {
     socket?.once('shotResult', (result: Result) => {
       const { shotResult, currentPlayer } = result;
@@ -44,7 +81,10 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
       checkIfItIsMyTurn(currentPlayer as string);
     });
-  }, [myShots, opponentShots, socket]);
+    return () => {
+      socket?.off('shotResult');
+    };
+  }, [myShots, opponentShots, socket, checkIfItIsMyTurn, handleSunkShip]);
 
   useEffect(() => {
     socket?.on('Winner', (winner) => {
@@ -84,14 +124,6 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     createShipsLists(shipsList);
   }, []);
 
-  const checkIfItIsMyTurn = (currentTurnId: string) => {
-    if (currentTurnId === socket?.id) {
-      setIsMyTurn(true);
-    } else {
-      setIsMyTurn(false);
-    }
-  };
-
   const createShipsLists = (shipsList: ShipListCreator[]) => {
     const myList: shipsLeftListElement[] = [];
     const opponentsList: shipsLeftListElement[] = [];
@@ -103,28 +135,6 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     });
     setMyShipsList(myList);
     setOpponentShipsList(opponentsList);
-  };
-
-  const handleSunkShip = (userId: string, size: number) => {
-    if (userId === socket?.id) {
-      const opponentList = [...opponentShipsList];
-      for (let i = 0; i < opponentList.length; i++) {
-        if (!opponentList[i].isSunk && opponentList[i].size === size) {
-          opponentList[i].isSunk = true;
-          break;
-        }
-      }
-      setOpponentShipsList(opponentList);
-    } else {
-      const myList = [...myShipsList];
-      for (let i = 0; i < myList.length; i++) {
-        if (!myList[i].isSunk && myList[i].size === size) {
-          myList[i].isSunk = true;
-          break;
-        }
-      }
-      setMyShipsList(myList);
-    }
   };
 
   const gameContext = {

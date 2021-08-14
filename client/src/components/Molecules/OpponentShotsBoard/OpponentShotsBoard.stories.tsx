@@ -15,6 +15,7 @@ const mockedShots: ShotResult[] = [
     },
     status: 'miss',
     userId: '0',
+    sunkShip: 0,
   },
   {
     coordinates: {
@@ -23,6 +24,7 @@ const mockedShots: ShotResult[] = [
     },
     status: 'hit',
     userId: '0',
+    sunkShip: 0,
   },
 ];
 
