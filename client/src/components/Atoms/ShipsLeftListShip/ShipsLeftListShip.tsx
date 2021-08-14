@@ -24,6 +24,7 @@ const ShipContainer = styled.div`
   &::after {
     content: '';
     background-color: ${(props: StyledProps & Pick<Props, 'isSunk'>) => (props.isSunk ? props.theme.colors.transparentRed : 'transparent')};
+    transition: background-color 0.5s;
     position: absolute;
     left: 0;
     top: 0;

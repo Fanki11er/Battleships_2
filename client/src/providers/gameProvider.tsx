@@ -47,6 +47,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const handlePreparationCancel = useCallback(
     (roomName: string) => {
       setIsPreparationCanceled(true);
+      setGameStarted(false);
       socket?.emit('leaveTheRoom', roomName);
     },
     [socket]

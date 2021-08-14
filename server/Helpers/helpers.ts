@@ -1,3 +1,4 @@
+import { Server } from 'socket.io'
 import { Room } from "../Room/room";
 import { RoomInfo } from "./Types";
 
@@ -60,7 +61,23 @@ export class Helpers {
       }
     })
   }
+
+
+  public static cancelGame = (selectedRoom: Room, io: Server)=> {
+    selectedRoom.getUsers().forEach((user)=> {
+      selectedRoom.getGame()?.setTheWinner(user.getId())
+    })
+    const winner = selectedRoom.getGame()!.isSomeBodyWon();
+    io.to(selectedRoom.getRoomName()).emit("Winner", winner);
+    setTimeout(() => {
+      io.to(selectedRoom.getRoomName()).emit("GameEnded");
+      selectedRoom.endGame();
+      selectedRoom.resetUsers();
+    }, 5000);
+  }
 }
+
+
 
 
 

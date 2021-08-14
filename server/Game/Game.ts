@@ -57,6 +57,10 @@ export class Game {
     //!Error handler
   };
 
+  setTheWinner = (winner: string)=> {
+    this.theWinner = winner
+  }
+
   isSomeBodyWon = () => {
     return this.theWinner;
   };

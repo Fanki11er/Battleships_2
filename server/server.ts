@@ -40,7 +40,6 @@ server.listen(PORT, () => {
 //? User Connection //
 
 io.on("connection", (socket) => {
-  // io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
   socket.on("joinRoom", ({ userName, roomName }) => {
     const user = new User(userName, socket.id);
     socket.join(roomName);
@@ -75,6 +74,9 @@ io.on("connection", (socket) => {
         "usersStatusInRoom",
         selectedRoom.getUsers()
       );
+      if(selectedRoom?.getGame()){
+      Helpers.cancelGame(selectedRoom, io)
+      }
   });
 
   socket.on("setBoard", (ships) => {
@@ -135,9 +137,15 @@ io.on("connection", (socket) => {
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     Helpers.removeDisconnectedUser(rooms, socket.id);
     Helpers.resetBoard(socket.id, selectedRoom);
+
+    if(selectedRoom?.getGame()){
+     Helpers.cancelGame(selectedRoom, io)
+    }
+
     socket.leave(roomName);
     socket.broadcast.emit("usersStatusInRoom", selectedRoom?.getUsers());
-
-    io.emit("userStatus", Helpers.sanitizeRooms(rooms));
+    io.emit("userStatus", Helpers.sanitizeRooms(rooms));  
   });
 });
+
+

@@ -18,7 +18,7 @@ const CancelButtonWrapper = () => {
   const { pathname } = useLocation();
   const { handlePreparationCancel } = useContext(GameContext);
   const { roomName } = useContext(UserContext);
-  const { room } = routes;
+  const { room, game } = routes;
 
   const switchButton = (pathname: string) => {
     switch (pathname) {
@@ -26,6 +26,14 @@ const CancelButtonWrapper = () => {
         return (
           <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
             Leave room
+          </CancelButton>
+        );
+      }
+
+      case game: {
+        return (
+          <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
+            Cancel game
           </CancelButton>
         );
       }
