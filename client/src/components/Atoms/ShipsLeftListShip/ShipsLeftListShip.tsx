@@ -32,6 +32,19 @@ const ShipContainer = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    border: 3px solid transparent;
+    animation-name: ${(props: StyledProps & Pick<Props, 'isSunk'>) => (props.isSunk ? 'select' : 'none')};
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+
+    @keyframes select {
+      30% {
+        border: 3px solid ${(props: StyledProps) => props.theme.colors.orange};
+      }
+      100% {
+        border: 3px transparent;
+      }
+    }
   }
 `;
 

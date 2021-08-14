@@ -5,4 +5,4 @@ export default {
   title: '/Components/Atoms/UserInfo',
   component: UserInfo,
 } as Meta;
-export const Default: Story = (args: Args) => <UserInfo userName={'Krzysiek'} />;
+export const Default: Story = (args: Args) => <UserInfo userName={'Krzysiek'} roomName={'Room#2'} />;

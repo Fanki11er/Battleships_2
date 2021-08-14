@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
     if (selectedRoom)
       io.to(selectedRoom.getRoomName()).emit(
         "usersStatusInRoom",
-        selectedRoom.getUsers()
+        selectedRoom.getUsers() 
       );
   });
 

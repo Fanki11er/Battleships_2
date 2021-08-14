@@ -44,13 +44,24 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     [socket]
   );
 
+  const resetGame = useCallback(() => {
+    setGameStarted(false);
+    setShots([]);
+    setOpponentShots([]);
+    setIsMyTurn(false);
+    setWinner('');
+    createShipsLists(shipsList);
+  }, []);
+
   const handlePreparationCancel = useCallback(
     (roomName: string) => {
       setIsPreparationCanceled(true);
-      setGameStarted(false);
+      //setGameStarted(false);
+      //createShipsLists(shipsList);
+      resetGame();
       socket?.emit('leaveTheRoom', roomName);
     },
-    [socket]
+    [socket, resetGame]
   );
 
   const resetPreparationCancelStatus = useCallback(() => {
@@ -122,17 +133,18 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
   useEffect(() => {
     socket?.on('GameEnded', () => {
-      setGameStarted(false);
+      /*setGameStarted(false);
       setShots([]);
       setOpponentShots([]);
       setIsMyTurn(false);
       setWinner('');
-      createShipsLists(shipsList);
+      createShipsLists(shipsList);*/
+      resetGame();
     });
     return () => {
       socket?.off('GameEnded');
     };
-  }, [socket]);
+  }, [socket, resetGame]);
   const handleShot = (coordinates: Coordinates) => {
     socket?.emit('shot', { coordinates, userId: socket.id } as Shot);
   };
