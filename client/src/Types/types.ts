@@ -46,6 +46,7 @@ export type ShotResult = {
   status: Status;
   userId: string;
   sunkShip: number;
+  id: string;
 };
 
 export type Result = {

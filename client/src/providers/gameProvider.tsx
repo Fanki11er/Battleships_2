@@ -42,7 +42,6 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
   const handleSunkShip = useCallback(
     (userId: string, size: number) => {
-      console.log('SUNK');
       if (userId === socket?.id) {
         const opponentList = [...opponentShipsList];
         for (let i = 0; i < opponentList.length; i++) {
@@ -69,6 +68,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   useEffect(() => {
     socket?.once('shotResult', (result: Result) => {
       const { shotResult, currentPlayer } = result;
+      shotResult.id = uuid();
       if (shotResult.userId === socket.id) {
         setShots([...myShots, shotResult]);
       } else {
