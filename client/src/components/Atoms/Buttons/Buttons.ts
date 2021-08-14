@@ -60,3 +60,13 @@ export const ReadyButton = styled(StandardButton)`
     }
   }
 `;
+
+export const CancelButton = styled(StandardButton)`
+  color: ${(props: StyledProps) => props.theme.colors.red};
+  border: 3px solid ${(props: StyledProps) => props.theme.colors.red};
+  cursor: pointer;
+  transition: background-color 1s;
+  &:hover {
+    background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
+  }
+`;
