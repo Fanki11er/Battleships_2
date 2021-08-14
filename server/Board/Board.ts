@@ -63,19 +63,19 @@ this.usedCoordinates.push(coordinates);
           this.addSunkShip();
           return {
             status: "hit" as Status,
-            sunkShipCoordinates: this.ships[i].coordinates,
+            sunkShipSize: this.ships[i].size
           };
         } else {
           return {
             status: "hit" as Status,
-            sunkShipCoordinates: undefined,
+            sunkShipSize: 0,
           };
         }
       }
     }
     return {
       status: "miss" as Status,
-      sunkShipCoordinates: undefined,
+      sunkShipSize: 0,
     };
   };
 

@@ -38,6 +38,10 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
         setOpponentShots([...opponentShots, shotResult]);
       }
 
+      if (shotResult.sunkShip > 0) {
+        handleSunkShip(shotResult.userId, shotResult.sunkShip);
+      }
+
       checkIfItIsMyTurn(currentPlayer as string);
     });
   }, [myShots, opponentShots, socket]);
@@ -102,7 +106,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   };
 
   const handleSunkShip = (userId: string, size: number) => {
-    if (userId !== socket?.id) {
+    if (userId === socket?.id) {
       const opponentList = [...opponentShipsList];
       for (let i = 0; i < opponentList.length; i++) {
         if (!opponentList[i].isSunk && opponentList[i].size === size) {

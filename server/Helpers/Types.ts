@@ -22,17 +22,17 @@ export class ShotResult {
   coordinates: Coordinates;
   status: Status;
   userId: string;
-  sunkShip: Coordinates[] | undefined;
+  sunkShip: number
 
   constructor(coordinates: Coordinates, result: Result, userId: string) {
     this.coordinates = coordinates;
     this.status = result.status;
     this.userId = userId;
-    this.sunkShip = result.sunkShipCoordinates;
+    this.sunkShip = result.sunkShipSize;
   }
 }
 
 export type Result = {
   status: Status;
-  sunkShipCoordinates: Coordinates[] | undefined;
+  sunkShipSize: number
 };

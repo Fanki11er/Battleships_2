@@ -45,6 +45,7 @@ export type ShotResult = {
   coordinates: Coordinates;
   status: Status;
   userId: string;
+  sunkShip: number;
 };
 
 export type Result = {
