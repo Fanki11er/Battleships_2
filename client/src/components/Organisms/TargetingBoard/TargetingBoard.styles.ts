@@ -9,8 +9,9 @@ export const Wrapper = styled.div`
   width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
   height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
   position: relative;
-  grid-column: 3/4;
+  grid-column: 5/6;
   grid-row: 1/2;
-  justify-self: center;
+  justify-self: flex-start;
   align-self: center;
+  margin: 0 20px;
 `;

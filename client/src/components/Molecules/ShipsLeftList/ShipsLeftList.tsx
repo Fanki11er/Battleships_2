@@ -3,11 +3,14 @@ import { shipsLeftListElement } from '../../../Types/types';
 import ShipsLeftListShip from '../../Atoms/ShipsLeftListShip/ShipsLeftListShip';
 
 const Wrapper = styled.ul`
-  width: 150px;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   list-style: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 `;
 type Props = {
   shipsLeft: shipsLeftListElement[];

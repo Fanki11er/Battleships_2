@@ -11,11 +11,12 @@ export const Wrapper = styled.div`
   border: 3px solid ${(props: StyledProps) => props.theme.colors.green};
   border-radius: 15px;
   grid-row: 1/2;
-  grid-column: 2/3;
+  grid-column: 3/4;
   align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-self: center;
 `;
 
 export const TurnInfo = styled.span`

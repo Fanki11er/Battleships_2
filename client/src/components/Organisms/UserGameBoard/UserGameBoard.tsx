@@ -16,8 +16,9 @@ const Wrapper = styled.div`
   position: relative;
   grid-column: 1/2;
   grid-row: 1/2;
-  justify-self: center;
+  justify-self: flex-end;
   align-self: center;
+  margin: 0 20px;
 `;
 
 const UserGameBoard = () => {
