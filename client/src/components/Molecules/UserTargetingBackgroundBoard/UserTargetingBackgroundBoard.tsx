@@ -23,12 +23,6 @@ const UserTargetingBackgroundBoard = (props: Props) => {
     });
   }, []);
 
-  /*const renderSelectedCells = useCallback((boardSize: number, shots: ShotResult[]) => {
-    const numberOfCells = boardSize * boardSize - shots.length;
-    const cellsArray: unknown[] = [];
-    for (let i = 0; i < numberOfCells; i++) {
-      cellsArray.push(TargetCell);
-    }*/
   const renderSelectedCells = (boardSize: number, shots: ShotResult[]) => {
     const numberOfCells = boardSize * boardSize - shots.length;
     const cellsArray: unknown[] = [];

@@ -16,14 +16,14 @@ const MainPage = () => {
   if (pathname === '/main') return <LandingPage />;
   return (
     <Wrapper>
-      <TopWrapper />
-      {pathname === roomsList && <RoomsList />}
-      <ShipsProvider>
-        <GameProvider>
+      <GameProvider>
+        <TopWrapper />
+        {pathname === roomsList && <RoomsList />}
+        <ShipsProvider>
           {pathname === room && <PreparingPage />}
           {pathname === game && <Game />}
-        </GameProvider>
-      </ShipsProvider>
+        </ShipsProvider>
+      </GameProvider>
       <Footer />
     </Wrapper>
   );

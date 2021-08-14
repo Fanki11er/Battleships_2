@@ -8,6 +8,7 @@ import { SocketContext } from '../../providers/socketProvider';
 import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 import { Wrapper } from './RoomsList.styles';
 import { UserContext } from '../../providers/userProvider';
+import { GameContext } from '../../providers/gameProvider';
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -17,10 +18,12 @@ const RoomsList = () => {
   const { socket } = useContext(SocketContext);
   const [status, setStatus] = useState<Status>('loading');
   const { userName, roomName, handleSetRoomName } = useContext(UserContext);
+  const { resetPreparationCancelStatus } = useContext(GameContext);
 
   useEffect(() => {
     handleSetRoomName('');
-  }, [handleSetRoomName]);
+    resetPreparationCancelStatus();
+  }, [handleSetRoomName, resetPreparationCancelStatus]);
 
   useEffect(() => {
     socket?.connect();

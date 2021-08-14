@@ -15,7 +15,10 @@ export const GameContext = createContext({
   isGameStarted: false,
   checkIfItIsMyTurn: (currentPlayer: string) => {},
   handleSunkShip: (userId: string, size: number) => {},
+  handlePreparationCancel: (roomName: string) => {},
+  resetPreparationCancelStatus: () => {},
   winner: '',
+  isPreparationCanceled: false,
 });
 
 const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
@@ -26,6 +29,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [opponentShipsList, setOpponentShipsList] = useState<shipsLeftListElement[]>([]);
   const { socket } = useContext(SocketContext);
   const [isGameStarted, setGameStarted] = useState<boolean>(false);
+  const [isPreparationCanceled, setIsPreparationCanceled] = useState(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
   const [winner, setWinner] = useState('');
 
@@ -39,6 +43,18 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     },
     [socket]
   );
+
+  const handlePreparationCancel = useCallback(
+    (roomName: string) => {
+      setIsPreparationCanceled(true);
+      socket?.emit('leaveTheRoom', roomName);
+    },
+    [socket]
+  );
+
+  const resetPreparationCancelStatus = useCallback(() => {
+    setIsPreparationCanceled(false);
+  }, []);
 
   const handleSunkShip = useCallback(
     (userId: string, size: number) => {
@@ -148,6 +164,9 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     winner,
     myShipsList,
     opponentShipsList,
+    isPreparationCanceled,
+    handlePreparationCancel,
+    resetPreparationCancelStatus,
   };
 
   return <GameContext.Provider value={gameContext}>{children}</GameContext.Provider>;

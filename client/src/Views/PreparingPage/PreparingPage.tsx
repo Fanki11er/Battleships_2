@@ -18,11 +18,10 @@ import { UserContext } from '../../providers/userProvider';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
-  const { isGameStarted } = useContext(GameContext);
+  const { isGameStarted, isPreparationCanceled } = useContext(GameContext);
   const { socket } = useContext(SocketContext);
   const { ships, handleResetShips } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
-  const [isCancelled, setIsCanceled] = useState(false);
   const { roomName } = useContext(UserContext);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
 
@@ -39,11 +38,6 @@ const PreparingPage = () => {
   useEffect(() => {
     handleResetShips();
   }, [handleResetShips]);
-
-  const handleLeaveTheRoom = () => {
-    setIsCanceled(true);
-    socket?.emit('leaveTheRoom', roomName);
-  };
 
   const handleSendBoard = () => {
     socket?.emit('setBoard', ships);
@@ -69,7 +63,7 @@ const PreparingPage = () => {
   };
 
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
-  if (isCancelled) return <Redirect to={{ pathname: roomsRoute }} />;
+  if (isPreparationCanceled) return <Redirect to={{ pathname: roomsRoute }} />;
   if (!socket) return <Redirect to={{ pathname: landingPage }} />;
   if (isGameStarted) return <Redirect to={{ pathname: game }} />;
 
