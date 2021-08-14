@@ -10,6 +10,7 @@ const StyledImage = styled.img`
   grid-column: 1/4;
   grid-row: 1/2;
   justify-self: center;
+  user-select: none;
 
   @keyframes showImage {
     to {

@@ -12,4 +12,5 @@ export const UsedCell = styled.div`
   border: none;
   grid-row: ${(props: CellProps & StyledProps) => `${props.coordinates.x}/${props.coordinates.x + 1}`};
   grid-column: ${(props: CellProps & StyledProps) => `${props.coordinates.y}/${props.coordinates.y + 1}`};
+  user-select: none;
 `;

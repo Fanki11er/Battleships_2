@@ -20,6 +20,7 @@ const ShipContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   &::after {
     content: '';

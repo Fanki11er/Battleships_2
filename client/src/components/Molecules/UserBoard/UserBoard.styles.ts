@@ -6,6 +6,7 @@ export const StyledUserBoard = styled(StyledBoard)`
   height: 500px;
   grid-gap: 0;
   grid-auto-flow: dense;
+  user-select: none;
 `;
 
 export const EmptyCell = styled.div`

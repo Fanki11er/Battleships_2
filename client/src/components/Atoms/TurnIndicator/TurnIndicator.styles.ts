@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   justify-self: center;
+  user-select: none;
 `;
 
 export const TurnInfo = styled.span`

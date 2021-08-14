@@ -65,7 +65,7 @@ export const CancelButton = styled(StandardButton)`
   color: ${(props: StyledProps) => props.theme.colors.red};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.red};
   cursor: pointer;
-  transition: background-color 1s;
+  transition: background-color 0.5s;
   &:hover {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
   }
