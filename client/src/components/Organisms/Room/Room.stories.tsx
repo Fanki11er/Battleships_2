@@ -7,7 +7,7 @@ export default {
   component: Room,
 } as Meta;
 
-const Template: Story = (args) => <Room roomName={'Room_#1'} users={[]} handleJoinToTheRoom={() => {}} {...args} />;
+const Template: Story = (args) => <Room isLocked={false} roomName={'Room_#1'} users={[]} handleJoinToTheRoom={() => {}} {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

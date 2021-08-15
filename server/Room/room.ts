@@ -8,12 +8,22 @@ export class Room {
   private roomName;
   private boards: Board[] = [];
   private game: Game | undefined;
+  private isLocked: boolean;
 
   constructor(roomName: string) {
     this.roomName = roomName;
+    this.isLocked = false;
     for (let i = 0; i < 2; i++) {
       this.boards.push(new Board());
     }
+  }
+
+  getIsLocked() {
+    return this.isLocked;
+  }
+
+  setIsLocked(isLocked: boolean) {
+    this.isLocked = isLocked;
   }
   public getRoomName() {
     return this.roomName;
@@ -48,6 +58,7 @@ export class Room {
     return {
       users: this.users,
       roomName: this.roomName,
+      isLocked: this.isLocked,
     };
   }
 
