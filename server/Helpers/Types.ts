@@ -1,17 +1,15 @@
-import { BattleShip } from "../Battleship/Battleship";
-import { Status } from "../Board/Board";
+import { BattleShip } from '../Battleship/Battleship';
+import { Status } from '../Board/Board';
 
 export type RoomInfo = {
   roomName: String;
   users: string[];
 };
-export type UserStatus = "preparing" | "ready" | "";
+export type UserStatus = 'preparing' | 'ready' | '';
 export type Coordinates = { x: number; y: number };
-export type Position = "horizontal" | "vertical";
+export type Position = 'horizontal' | 'vertical';
 
-export type Ship = Omit<BattleShip, "isSunk"> &
-  Omit<BattleShip, "hits"> &
-  Position;
+export type Ship = Omit<BattleShip, 'isSunk'> & Omit<BattleShip, 'hits'> & Position;
 
 export type Shot = {
   coordinates: Coordinates;
@@ -22,7 +20,7 @@ export class ShotResult {
   coordinates: Coordinates;
   status: Status;
   userId: string;
-  sunkShip: number
+  sunkShip: number;
 
   constructor(coordinates: Coordinates, result: Result, userId: string) {
     this.coordinates = coordinates;
@@ -34,5 +32,5 @@ export class ShotResult {
 
 export type Result = {
   status: Status;
-  sunkShipSize: number
+  sunkShipSize: number;
 };

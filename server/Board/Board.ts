@@ -1,15 +1,12 @@
-import { BattleShip } from "../Battleship/Battleship";
-import { Coordinates, Ship } from "../Helpers/Types";
+import { BattleShip } from '../Battleship/Battleship';
+import { Coordinates, Ship } from '../Helpers/Types';
 
 export class Board {
-  private userId: string = "";
+  private userId: string = '';
   private ships: BattleShip[] = [];
   private usedCoordinates: Coordinates[] = [];
   private sunkShips = 0;
-  constructor() {
-  }
-
- 
+  constructor() {}
 
   pushShips(ships: Ship[]) {
     ships.forEach(({ coordinates, size }) => {
@@ -27,17 +24,14 @@ export class Board {
 
   resetBoard() {
     this.ships = [];
-    this.userId = "";
+    this.userId = '';
     this.sunkShips = 0;
     this.usedCoordinates = [];
- 
   }
 
- 
   getUserId() {
     return this.userId;
   }
-
 
   notUsedCoordinates = (coordinates: Coordinates) => {
     const { x, y } = coordinates;
@@ -49,9 +43,9 @@ export class Board {
     return true;
   };
 
-  public addUsedCoordinates = (coordinates: Coordinates)=> {
-this.usedCoordinates.push(coordinates);
-  }
+  public addUsedCoordinates = (coordinates: Coordinates) => {
+    this.usedCoordinates.push(coordinates);
+  };
 
   checkShips = (coordinates: Coordinates) => {
     let isSunk = undefined;
@@ -62,19 +56,19 @@ this.usedCoordinates.push(coordinates);
         if (isSunk) {
           this.addSunkShip();
           return {
-            status: "hit" as Status,
-            sunkShipSize: this.ships[i].size
+            status: 'hit' as Status,
+            sunkShipSize: this.ships[i].size,
           };
         } else {
           return {
-            status: "hit" as Status,
+            status: 'hit' as Status,
             sunkShipSize: 0,
           };
         }
       }
     }
     return {
-      status: "miss" as Status,
+      status: 'miss' as Status,
       sunkShipSize: 0,
     };
   };
@@ -90,5 +84,4 @@ this.usedCoordinates.push(coordinates);
   };
 }
 
-
-export type Status = "miss" | "hit" | "notTouched";
+export type Status = 'miss' | 'hit' | 'notTouched';

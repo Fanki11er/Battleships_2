@@ -1,6 +1,6 @@
-import { Server } from 'socket.io'
-import { Room } from "../Room/room";
-import { RoomInfo } from "./Types";
+import { Server } from 'socket.io';
+import { Room } from '../Room/room';
+import { RoomInfo } from './Types';
 
 export class Helpers {
   private static createSingleRoomInfo(room: Room) {
@@ -35,49 +35,43 @@ export class Helpers {
   }
 
   public static findRoomNameByUserId(rooms: Room[], userId: string) {
-    let roomName = "";
-    rooms.forEach((room)=> {
-      const test = room.hasUser(userId)
-      if(room.hasUser(userId)) {
-        
-        roomName = room.getRoomName()
+    let roomName = '';
+    rooms.forEach((room) => {
+      const test = room.hasUser(userId);
+      if (room.hasUser(userId)) {
+        roomName = room.getRoomName();
       }
-    })
-    return roomName
+    });
+    return roomName;
   }
 
- public static sanitizeRooms(rooms: Room[]){
-    const sanitizedRooms: any = []
-    rooms.forEach((room)=> {
-      sanitizedRooms.push(room.getSanitized())
-    })
+  public static sanitizeRooms(rooms: Room[]) {
+    const sanitizedRooms: any = [];
+    rooms.forEach((room) => {
+      sanitizedRooms.push(room.getSanitized());
+    });
     return sanitizedRooms;
   }
 
-  public static resetBoard( userId: string, selectedRoom: Room | undefined,){
-    selectedRoom?.getBoards().forEach((board)=> {
-      if(board.getUserId() === userId){
-        board.resetBoard()
+  public static resetBoard(userId: string, selectedRoom: Room | undefined) {
+    selectedRoom?.getBoards().forEach((board) => {
+      if (board.getUserId() === userId) {
+        board.resetBoard();
       }
-    })
+    });
   }
 
-
-  public static cancelGame = (selectedRoom: Room, io: Server)=> {
-    selectedRoom.getUsers().forEach((user)=> {
-      selectedRoom.getGame()?.setTheWinner(user.getId())
-    })
+  public static cancelGame = (selectedRoom: Room, io: Server) => {
+    selectedRoom.getUsers().forEach((user) => {
+      selectedRoom.getGame()?.setTheWinner(user.getId());
+    });
     const winner = selectedRoom.getGame()!.isSomeBodyWon();
-    io.to(selectedRoom.getRoomName()).emit("Winner", winner);
+    io.to(selectedRoom.getRoomName()).emit('Winner', winner);
     setTimeout(() => {
-      io.to(selectedRoom.getRoomName()).emit("GameEnded");
+      io.to(selectedRoom.getRoomName()).emit('GameEnded');
       selectedRoom.endGame();
       selectedRoom.resetUsers();
+      io.to(selectedRoom.getRoomName()).emit('unlockRoom');
     }, 5000);
-  }
+  };
 }
-
-
-
-
-
