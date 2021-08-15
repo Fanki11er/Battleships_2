@@ -51,7 +51,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("getRoomsList", () => {
-    io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
+    try {
+      io.emit("RoomsList", Helpers.sanitizeRooms(rooms));
+    }
+    catch(err){
+      console.log(err);
+    }
+    
   });
 
   socket.on("usersJoinTheRoom", (roomName) => {
@@ -84,10 +90,15 @@ io.on("connection", (socket) => {
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     let areUsersReady: boolean | undefined = false;
 
+   try{
     const board = selectedRoom?.getFreeBoard();
     board?.pushShips(ships);
     board?.setUserId(socket.id);
     selectedRoom?.changeUserStatus(socket.id, "ready");
+   }
+   catch(err){
+     console.log(err)
+   }
     if (selectedRoom)
       io.to(selectedRoom.getRoomName()).emit(
         "usersStatusInRoom",
