@@ -27,8 +27,8 @@ const UserBoardCell = (props: Props) => {
     const settings: ShipSettings = {
       width: position === 'horizontal' ? `${theme.otherDimensions.cellSizeNumber * size}px` : `${theme.otherDimensions.cellSizeNumber}px`,
       height: position === 'horizontal' ? `${theme.otherDimensions.cellSizeNumber}px` : `${theme.otherDimensions.cellSizeNumber * size}px`,
-      column: position === 'horizontal' ? `${x}/${x + size}` : `${x}/${x + 1}`,
-      row: position === 'horizontal' ? `${y}/${y + 1}` : `${y}/${y + size}`,
+      column: position === 'horizontal' ? `${y}/${y + size}` : `${y}/${y + 1}`,
+      row: position === 'horizontal' ? `${x}/${x + 1}` : `${x}/${x + size}`,
     };
 
     setShipSettings(settings);

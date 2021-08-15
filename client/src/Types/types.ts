@@ -38,5 +38,29 @@ export type Status = 'miss' | 'hit' | '';
 
 export type Shot = {
   coordinates: Coordinates;
+  userId: string;
+};
+
+export type ShotResult = {
+  coordinates: Coordinates;
   status: Status;
+  userId: string;
+  sunkShip: number;
+  id: string;
+};
+
+export type Result = {
+  shotResult: ShotResult;
+  currentPlayer: string;
+};
+
+export type Shots = {
+  myShots: ShotResult[];
+  opponentShots: ShotResult[];
+};
+
+export type shipsLeftListElement = {
+  size: number;
+  isSunk: boolean;
+  id: string;
 };

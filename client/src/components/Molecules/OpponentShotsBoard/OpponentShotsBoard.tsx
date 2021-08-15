@@ -1,50 +1,20 @@
-import styled from 'styled-components';
-import { StyledProps } from '../../../assets/styles/theme';
-import { Coordinates } from '../../../Class/BattleShip';
-import { Shot } from '../../../Types/types';
-import { StyledBoard } from '../Board/Board.styles';
+import { ShotResult } from '../../../Types/types';
 import hit from '../../../assets/Images/hit-image.svg';
 import miss from '../../../assets/Images/miss-image.svg';
+import { UsedCell } from '../../Atoms/UsedCell/UsedCell';
+import { Board, BoardProps, Image } from './OpponentShotBoard.styles';
 
 type Props = {
-  shots: Shot[];
+  shots: ShotResult[];
 };
 
-type CellProps = {
-  coordinates: Coordinates;
-};
-type BoardProps = {
-  boardSize: number;
-};
-
-const Board = styled(StyledBoard)`
-  width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
-  height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
-  grid-gap: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
-
-const UsedCell = styled.div`
-  width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
-  height: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
-  border: none;
-  grid-row: ${(props: CellProps & StyledProps) => `${props.coordinates.x}/1`};
-  grid-column: ${(props: CellProps & StyledProps) => `${props.coordinates.y}/1`};
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-`;
 const OpponentShotsBoard = (props: Props & BoardProps) => {
   const { shots, boardSize } = props;
 
-  const renderShots = (shots: Shot[]) => {
-    return shots.map(({ coordinates, status }) => {
+  const renderShots = (shots: ShotResult[]) => {
+    return shots.map(({ coordinates, status, id }) => {
       return (
-        <UsedCell coordinates={coordinates}>
+        <UsedCell coordinates={coordinates} key={id}>
           {status === 'hit' && <Image src={hit} />}
           {status === 'miss' && <Image src={miss} />}
         </UsedCell>
@@ -52,7 +22,11 @@ const OpponentShotsBoard = (props: Props & BoardProps) => {
     });
   };
 
-  return <Board boardSize={boardSize}>{renderShots(shots)}</Board>;
+  return (
+    <Board boardSize={boardSize} shots={shots}>
+      {shots.length && renderShots(shots)}
+    </Board>
+  );
 };
 
 export default OpponentShotsBoard;

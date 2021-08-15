@@ -1,19 +1,19 @@
 import { Board } from "../Board/Board";
+import { Game } from "../Game/Game";
 import { UserStatus } from "../Helpers/Types";
 import { User } from "../User/user";
 
 export class Room {
   private users: User[] = [];
   private roomName;
-  private boards: Board[] = []
-  private game: any;
+  private boards: Board[] = [];
+  private game: Game | undefined;
 
-  constructor(roomName: string, boardSize: number) {
+  constructor(roomName: string) {
     this.roomName = roomName;
-    for(let i = 0; i< 2; i++){
-      this.boards.push(new Board(boardSize))
+    for (let i = 0; i < 2; i++) {
+      this.boards.push(new Board());
     }
-
   }
   public getRoomName() {
     return this.roomName;
@@ -35,48 +35,67 @@ export class Room {
     });
   }
 
-  hasUser(userId: string){
+  hasUser(userId: string) {
     let hasUser = false;
-    this.users.forEach((user)=> {
-     
-      if(user.getId() === userId)
-      hasUser = true;
-    })
+    this.users.forEach((user) => {
+      if (user.getId() === userId) hasUser = true;
+    });
 
     return hasUser;
   }
 
-  public getSanitized(){
-return {
-  users: this.users,
-  roomName: this.roomName,
-}
+  public getSanitized() {
+    return {
+      users: this.users,
+      roomName: this.roomName,
+    };
   }
 
-  public getFreeBoard(){
-   for(let i=0; i< this.boards.length; i++){
-     if(!this.boards[i].hasUserId()){
-       return this.boards[i]
-     }
-   }
-  }
-
-  getBoards(){
-    return this.boards
-  }
-
-  changeUserStatus(userId: string, status: UserStatus){
-    this.users.forEach((user)=> {
-      if(user.getId() === userId){
-        user.setStatus(status)
+  public getFreeBoard() {
+    for (let i = 0; i < this.boards.length; i++) {
+      if (!this.boards[i].hasUserId()) {
+        return this.boards[i];
       }
-    })
+    }
   }
 
-  areUsersReady(){
-    if(this.users.length === 2 && this.users[0].getStatus()=== 'ready' && this.users[1].getStatus()=== 'ready') {
-      return true
+  getBoards() {
+    return this.boards;
+  }
+
+  changeUserStatus(userId: string, status: UserStatus) {
+    this.users.forEach((user) => {
+      if (user.getId() === userId) {
+        user.setStatus(status);
+      }
+    });
+  }
+
+  areUsersReady() {
+    if (
+      this.users.length === 2 &&
+      this.users[0].getStatus() === "ready" &&
+      this.users[1].getStatus() === "ready"
+    ) {
+      return true;
     }
-    return false
+    return false;
+  }
+
+  resetUsers() {
+    this.users=[]
+  }
+
+  startGame = () => {
+    this.game = new Game(this.boards, this.users);
+  };
+  getGame = () => {
+    return this.game;
+  };
+  endGame = ()=> {
+    this.game = undefined;
+    this.boards.forEach((board)=> {
+      board.resetBoard();
+    })
   }
 }

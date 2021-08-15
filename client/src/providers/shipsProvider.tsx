@@ -1,15 +1,17 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
-import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition } from '../Helpers/Helpers';
+import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition, makeCoordinates } from '../Helpers/Helpers';
 import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
   shipsToTake: [] as ShipsToTake[],
   ships: [] as BattleShip[],
+  coordinates: [] as Coordinates[],
   moveShip: (coordinates: Coordinates, identifier: Identifier) => {},
   canMoveShip: (identifier: Identifier, coordinates: Coordinates, hasShip: boolean): boolean => false,
   handleShipRotate: (identifier: number | undefined) => {},
+  handleResetShips: () => {},
   boardSize: 0,
 });
 
@@ -18,7 +20,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
-  console.log(ships);
+  const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
 
   const addShip = (coordinates: Coordinates, position: Position, size: number) => {
     ships.push(new BattleShip(size, coordinates, position));
@@ -40,8 +42,8 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     const { position, size } = identifier;
     const { x, y } = coordinates;
 
-    if ((position === 'horizontal' && y + size > BOARD_SIZE) || hasShip) return false;
-    if ((position === 'vertical' && x + size > BOARD_SIZE) || hasShip) return false;
+    if ((position === 'horizontal' && y + size - 1 > BOARD_SIZE) || hasShip) return false;
+    if ((position === 'vertical' && x + size - 1 > BOARD_SIZE) || hasShip) return false;
     return true;
   };
 
@@ -59,6 +61,10 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   useEffect(() => {
     setShipsToTake(createShipsList(shipsList));
   }, []);
+
+  useEffect(() => {
+    setCoordinates(makeCoordinates(BOARD_SIZE));
+  }, [BOARD_SIZE]);
 
   const createShipsList = (shipsList: ShipListCreator[]) => {
     const createdShipSList: ShipsToTake[] = [];
@@ -93,12 +99,19 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     }
   };
 
+  const handleResetShips = useCallback(() => {
+    setShipsToTake(createShipsList(shipsList));
+    setShips([]);
+  }, []);
+
   const shipsContext = {
     shipsToTake,
     ships,
+    coordinates,
     moveShip,
     canMoveShip,
     handleShipRotate,
+    handleResetShips,
     boardSize: BOARD_SIZE,
   };
   return <ShipsContext.Provider value={shipsContext}>{children}</ShipsContext.Provider>;

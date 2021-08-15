@@ -5,8 +5,9 @@ import { StyledProps } from '../../../assets/styles/theme';
 const Wrapper = styled.div`
   width: 200px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-end;
+  justify-self: flex-end;
 `;
 
 const StyledImage = styled.img`
@@ -19,15 +20,32 @@ const UserName = styled.div`
   color: ${(props: StyledProps) => props.theme.colors.shipRectangle};
 `;
 
+const RoomName = styled.div`
+  font-weight: bold;
+  font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+  color: ${(props: StyledProps) => props.theme.colors.shipRectangle};
+`;
+
+const NamesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+`;
+
 type Props = {
   userName: string;
+  roomName: string;
 };
 const UserInfo = (props: Props) => {
-  const { userName } = props;
+  const { userName, roomName } = props;
   return (
     <Wrapper>
       <StyledImage src={image} alt={'Captain image'} />
-      <UserName>{userName}</UserName>
+      <NamesWrapper>
+        <UserName>{userName}</UserName>
+        <RoomName>{roomName}</RoomName>
+      </NamesWrapper>
     </Wrapper>
   );
 };

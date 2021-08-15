@@ -16,19 +16,20 @@ const Wrapper = styled.div`
   position: relative;
   grid-column: 1/2;
   grid-row: 1/2;
-  justify-self: center;
+  justify-self: flex-end;
   align-self: center;
+  margin: 0 20px;
 `;
 
 const UserGameBoard = () => {
   const { ships } = useContext(ShipsContext);
-  const { shots } = useContext(GameContext);
+  const { opponentShots } = useContext(GameContext);
   const { boardSize } = useContext(ShipsContext);
 
   return (
     <Wrapper boardSize={boardSize}>
       <UserBoard ships={ships} boardSize={boardSize} />
-      <OpponentShotsBoard shots={shots} boardSize={boardSize} />
+      <OpponentShotsBoard shots={opponentShots} boardSize={boardSize} />
     </Wrapper>
   );
 };

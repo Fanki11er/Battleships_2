@@ -11,7 +11,7 @@ const UserBoard = (props: Props) => {
 
   const renderCellsWithShips = (ships: BattleShip[]) => {
     return ships.map((ship, index) => {
-      return <UserBoardCell ship={ship} key={index} />;
+      return <UserBoardCell ship={ship} key={`${ship.coordinates[0].x}${ship.coordinates[0].y}`} />;
     });
   };
 
@@ -25,7 +25,7 @@ const UserBoard = (props: Props) => {
       cellsArray.push(EmptyCell);
     }
 
-    return cellsArray.map(() => <EmptyCell />);
+    return cellsArray.map((_, index) => <EmptyCell key={index} />);
   };
   return (
     <StyledUserBoard>
