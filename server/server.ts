@@ -95,6 +95,7 @@ io.on('connection', (socket) => {
       selectedRoom.startGame();
       selectedRoom.getGame()?.getCurrentPlayer();
       setTimeout(() => {
+        io.to(selectedRoom.getRoomName()).emit('lockRoom');
         io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
       }, 2000);
     }
@@ -119,6 +120,7 @@ io.on('connection', (socket) => {
         io.to(selectedRoom.getRoomName()).emit('GameEnded');
         selectedRoom.endGame();
         selectedRoom.resetUsers();
+        io.to(selectedRoom.getRoomName()).emit('unlockRoom');
       }, 5000);
     }
   });
@@ -138,5 +140,9 @@ io.on('connection', (socket) => {
     socket.leave(roomName);
     socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
     io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+  });
+
+  io.on('error', (err) => {
+    console.log(err, 'Error');
   });
 });

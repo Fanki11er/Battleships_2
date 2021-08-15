@@ -71,6 +71,7 @@ export class Helpers {
       io.to(selectedRoom.getRoomName()).emit('GameEnded');
       selectedRoom.endGame();
       selectedRoom.resetUsers();
+      io.to(selectedRoom.getRoomName()).emit('unlockRoom');
     }, 5000);
   };
 }
