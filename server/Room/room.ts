@@ -1,7 +1,7 @@
-import { Board } from "../Board/Board";
-import { Game } from "../Game/Game";
-import { UserStatus } from "../Helpers/Types";
-import { User } from "../User/user";
+import { Board } from '../Board/Board';
+import { Game } from '../Game/Game';
+import { UserStatus } from '../Helpers/Types';
+import { User } from '../User/user';
 
 export class Room {
   private users: User[] = [];
@@ -72,18 +72,14 @@ export class Room {
   }
 
   areUsersReady() {
-    if (
-      this.users.length === 2 &&
-      this.users[0].getStatus() === "ready" &&
-      this.users[1].getStatus() === "ready"
-    ) {
+    if (this.users.length === 2 && this.users[0].getStatus() === 'ready' && this.users[1].getStatus() === 'ready') {
       return true;
     }
     return false;
   }
 
   resetUsers() {
-    this.users=[]
+    this.users = [];
   }
 
   startGame = () => {
@@ -92,10 +88,10 @@ export class Room {
   getGame = () => {
     return this.game;
   };
-  endGame = ()=> {
+  endGame = () => {
     this.game = undefined;
-    this.boards.forEach((board)=> {
+    this.boards.forEach((board) => {
       board.resetBoard();
-    })
-  }
+    });
+  };
 }
