@@ -7,6 +7,7 @@ export const theme: Theme = {
     green: '#83B33B',
     okGreen: '#00B45C',
     darkBlue: '#010D26',
+    transparentDarkBlue: 'rgba(1, 13, 38, 0.3)',
     red: '#D91424',
     shipRectangle: '#84A7E8',
     water: '#126A75',
@@ -34,6 +35,7 @@ export type Theme = {
     orange: string;
     green: string;
     darkBlue: string;
+    transparentDarkBlue: string;
     red: string;
     okGreen: string;
     shipRectangle: string;

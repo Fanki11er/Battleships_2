@@ -12,14 +12,15 @@ import Footer from '../../components/Molecules/Footer/Footer';
 const Wrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
-  height: 100vh;
+  height: auto;
   background: url(${backgroundImage});
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
   background-size: cover;
   background-blend-mode: luminosity;
   background-position: 0 40%;
+  background-attachment: fixed;
   display: grid;
-  grid-template-rows: 200px 1fr 100px;
+  grid-template-rows: 200px 100px 300px 400px 100px; ;
 `;
 
 const LandingPage = () => {
@@ -31,10 +32,11 @@ const LandingPage = () => {
     <Wrapper>
       <p></p>
       <p></p>
+      <p></p>
+      <UserNameForm />
       <Footer />
     </Wrapper>
   );
 };
 
 export default LandingPage;
-/*<UserNameForm />*/
