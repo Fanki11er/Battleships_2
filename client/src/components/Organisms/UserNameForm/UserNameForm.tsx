@@ -7,7 +7,7 @@ import { StandardButton } from '../../Atoms/Buttons/Buttons';
 import { StyledProps } from '../../../assets/styles/theme';
 
 const Form = styled.form`
-  width: 550px;
+  width: 500px;
   height: 80px;
   border: 3px solid ${(props: StyledProps) => props.theme.colors.myBlue};
   border-radius: 20px;
@@ -15,7 +15,7 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: 60% 40%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   justify-self: center;
   position: relative;
   z-index: 1;

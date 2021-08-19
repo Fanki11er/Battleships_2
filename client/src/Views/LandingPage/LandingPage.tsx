@@ -8,6 +8,8 @@ import { routes } from '../../router/routes';
 import backgroundImage from '../../assets/Images/landing-page-background.svg';
 import { StyledProps } from '../../assets/styles/theme';
 import Footer from '../../components/Molecules/Footer/Footer';
+import LogoVideo from '../../components/Atoms/LogoVideo/LogoVideo';
+import SamplePictures from '../../components/Atoms/SamplePictures/SamplePictures';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -20,7 +22,23 @@ const Wrapper = styled.div`
   background-position: 0 40%;
   background-attachment: fixed;
   display: grid;
-  grid-template-rows: 200px 100px 300px 400px 100px; ;
+  grid-template-rows: 200px 100px 450px 450px 100px;
+`;
+
+const TopWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  align-items: center;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const LandingPage = () => {
@@ -30,10 +48,17 @@ const LandingPage = () => {
 
   return (
     <Wrapper>
+      <TopWrapper>
+        <LogoVideo />
+        <UserNameForm />
+      </TopWrapper>
       <p></p>
-      <p></p>
-      <p></p>
-      <UserNameForm />
+      <ContentWrapper>
+        <SamplePictures />
+      </ContentWrapper>
+      <ContentWrapper>
+        <p></p>
+      </ContentWrapper>
       <Footer />
     </Wrapper>
   );
