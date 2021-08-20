@@ -10,6 +10,7 @@ const Wrapper = styled.footer`
   grid-template-columns: 20% 60% 20%;
   align-items: center;
   justify-content: center;
+  align-self: flex-end;
 `;
 
 const IconsWrapper = styled.div`
