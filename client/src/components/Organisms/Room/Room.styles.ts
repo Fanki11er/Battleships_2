@@ -6,12 +6,14 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 520px;
   height: 250px;
-  border: 3px solid ${(props: StyledProps) => props.theme.colors.myBlue};
+  border: 3px solid ${(props: StyledProps) => props.theme.colors.transparentMyBlue};
   border-radius: 15px;
   justify-content: space-around;
   align-items: center;
   padding: 10px 5px;
   margin: 25px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(1, 13, 38, 0.2);
 `;
 
 export const RoomName = styled.div`
