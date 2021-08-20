@@ -10,6 +10,7 @@ import { StyledProps } from '../../assets/styles/theme';
 import Footer from '../../components/Molecules/Footer/Footer';
 import LogoVideo from '../../components/Atoms/LogoVideo/LogoVideo';
 import SamplePictures from '../../components/Atoms/SamplePictures/SamplePictures';
+import HeroText from '../../components/Atoms/HeroText/HeroText';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
   background-position: 0 40%;
   background-attachment: fixed;
   display: grid;
-  grid-template-rows: 200px 100px 450px 450px 100px;
+  grid-template-rows: 200px 200px 500px 450px 100px;
 `;
 
 const TopWrapper = styled.div`
@@ -52,7 +53,7 @@ const LandingPage = () => {
         <LogoVideo />
         <UserNameForm />
       </TopWrapper>
-      <p></p>
+      <HeroText />
       <ContentWrapper>
         <SamplePictures />
       </ContentWrapper>
