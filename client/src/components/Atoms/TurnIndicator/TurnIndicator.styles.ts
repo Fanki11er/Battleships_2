@@ -18,6 +18,8 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-self: center;
   user-select: none;
+  backdrop-filter: blur(5px);
+  background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 `;
 
 export const TurnInfo = styled.span`

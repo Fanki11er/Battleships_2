@@ -3,16 +3,20 @@ import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 import roomsListBackgroundImage from '../../../assets/backgrounds/rooms-list-background.svg';
 import roomBackgroundImage from '../../../assets/backgrounds/preparing-background-image.svg';
+import gameBackground from '../../../assets/backgrounds/game-background.svg';
 import { routes } from '../../../router/routes';
 
 const selectBackground = (pathname: string) => {
-  const { roomsList, room } = routes;
+  const { roomsList, room, game } = routes;
   switch (pathname) {
     case roomsList: {
       return roomsListBackgroundImage;
     }
     case room: {
       return roomBackgroundImage;
+    }
+    case game: {
+      return gameBackground;
     }
   }
 };
