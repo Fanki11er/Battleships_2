@@ -1,15 +1,18 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
-import backgroundImage from '../../../assets/Images/rooms-list-background.svg';
-
+import roomsListBackgroundImage from '../../../assets/backgrounds/rooms-list-background.svg';
+import roomBackgroundImage from '../../../assets/backgrounds/preparing-background-image.svg';
 import { routes } from '../../../router/routes';
 
 const selectBackground = (pathname: string) => {
-  const { roomsList } = routes;
+  const { roomsList, room } = routes;
   switch (pathname) {
     case roomsList: {
-      return backgroundImage;
+      return roomsListBackgroundImage;
+    }
+    case room: {
+      return roomBackgroundImage;
     }
   }
 };

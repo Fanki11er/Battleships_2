@@ -20,6 +20,16 @@ export const StyledCell = styled.div`
   background-color: ${(props: AppearanceProps & StyledProps) =>
     props.isSomethingDragging ? props.theme.colors.darkBlue : setCellColor(props.canDrop, props.theme.colors.green, props.theme.colors.red)};
   cursor: ${(props: AppearanceProps) => (props.canDrop ? 'none' : 'default')};
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: auto;
+    top: auto;
+    background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
+  }
 `;
 
 export const ShipMarker = styled.div`
@@ -30,4 +40,14 @@ export const ShipMarker = styled.div`
   position: absolute;
   left: -2;
   top: -2;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: auto;
+    top: auto;
+    background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
+  }
 `;

@@ -22,6 +22,8 @@ export const Wrapper = styled.div`
   grid-column: 1/2;
   grid-row: 1/2;
   user-select: none;
+  backdrop-filter: blur(4px);
+  background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 `;
 
 export const UserInfo = styled.span`

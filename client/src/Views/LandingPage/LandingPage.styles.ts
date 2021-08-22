@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundImage from '../../assets/Images/landing-page-background.svg';
+import backgroundImage from '../../assets/backgrounds/landing-page-background.svg';
 import { StyledProps } from '../../assets/styles/theme';
 
 export const Wrapper = styled.div`
