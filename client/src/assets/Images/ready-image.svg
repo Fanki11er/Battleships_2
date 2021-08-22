@@ -2,7 +2,7 @@
   <defs>
     <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
       <stop offset="0" stop-color="#126a75"/>
-      <stop offset="1" stop-color="#010d26"/>
+      <stop offset="1" stop-color="#010d26" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <g id="Group_126" data-name="Group 126" transform="translate(-1318 -464)">
