@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import testPicture from '../../../assets/Images/pictures-test-image.svg';
+import sampleImage from '../../../assets/Images/sample-image.svg';
 
 const SampleImage = styled.img`
-  margin-top: 100px;
-  width: 790px;
-  height: 380px;
+  margin-top: 50px;
+  width: 90%;
+  height: 90%;
 `;
 
-const SamplePictures = () => <SampleImage src={testPicture} />;
+const SamplePictures = () => <SampleImage src={sampleImage} />;
 
 export default SamplePictures;

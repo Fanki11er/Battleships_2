@@ -13,7 +13,8 @@ export const Wrapper = styled.div`
   background-position: 0 40%;
   background-attachment: fixed;
   display: grid;
-  grid-template-rows: 200px 200px 500px 700px 100px 150px;
+  grid-template-rows: 200px 200px 700px 700px 100px 150px;
+  row-gap: 50px;
 `;
 
 export const TopWrapper = styled.div`
