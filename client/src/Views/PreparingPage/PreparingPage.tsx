@@ -1,5 +1,6 @@
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch';
 import { ShipsContext } from '../../providers/shipsProvider';
 import ShipsList from '../../components/Molecules/ShipsList/ShipsList';
 import { Redirect } from 'react-router-dom';
@@ -70,7 +71,7 @@ const PreparingPage = () => {
   return (
     <Wrapper>
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
           {ships.length === 10 ? (
