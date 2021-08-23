@@ -1,7 +1,7 @@
-import veryLargeShip from '../../../assets/Images/size-5-ship-image.svg';
-import smallShip from '../../../assets/Images/size-two-ship-image.svg';
-import mediumShip from '../../../assets/Images/size-3-ship-image.svg';
-import largeShip from '../../../assets/Images/size-4-ship-image.svg';
+import veryLargeShip from '../../../assets/Images/ship-size-5-image.svg';
+import smallShip from '../../../assets/Images/ship-size-2-image.svg';
+import mediumShip from '../../../assets/Images/ship-size-3-image.svg';
+import largeShip from '../../../assets/Images/ship-size-4-image.svg';
 import { BattleShip } from '../../../Class/BattleShip';
 import { useEffect, useState } from 'react';
 import { theme } from '../../../assets/styles/theme';
