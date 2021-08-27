@@ -15,6 +15,10 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 200px 200px 700px 700px 100px 150px;
   row-gap: 50px;
+
+  @media screen and (max-width: 860px) {
+    grid-template-rows: 150px 150px 450px 400px 100px 100px;
+  }
 `;
 
 export const TopWrapper = styled.div`
@@ -23,6 +27,10 @@ export const TopWrapper = styled.div`
   display: grid;
   grid-template-columns: 70% 30%;
   align-items: center;
+
+  @media screen and (max-width: 1920px) {
+    grid-template-columns: 40% 60%;
+  }
 `;
 
 export const ContentWrapper = styled.div`

@@ -18,6 +18,7 @@ export const theme: Theme = {
     transparentOrange: 'rgba(255, 140, 0, 0.3)',
   },
   fontSizes: {
+    XS: '12px',
     S: '16px',
     M: '20px',
     L: '25px',
@@ -51,6 +52,7 @@ export type Theme = {
     transparentOrange: string;
   };
   fontSizes: {
+    XS: string;
     S: string;
     M: string;
     L: string;

@@ -11,6 +11,9 @@ const Wrapper = styled.footer`
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  @media screen and (max-width: 860px) {
+    grid-template-columns: 30% 40% 30%;
+  }
 `;
 
 const IconsWrapper = styled.div`
@@ -21,6 +24,9 @@ const IconsWrapper = styled.div`
   justify-self: center;
   align-self: center;
   grid-column: 2/2;
+  @media screen and (max-width: 860px) {
+    width: 270px;
+  }
 `;
 
 const Footer = () => {

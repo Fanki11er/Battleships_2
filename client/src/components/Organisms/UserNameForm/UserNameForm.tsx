@@ -33,6 +33,12 @@ const Form = styled.form`
     -webkit-backdrop-filter: blur(12.5px);
     border-radius: 20px;
   }
+
+  @media screen and (max-width: 860px) {
+    width: 300px;
+    height: 65px;
+    padding: 5px;
+  }
 `;
 
 const UserNameForm = () => {

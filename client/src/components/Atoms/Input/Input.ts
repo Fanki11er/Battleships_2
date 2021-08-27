@@ -22,6 +22,12 @@ export const Input = styled.input`
     outline: none;
     box-shadow: 0px 0px 10px ${(props: StyledProps) => props.theme.colors.transparentMyBlue};
   }
+
+  @media screen and (max-width: 860px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+    padding: 2px 4px;
+    height: 35px;
+  }
 `;
 /* export const Input = styled.input`
   width: 75%;

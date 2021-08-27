@@ -29,6 +29,11 @@ const IconWrapper = styled.a`
     transition: transform 0.3s 0.1s;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 860px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const FooterDefaultIcon = (props: PropsWithChildren<ReactNode>) => <IconWrapper>{props.children}</IconWrapper>;

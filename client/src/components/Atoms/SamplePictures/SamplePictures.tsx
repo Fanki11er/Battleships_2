@@ -5,6 +5,11 @@ const SampleImage = styled.img`
   margin-top: 50px;
   width: 90%;
   height: 90%;
+
+  @media screen and (max-width: 860px) {
+    width: 70%;
+    height: 70%;
+  }
 `;
 
 const SamplePictures = () => <SampleImage src={sampleImage} />;

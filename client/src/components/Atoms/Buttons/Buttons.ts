@@ -25,6 +25,12 @@ export const StandardButton = styled.button`
   &:hover {
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
   }
+
+  @media screen and (max-width: 860px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+    width: 95px;
+    height: 35px;
+  }
 `;
 
 export const ReadyButton = styled(StandardButton)`
