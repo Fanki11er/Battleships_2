@@ -7,15 +7,15 @@ import LandingPage from '../LandingPage/LandingPage';
 import ShipsProvider from '../../providers/shipsProvider';
 import TopWrapper from '../../components/Molecules/TopWrapper/TopWrapper';
 import Footer from '../../components/Molecules/Footer/Footer';
-import { Wrapper } from './MainPage.styles';
 import GameProvider from '../../providers/gameProvider';
+import MainPageWrapper from '../../components/Atoms/MainPageWrapper/MainPageWrapper';
 
 const MainPage = () => {
   const { pathname } = useLocation();
   const { room, game, roomsList } = routes;
   if (pathname === '/main') return <LandingPage />;
   return (
-    <Wrapper>
+    <MainPageWrapper pathname={pathname}>
       <GameProvider>
         <TopWrapper />
         {pathname === roomsList && <RoomsList />}
@@ -25,7 +25,7 @@ const MainPage = () => {
         </ShipsProvider>
       </GameProvider>
       <Footer />
-    </Wrapper>
+    </MainPageWrapper>
   );
 };
 

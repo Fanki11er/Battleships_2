@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: fit-content;
+  z-index: 2;
 `;
 
 const Marker = styled.div`

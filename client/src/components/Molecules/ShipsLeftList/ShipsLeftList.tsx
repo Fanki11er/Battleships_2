@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledProps } from '../../../assets/styles/theme';
 import { shipsLeftListElement } from '../../../Types/types';
 import ShipsLeftListShip from '../../Atoms/ShipsLeftListShip/ShipsLeftListShip';
 
@@ -11,6 +12,8 @@ const Wrapper = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 0;
+  backdrop-filter: blur(2px);
+  background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 `;
 type Props = {
   shipsLeft: shipsLeftListElement[];

@@ -26,6 +26,7 @@ export const Wrapper = styled.div`
   background-color: transparent;
   border: 3px solid transparent;
   border-radius: ${(props: Props) => (props.size ? '10px' : '0')};
+  z-index: 2;
   &:hover {
     border: 3px solid ${(props: Props & StyledProps) => (props.size ? props.theme.colors.orange : 'transparent')};
   }

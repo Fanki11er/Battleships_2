@@ -7,11 +7,15 @@ export const theme: Theme = {
     green: '#83B33B',
     okGreen: '#00B45C',
     darkBlue: '#010D26',
+    transparentDarkBlue: 'rgba(1, 13, 38, 0.3)',
     red: '#D91424',
     shipRectangle: '#84A7E8',
     water: '#126A75',
     darkGray: '#65617D',
     transparentRed: 'rgba(217, 20, 36, 0.3)',
+    transparentMyBlue: 'rgba(19, 179, 242, 0.8)',
+    transparentGreen: 'rgba(131,179,59, 0.6)',
+    transparentOrange: 'rgba(255, 140, 0, 0.3)',
   },
   fontSizes: {
     S: '16px',
@@ -19,6 +23,7 @@ export const theme: Theme = {
     L: '25px',
     XL: '30px',
     XXL: '40px',
+    XXXL: '50px',
   },
   otherDimensions: {
     cellSizeNumber: 50,
@@ -34,12 +39,16 @@ export type Theme = {
     orange: string;
     green: string;
     darkBlue: string;
+    transparentDarkBlue: string;
     red: string;
     okGreen: string;
     shipRectangle: string;
     water: string;
     darkGray: string;
     transparentRed: string;
+    transparentMyBlue: string;
+    transparentGreen: string;
+    transparentOrange: string;
   };
   fontSizes: {
     S: string;
@@ -47,6 +56,7 @@ export type Theme = {
     L: string;
     XL: string;
     XXL: string;
+    XXXL: string;
   };
 
   otherDimensions: {

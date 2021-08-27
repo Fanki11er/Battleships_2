@@ -22,4 +22,18 @@ export const Board = styled(StyledBoard)`
 export const Image = styled.img`
   width: 100%;
   height: 100%;
+  animation-name: appear;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  border-radius: 10%;
+  background-color: transparent;
+
+  @keyframes appear {
+    30% {
+      background-color: ${(props: StyledProps) => props.theme.colors.transparentOrange};
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
 `;

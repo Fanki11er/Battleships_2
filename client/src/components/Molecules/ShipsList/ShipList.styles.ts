@@ -23,4 +23,18 @@ export const ListElement = styled.li`
   align-items: center;
   padding: 10px;
   margin: 0 25px;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    //border: 2px solid rgba(1, 1, 1, 0.05);
+    border-radius: 15px;
+    position: absolute;
+    left: auto;
+    top: auto;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.35));
+    z-index: 0;
+  }
 `;

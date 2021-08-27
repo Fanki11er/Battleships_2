@@ -20,6 +20,7 @@ export type UserStatus = 'preparing' | 'ready';
 export type RoomType = {
   users: User[];
   roomName: string;
+  isLocked: boolean;
 };
 
 export type SortedUsers = {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../../../assets/Images/ReadyImage.svg';
+import image from '../../../assets/Images/ready-image.svg';
 
 const StyledImage = styled.img`
   visibility: hidden;

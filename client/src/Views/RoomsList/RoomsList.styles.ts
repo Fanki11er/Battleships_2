@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   flex-flow: wrap row;
   padding: 20px;
   display: flex;
-  background-color: #010d26;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 `;

@@ -57,8 +57,8 @@ const RoomsList = () => {
       {status === 'loading' && <LoadingInfo />}
       {status === 'ready' &&
         roomsList.length &&
-        roomsList.map(({ roomName, users }) => {
-          return <Room roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
+        roomsList.map(({ roomName, users, isLocked }) => {
+          return <Room isLocked={isLocked} roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
         })}
       {status === 'error' && <div>Sorry... something went wrong</div>}
     </Wrapper>

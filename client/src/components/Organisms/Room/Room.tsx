@@ -7,10 +7,11 @@ import EmptyRoomInfo from '../../Atoms/EmptyRoomInfo/EmptyRoomInfo';
 type Props = {
   roomName: string;
   users: User[];
+  isLocked: boolean;
   handleJoinToTheRoom: (roomName: string) => void;
 };
 const Room = (props: Props) => {
-  const { roomName, users, handleJoinToTheRoom } = props;
+  const { roomName, users, isLocked, handleJoinToTheRoom } = props;
 
   return (
     <Wrapper>
@@ -20,7 +21,7 @@ const Room = (props: Props) => {
         {users[1] ? <RoomUserInfo isComputer={users[1].isComputer} userName={users[1].name} userStatus={users[1].status} /> : <EmptyRoomInfo />}
       </UserSlotsWrapper>
 
-      <StandardButton isActive={users.length < 2 ? true : false} onClick={() => handleJoinToTheRoom(roomName)}>
+      <StandardButton isActive={users.length < 2 && !isLocked ? true : false} onClick={() => handleJoinToTheRoom(roomName)}>
         Join room
       </StandardButton>
     </Wrapper>

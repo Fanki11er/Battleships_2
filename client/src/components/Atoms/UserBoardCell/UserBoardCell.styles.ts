@@ -20,35 +20,35 @@ export const ExperimentalCell = styled.div`
 `;
 
 export const SmallShip = styled.img`
-  height: 60px;
+  height: 45px;
   position: absolute;
   left: 0;
   top: 0;
-  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '0px' : '20px')};
-  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '0px' : '-35px')};
+  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '10px' : '30px')};
+  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '7px' : '-23px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 `;
 
 export const MediumShip = styled.img`
-  height: 65px;
+  height: 55px;
   position: absolute;
-  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '0px' : '45px')};
-  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '15px' : '-35px')};
+  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '2px' : '45px')};
+  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '20px' : '-30px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 `;
 
 export const LargeShip = styled.img`
-  height: 80px;
+  height: 65px;
   position: absolute;
-  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-5px' : '60px')};
-  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '10px' : '-70px')};
+  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '0px' : '65px')};
+  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '15px' : '-60px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 `;
 
 export const VeryLargeShip = styled.img`
-  height: 150px;
+  height: 85px;
   position: absolute;
-  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-60px' : '55px')};
-  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-5px' : '-85px')};
+  top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-5px' : '80px')};
+  left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '15px' : '-85px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 `;

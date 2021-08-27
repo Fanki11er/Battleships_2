@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  //flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   label {
-    margin: 5px;
+    margin: 10px;
   }
 `;
