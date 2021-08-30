@@ -12,6 +12,10 @@ const Wrapper = styled.div`
     width: 500px;
     height: 300px;
   }
+  @media screen and (max-width: 600px) {
+    width: 300px;
+    height: 200px;
+  }
 `;
 const Cinematic = () => <Wrapper></Wrapper>;
 

@@ -34,6 +34,10 @@ const IconWrapper = styled.a`
     width: 40px;
     height: 40px;
   }
+  @media screen and (max-width: 600px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const FooterDefaultIcon = (props: PropsWithChildren<ReactNode>) => <IconWrapper>{props.children}</IconWrapper>;

@@ -14,6 +14,9 @@ const Wrapper = styled.footer`
   @media screen and (max-width: 860px) {
     grid-template-columns: 30% 40% 30%;
   }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 60% 40%;
+  }
 `;
 
 const IconsWrapper = styled.div`
@@ -26,6 +29,10 @@ const IconsWrapper = styled.div`
   grid-column: 2/2;
   @media screen and (max-width: 860px) {
     width: 270px;
+  }
+  @media screen and (max-width: 600px) {
+    grid-column: 1/2;
+    width: 190px;
   }
 `;
 

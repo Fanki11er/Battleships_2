@@ -10,6 +10,11 @@ const SampleImage = styled.img`
     width: 70%;
     height: 70%;
   }
+  @media screen and (max-width: 600px) {
+    width: 90%;
+    height: 90%;
+    margin-top: 10px;
+  }
 `;
 
 const SamplePictures = () => <SampleImage src={sampleImage} />;

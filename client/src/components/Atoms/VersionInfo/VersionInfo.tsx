@@ -9,6 +9,9 @@ const Wrapper = styled.div`
   font-weight: bold;
   user-select: none;
   grid-column: 3/3;
+  @media screen and (max-width: 600px) {
+    grid-column: 2/3;
+  }
 `;
 const Version = styled.span`
   color: ${(props: StyledProps) => props.theme.colors.green};
@@ -16,6 +19,9 @@ const Version = styled.span`
   margin: 0 15px 0 0;
   @media screen and (max-width: 860px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+  }
+  @media screen and (max-width: 600px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
   }
 `;
 
