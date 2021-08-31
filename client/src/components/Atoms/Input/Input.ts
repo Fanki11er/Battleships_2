@@ -23,6 +23,12 @@ export const Input = styled.input`
     box-shadow: 0px 0px 10px ${(props: StyledProps) => props.theme.colors.transparentMyBlue};
   }
 
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
+    // width: 200px;
+    height: 55px;
+  }
+
   @media screen and (max-width: 860px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
     padding: 2px 4px;

@@ -25,6 +25,7 @@ export const theme: Theme = {
     XL: '30px',
     XXL: '40px',
     XXXL: '50px',
+    XXXXL: '65px',
   },
   otherDimensions: {
     cellSizeNumber: 50,
@@ -59,6 +60,7 @@ export type Theme = {
     XL: string;
     XXL: string;
     XXXL: string;
+    XXXXL: string;
   };
 
   otherDimensions: {

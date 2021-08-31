@@ -29,6 +29,10 @@ const IconWrapper = styled.a`
     transition: transform 0.3s 0.1s;
     cursor: pointer;
   }
+  @media screen and (min-width: 3000px) {
+    width: 60px;
+    height: 60px;
+  }
 
   @media screen and (max-width: 860px) {
     width: 40px;

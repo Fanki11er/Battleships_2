@@ -33,6 +33,11 @@ const Form = styled.form`
     -webkit-backdrop-filter: blur(12.5px);
     border-radius: 20px;
   }
+  @media screen and (min-width: 3000px) {
+    width: 700px;
+    height: 100px;
+    padding: 15px;
+  }
 
   @media screen and (max-width: 860px) {
     width: 300px;

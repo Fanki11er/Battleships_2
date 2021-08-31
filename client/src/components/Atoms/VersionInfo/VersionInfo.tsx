@@ -17,6 +17,9 @@ const Version = styled.span`
   color: ${(props: StyledProps) => props.theme.colors.green};
   font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   margin: 0 15px 0 0;
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+  }
   @media screen and (max-width: 860px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   }
