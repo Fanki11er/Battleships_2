@@ -32,7 +32,7 @@ export const Wrapper = styled.div`
   background-color: ${(props: StyledProps & Props) => props.theme.colors.darkBlue};
   background-size: cover;
   background-blend-mode: luminosity;
-  background-position: 0 40%;
+  background-position: 50% 40%;
   background-attachment: fixed;
 `;
 type Props = {

@@ -12,6 +12,12 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 860px) {
+    width: 150px;
+  }
+  @media screen and (max-width: 560px) {
+    grid-row: 2/3;
+  }
 `;
 
 const CancelButtonWrapper = () => {

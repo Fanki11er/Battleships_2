@@ -20,6 +20,19 @@ export const Wrapper = styled.div`
   align-items: center;
   font-family: 'Montserrat';
   user-select: none;
+
+  @media screen and (min-width: 3000px) {
+    width: 270px;
+    height: 70px;
+    padding: 0 20px;
+  }
+
+  @media screen and (max-width: 560px) {
+    width: 45%;
+    padding: 0 10px;
+    height: 30px;
+    border-radius: 5px;
+  }
 `;
 
 export const UserName = styled.div`
@@ -27,6 +40,13 @@ export const UserName = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${(props: StyledProps) => props.theme.colors.myBlue};
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
+  }
+
+  @media screen and (max-width: 560px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+  }
 `;
 
 export const StyledUserStatus = styled.div`
@@ -36,14 +56,39 @@ export const StyledUserStatus = styled.div`
     props.userStatus === 'preparing' && !props.isComputer ? props.theme.colors.orange : props.theme.colors.green};
   border-radius: 50%;
   margin: 5px;
+
+  @media screen and (min-width: 3000px) {
+    width: 35px;
+    height: 35px;
+  }
+  @media screen and (max-width: 560px) {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 export const StyledPersonIcon = styled(PersonIcon)`
   width: 20px;
   height: 20px;
+  @media screen and (min-width: 3000px) {
+    width: 35px;
+    height: 35px;
+  }
+  @media screen and (max-width: 560px) {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 export const StyledComputerIcon = styled(ComputerIcon)`
   width: 25px;
   height: 25px;
+  @media screen and (min-width: 3000px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media screen and (max-width: 560px) {
+    width: 15px;
+    height: 15px;
+  }
 `;

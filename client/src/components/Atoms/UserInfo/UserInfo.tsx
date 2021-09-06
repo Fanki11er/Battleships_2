@@ -8,22 +8,57 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: flex-end;
   justify-self: flex-end;
+  @media screen and (min-width: 3000px) {
+    width: 300px;
+  }
+
+  @media screen and (max-width: 860px) {
+    width: 150px;
+  }
+
+  @media screen and (max-width: 560px) {
+    grid-row: 2/3;
+  }
 `;
 
 const StyledImage = styled.img`
   margin-right: 20px;
+  @media screen and (min-width: 3000px) {
+    width: 25%;
+    height: 25%;
+    margin-right: 30px;
+  }
+
+  @media screen and (max-width: 860px) {
+    width: 20%;
+    height: 20%;
+    margin-right: 15px;
+  }
 `;
 
 const UserName = styled.div`
   font-weight: bold;
   font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
   color: ${(props: StyledProps) => props.theme.colors.shipRectangle};
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XL};
+  }
+  @media screen and (max-width: 860px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+  }
 `;
 
 const RoomName = styled.div`
   font-weight: bold;
   font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   color: ${(props: StyledProps) => props.theme.colors.shipRectangle};
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
+  }
+
+  @media screen and (max-width: 860px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+  }
 `;
 
 const NamesWrapper = styled.div`
