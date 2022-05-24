@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
     margin: 75px;
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     width: 450px;
     height: 200px;
     margin: 30px;
@@ -44,7 +44,7 @@ export const RoomName = styled.div`
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XL};
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
   }
 

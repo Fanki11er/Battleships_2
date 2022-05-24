@@ -27,6 +27,13 @@ export const Wrapper = styled.div`
     padding: 0 20px;
   }
 
+  @media screen and (max-width: 1540px) {
+    width: 35%;
+    padding: 0 10px;
+    height: 35px;
+    border-radius: 10px;
+  }
+
   @media screen and (max-width: 560px) {
     width: 45%;
     padding: 0 10px;
@@ -42,6 +49,10 @@ export const UserName = styled.div`
   color: ${(props: StyledProps) => props.theme.colors.myBlue};
   @media screen and (min-width: 3000px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
+  }
+
+  @media screen and (min-width: 1540px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   }
 
   @media screen and (max-width: 560px) {
@@ -61,7 +72,8 @@ export const StyledUserStatus = styled.div`
     width: 35px;
     height: 35px;
   }
-  @media screen and (max-width: 560px) {
+
+  @media screen and (max-width: 1540px) {
     width: 15px;
     height: 15px;
   }
@@ -74,7 +86,8 @@ export const StyledPersonIcon = styled(PersonIcon)`
     width: 35px;
     height: 35px;
   }
-  @media screen and (max-width: 560px) {
+
+  @media screen and (max-width: 1540px) {
     width: 15px;
     height: 15px;
   }
@@ -87,7 +100,7 @@ export const StyledComputerIcon = styled(ComputerIcon)`
     width: 40px;
     height: 40px;
   }
-  @media screen and (max-width: 560px) {
+  @media screen and (max-width: 1540px) {
     width: 15px;
     height: 15px;
   }

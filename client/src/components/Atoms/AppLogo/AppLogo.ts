@@ -6,6 +6,12 @@ const AppLogo = styled(Logo)`
   height: 120px;
   user-select: none;
   margin: 25px;
+
+  @media screen and (max-width: 1540px) {
+    width: 90px;
+    height: 90px;
+    margin: 30px;
+  }
   @media screen and (max-width: 960px) {
     width: 80px;
     height: 80px;

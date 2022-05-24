@@ -20,6 +20,11 @@ export const Wrapper = styled.div`
     padding: 0 35px;
   }
 
+  @media screen and (max-width: 1540px) {
+    width: 35%;
+    height: 35px;
+  }
+
   @media screen and (max-width: 860px) {
     width: 150px;
   }
@@ -45,7 +50,7 @@ export const Label = styled.div`
     margin-left: 45px;
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   }
 
@@ -64,7 +69,7 @@ export const StyledEmptyIcon = styled(IconEmpty)`
     height: 35px;
   }
 
-  @media screen and (max-width: 560px) {
+  @media screen and (max-width: 1540px) {
     width: 15px;
     height: 15px;
   }

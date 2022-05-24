@@ -34,7 +34,7 @@ const IconWrapper = styled.a`
     height: 60px;
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     width: 40px;
     height: 40px;
   }

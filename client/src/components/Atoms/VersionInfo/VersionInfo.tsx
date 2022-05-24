@@ -20,7 +20,7 @@ const Version = styled.span`
   @media screen and (min-width: 3000px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   }
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   }
   @media screen and (max-width: 600px) {

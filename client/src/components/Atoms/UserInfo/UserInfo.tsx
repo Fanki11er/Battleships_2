@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     width: 300px;
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     width: 150px;
   }
 
@@ -29,7 +29,7 @@ const StyledImage = styled.img`
     margin-right: 30px;
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 1540px) {
     width: 20%;
     height: 20%;
     margin-right: 15px;
