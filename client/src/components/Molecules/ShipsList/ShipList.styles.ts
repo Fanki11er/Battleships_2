@@ -4,12 +4,20 @@ import { StyledProps } from '../../../assets/styles/theme';
 export const List = styled.ul`
   width: fit-content;
   padding: 0 50px;
-  max-width: 90%;
+  width: 90%;
+  max-width: 550px;
   height: 130px;
   display: flex;
   flex-direction: row;
   list-style: none;
   justify-content: space-around;
+
+  @media screen and (max-width: 560px) {
+    flex-flow: wrap row;
+    width: 95%;
+    padding: 0 10px;
+    height: auto;
+  }
 `;
 
 export const ListElement = styled.li`
@@ -36,5 +44,9 @@ export const ListElement = styled.li`
     top: auto;
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.35));
     z-index: 0;
+  }
+
+  @media screen and (max-width: 560px) {
+    margin: 10px 5px;
   }
 `;

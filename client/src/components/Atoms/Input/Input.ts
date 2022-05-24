@@ -9,7 +9,7 @@ export const Input = styled.input`
   font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   background-color: transparent;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
   color: ${(props: StyledProps) => props.theme.colors.green};
   text-align: center;
   font-weight: bold;
@@ -29,10 +29,14 @@ export const Input = styled.input`
     height: 55px;
   }
 
-  @media screen and (max-width: 860px) {
-    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+  @media screen and (max-width: 1540px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
     padding: 2px 4px;
     height: 35px;
+  }
+
+  @media screen and (max-width: 860px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
   }
 `;
 /* export const Input = styled.input`

@@ -31,6 +31,12 @@ export const StandardButton = styled.button`
     height: 55px;
   }
 
+  @media screen and (max-width: 1540px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+    width: 120px;
+    height: 35px;
+  }
+
   @media screen and (max-width: 860px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
     width: 95px;

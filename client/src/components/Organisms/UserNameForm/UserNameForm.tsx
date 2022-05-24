@@ -39,6 +39,12 @@ const Form = styled.form`
     padding: 15px;
   }
 
+  @media screen and (max-width: 1540px) {
+    width: 400px;
+    height: 60px;
+    padding: 0px;
+  }
+
   @media screen and (max-width: 860px) {
     width: 300px;
     height: 65px;

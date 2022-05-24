@@ -30,6 +30,8 @@ export const theme: Theme = {
   otherDimensions: {
     cellSizeNumber: 50,
     cellSize: '50px',
+    smallCellSize: 30,
+    largeCellSize: 60,
   },
 };
 
@@ -66,6 +68,8 @@ export type Theme = {
   otherDimensions: {
     cellSize: string;
     cellSizeNumber: number;
+    smallCellSize: number;
+    largeCellSize: number;
   };
 };
 

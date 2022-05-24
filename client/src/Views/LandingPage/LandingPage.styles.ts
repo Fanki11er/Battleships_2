@@ -17,12 +17,12 @@ export const Wrapper = styled.div`
   row-gap: 50px;
 
   @media screen and (min-width: 3000px) {
-    grid-template-rows: 250x 250px 850px 850px 250px 200px;
+    grid-template-rows: 250px 250px 850px 850px 250px 200px;
     row-gap: 100px;
   }
 
-  @media screen and (max-width: 860px) {
-    grid-template-rows: 150px 150px 450px 400px 100px 100px;
+  @media screen and (max-width: 1540px) {
+    grid-template-rows: 150px 150px 450px 600px 100px 100px;
     background-position: 50% 40%;
   }
 

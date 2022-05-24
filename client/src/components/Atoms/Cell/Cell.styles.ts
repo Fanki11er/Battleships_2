@@ -30,8 +30,17 @@ export const StyledCell = styled.div`
     top: auto;
     background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
   }
-`;
 
+  @media screen and (min-width: 3000px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`};
+  }
+
+  @media screen and (max-width: 560px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
+`;
 export const ShipMarker = styled.div`
   width: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
   height: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
@@ -49,5 +58,15 @@ export const ShipMarker = styled.div`
     left: auto;
     top: auto;
     background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
+  }
+
+  @media screen and (min-width: 3000px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
+
+  @media screen and (max-width: 560px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }
 `;

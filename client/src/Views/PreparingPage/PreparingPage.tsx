@@ -53,6 +53,7 @@ const PreparingPage = () => {
       opponent: undefined,
     } as SortedUsers;
     socketId &&
+      users &&
       users.forEach((user) => {
         if (user.id === socketId) {
           sorted.me = user;
