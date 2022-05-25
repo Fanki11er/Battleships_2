@@ -16,9 +16,13 @@ export const StyledCell = styled.div`
   height: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
   border: 2px solid
     ${(props: StyledProps & AppearanceProps) =>
-      props.isSomethingDragging ? props.theme.colors.green : setCellColor(props.canDrop, props.theme.colors.green, props.theme.colors.red)};
+      props.isSomethingDragging
+        ? props.theme.colors.green
+        : setCellColor(props.canDrop, props.isOver, props.theme.colors.green, props.theme.colors.red, props.theme.colors.orange)};
   background-color: ${(props: AppearanceProps & StyledProps) =>
-    props.isSomethingDragging ? props.theme.colors.darkBlue : setCellColor(props.canDrop, props.theme.colors.green, props.theme.colors.red)};
+    props.isSomethingDragging
+      ? props.theme.colors.darkBlue
+      : setCellColor(props.canDrop, props.isOver, props.theme.colors.green, props.theme.colors.red, props.theme.colors.orange)};
   cursor: ${(props: AppearanceProps) => (props.canDrop ? 'none' : 'default')};
 
   &::before {

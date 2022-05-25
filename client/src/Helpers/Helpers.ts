@@ -18,7 +18,8 @@ export const makeCoordinates = (size: number) => {
   return coordinates;
 };
 
-export const setCellColor = (canDrop: boolean, trueColor: string, falseColor: string) => {
+export const setCellColor = (canDrop: boolean, isOver: boolean, trueColor: string, falseColor: string, overColor: string) => {
+  if (canDrop && isOver) return overColor;
   if (canDrop) return trueColor;
   if (!canDrop) return falseColor;
 };
