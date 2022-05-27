@@ -17,6 +17,12 @@ export const Board = styled(StyledBoard)`
   top: 0;
   color: transparent;
   font-size: 0;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    grid-gap: 0;
+  }
 `;
 
 export const Image = styled.img`

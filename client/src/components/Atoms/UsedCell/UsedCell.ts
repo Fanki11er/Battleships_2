@@ -13,4 +13,9 @@ export const UsedCell = styled.div`
   grid-row: ${(props: CellProps & StyledProps) => `${props.coordinates.x}/${props.coordinates.x + 1}`};
   grid-column: ${(props: CellProps & StyledProps) => `${props.coordinates.y}/${props.coordinates.y + 1}`};
   user-select: none;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
 `;

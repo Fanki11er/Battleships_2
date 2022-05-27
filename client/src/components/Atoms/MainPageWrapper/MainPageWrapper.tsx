@@ -35,6 +35,10 @@ export const Wrapper = styled.div`
   background-blend-mode: luminosity;
   background-position: 50% 40%;
   background-attachment: fixed;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    justify-content: initial;
+  }
 `;
 type Props = {
   pathname: string;

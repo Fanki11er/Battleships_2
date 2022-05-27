@@ -7,10 +7,14 @@ import shipSize_5 from '../../../assets/Images/ship-size-5-image.svg';
 import { StyledProps } from '../../../assets/styles/theme';
 
 const Wrapper = styled.li`
-  width: 100%;
+  width: 200px;
   height: 45px;
   background-color: transparent;
   margin: 5px 0;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: 160px;
+  }
 `;
 
 const ShipContainer = styled.div`

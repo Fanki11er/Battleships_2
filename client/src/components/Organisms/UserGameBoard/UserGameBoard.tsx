@@ -19,6 +19,15 @@ const Wrapper = styled.div`
   justify-self: flex-end;
   align-self: center;
   margin: 0 20px;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    margin: 0 10px;
+    grid-column: 1/2;
+    grid-row: 4/5;
+    justify-self: center;
+  }
 `;
 
 const UserGameBoard = () => {

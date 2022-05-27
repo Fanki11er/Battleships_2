@@ -12,7 +12,7 @@ const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  //background-color: rgba(1, 1, 1, 0.8);
+  overflow-x: hidden;
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
   opacity: 0;
   animation-name: show;

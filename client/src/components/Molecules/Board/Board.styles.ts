@@ -20,7 +20,7 @@ export const StyledBoard = styled.div`
     height: calc(10 * ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`} + 5px);
   }
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-template-rows: repeat(10, ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`});
     grid-template-columns: repeat(10, ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`});
     width: calc(10 * ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`} + 5px);

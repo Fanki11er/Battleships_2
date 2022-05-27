@@ -17,4 +17,9 @@ export const Cell = styled.div`
     background-color: ${(props: StyledProps & CellProps) => (props.isMyTurn ? props.theme.colors.orange : props.theme.colors.darkGray)};
     cursor: ${(props: StyledProps & CellProps) => (props.isMyTurn ? 'crosshair' : 'not-allowed')};
   }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
 `;

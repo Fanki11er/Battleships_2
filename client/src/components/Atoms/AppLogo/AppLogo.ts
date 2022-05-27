@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ReactComponent as Logo } from '../../../assets/Images/AppLogo.svg';
+import { StyledProps } from '../../../assets/styles/theme';
 
 const AppLogo = styled(Logo)`
   width: 120px;
@@ -12,7 +13,7 @@ const AppLogo = styled(Logo)`
     height: 90px;
     margin: 30px;
   }
-  @media screen and (max-width: 960px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     width: 80px;
     height: 80px;
     margin: 30px;

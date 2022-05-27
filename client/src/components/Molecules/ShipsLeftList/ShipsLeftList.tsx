@@ -14,6 +14,12 @@ const Wrapper = styled.ul`
   padding: 0;
   backdrop-filter: blur(2px);
   background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    padding: 15px 0;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
 `;
 type Props = {
   shipsLeft: shipsLeftListElement[];

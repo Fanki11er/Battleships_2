@@ -16,20 +16,21 @@ const Wrapper = styled.div`
     width: 150px;
   }
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-row: 2/3;
   }
 `;
 
 const StyledImage = styled.img`
   margin-right: 20px;
+  align-self: center;
   @media screen and (min-width: 3000px) {
     width: 25%;
     height: 25%;
     margin-right: 30px;
   }
 
-  @media screen and (max-width: 1540px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     width: 20%;
     height: 20%;
     margin-right: 15px;

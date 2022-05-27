@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { StyledProps } from '../../../assets/styles/theme';
 import { UserContext } from '../../../providers/userProvider';
 import AppLogo from '../../Atoms/AppLogo/AppLogo';
 import CancelButtonWrapper from '../../Atoms/CancelButtonWrapper/CancelButtonWrapper';
@@ -20,9 +21,10 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 25% 30%;
   }
 
-  @media screen and (max-width: 560px) {
-    grid-template-rows: 100px 100px;
-    grid-template-columns: 50% 50%;
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    grid-template-rows: 100px 90px;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
   }
 `;
 

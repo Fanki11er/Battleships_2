@@ -33,6 +33,9 @@ export const theme: Theme = {
     smallCellSize: 30,
     largeCellSize: 60,
   },
+  devices: {
+    small: `max-width: 650px`,
+  },
 };
 
 export type Theme = {
@@ -70,6 +73,10 @@ export type Theme = {
     cellSizeNumber: number;
     smallCellSize: number;
     largeCellSize: number;
+  };
+
+  devices: {
+    small: string;
   };
 };
 

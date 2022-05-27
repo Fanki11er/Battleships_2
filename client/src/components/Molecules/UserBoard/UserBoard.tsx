@@ -28,7 +28,7 @@ const UserBoard = (props: Props) => {
     return cellsArray.map((_, index) => <EmptyCell key={index} />);
   };
   return (
-    <StyledUserBoard>
+    <StyledUserBoard boardSize={boardSize}>
       {ships && renderCellsWithShips(ships)}
       {ships && renderEmptyCells(boardSize, ships)}
     </StyledUserBoard>

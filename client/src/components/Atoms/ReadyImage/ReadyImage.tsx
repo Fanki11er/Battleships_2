@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import image from '../../../assets/Images/ready-image.svg';
+import { StyledProps } from '../../../assets/styles/theme';
 
 const StyledImage = styled.img`
   visibility: hidden;
@@ -17,6 +18,12 @@ const StyledImage = styled.img`
       visibility: visible;
       opacity: 1;
     }
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    width: 140%;
   }
 `;
 

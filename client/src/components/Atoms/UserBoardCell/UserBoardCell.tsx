@@ -3,8 +3,7 @@ import smallShip from '../../../assets/Images/ship-size-2-image.svg';
 import mediumShip from '../../../assets/Images/ship-size-3-image.svg';
 import largeShip from '../../../assets/Images/ship-size-4-image.svg';
 import { BattleShip } from '../../../Class/BattleShip';
-import { useEffect, useState } from 'react';
-import { theme } from '../../../assets/styles/theme';
+import { useCallback, useEffect, useState } from 'react';
 import { ShipSettings } from '../../../Types/types';
 import { ExperimentalCell, LargeShip, MediumShip, SmallShip, VeryLargeShip } from './UserBoardCell.styles';
 
@@ -16,26 +15,34 @@ const UserBoardCell = (props: Props) => {
   const { ship } = props;
   const [shipSettings, setShipSettings] = useState<ShipSettings | undefined>(undefined);
 
-  useEffect(() => {
-    placeShip(ship, theme.otherDimensions.cellSizeNumber);
-  }, [ship]);
-
-  const placeShip = (ship: BattleShip, cellSize: number) => {
+  const placeShip = useCallback((ship: BattleShip) => {
     const { coordinates, size, position } = ship;
     const { x, y } = coordinates[0];
 
     const settings: ShipSettings = {
-      width: position === 'horizontal' ? `${theme.otherDimensions.cellSizeNumber * size}px` : `${theme.otherDimensions.cellSizeNumber}px`,
-      height: position === 'horizontal' ? `${theme.otherDimensions.cellSizeNumber}px` : `${theme.otherDimensions.cellSizeNumber * size}px`,
+      setContainerWidth,
+      setContainerHeight,
       column: position === 'horizontal' ? `${y}/${y + size}` : `${y}/${y + 1}`,
       row: position === 'horizontal' ? `${x}/${x + 1}` : `${x}/${x + size}`,
+      shipSize: size,
     };
 
     setShipSettings(settings);
+  }, []);
+
+  useEffect(() => {
+    placeShip(ship);
+  }, [ship, placeShip]);
+
+  const setContainerWidth = (orientation: string, shipSize: number, cellSize: number) => {
+    return orientation === 'horizontal' ? `${cellSize * shipSize}px` : `${cellSize}px`;
+  };
+  const setContainerHeight = (orientation: string, shipSize: number, cellSize: number) => {
+    return orientation === 'horizontal' ? `${cellSize}px` : `${cellSize * shipSize}px`;
   };
 
   return (
-    <ExperimentalCell settings={shipSettings}>
+    <ExperimentalCell settings={shipSettings} orientation={ship.position}>
       {ship.size === 2 && <SmallShip src={smallShip} orientation={ship.position} />}
       {ship.size === 3 && <MediumShip src={mediumShip} orientation={ship.position} />}
       {ship.size === 4 && <LargeShip src={largeShip} orientation={ship.position} />}

@@ -21,10 +21,16 @@ export const TargetCell = styled.div`
   user-select: none;
   cursor: not-allowed;
   grid-auto-flow: dense;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
 `;
 
 export const Board = styled(StyledBoard)`
   grid-auto-flow: dense;
   user-select: none;
   cursor: none;
+  grid-gap: 0;
 `;

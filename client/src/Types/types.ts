@@ -29,10 +29,13 @@ export type SortedUsers = {
 };
 
 export type ShipSettings = {
+  setContainerWidth: (orientation: string, shipSize: number, cellSize: number) => string;
+  setContainerHeight: (orientation: string, shipSize: number, cellSize: number) => string;
   column: string;
   row: string;
-  width: string;
-  height: string;
+  shipSize: number;
+  //width: string;
+  //height: string;
 };
 
 export type Status = 'miss' | 'hit' | '';
