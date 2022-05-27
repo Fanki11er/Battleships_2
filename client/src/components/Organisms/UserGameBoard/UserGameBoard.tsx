@@ -11,8 +11,8 @@ type WrapperProps = {
 };
 
 const Wrapper = styled.div`
-  width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
-  height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  //width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  //height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
   position: relative;
   grid-column: 1/2;
   grid-row: 1/2;
@@ -20,13 +20,18 @@ const Wrapper = styled.div`
   align-self: center;
   margin: 0 20px;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
-    margin: 0 10px;
+    margin: 0 20px;
+    grid-column: 1/2;
+    grid-row: 3/4;
+    justify-self: center;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-column: 1/2;
     grid-row: 4/5;
-    justify-self: center;
   }
 `;
 

@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   grid-gap: 2px;
   cursor: none;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     grid-template-rows: repeat(10, ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`});

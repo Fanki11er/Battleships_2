@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
   backdrop-filter: blur(4px);
   background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-column: 1/2;
     grid-row: 1/2;
     width: 300px;
@@ -40,7 +40,7 @@ export const UserInfo = styled.span`
   font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   font-weight: bold;
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
   }
 `;

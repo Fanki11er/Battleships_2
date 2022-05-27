@@ -15,7 +15,7 @@ const Wrapper = styled.ul`
   backdrop-filter: blur(2px);
   background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     padding: 15px 0;
     flex-flow: row wrap;
     justify-content: space-evenly;

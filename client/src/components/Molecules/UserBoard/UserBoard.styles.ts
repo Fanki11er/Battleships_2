@@ -13,7 +13,7 @@ export const StyledUserBoard = styled(StyledBoard)`
   grid-auto-flow: dense;
   user-select: none;
 
-  @media screen and (min-width: 300px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     grid-gap: 0;
@@ -26,7 +26,7 @@ export const EmptyCell = styled.div`
   background-color: ${(props: StyledProps) => props.theme.colors.water};
   border: none;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }

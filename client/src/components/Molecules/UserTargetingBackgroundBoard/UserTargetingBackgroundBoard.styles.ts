@@ -22,7 +22,7 @@ export const TargetCell = styled.div`
   cursor: not-allowed;
   grid-auto-flow: dense;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }

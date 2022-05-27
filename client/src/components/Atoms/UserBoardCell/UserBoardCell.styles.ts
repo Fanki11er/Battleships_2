@@ -18,7 +18,7 @@ export const ExperimentalCell = styled.div`
   grid-column: ${(props: Settings) => props.settings?.column};
   overflow: clip;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: Settings & ImageProps & StyledProps) =>
       props.settings?.setContainerWidth(props.orientation, props.settings.shipSize, props.theme.otherDimensions.smallCellSize)};
     height: ${(props: Settings & ImageProps & StyledProps) =>
@@ -35,7 +35,7 @@ export const SmallShip = styled.img`
   left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '7px' : '-23px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     position: absolute;
     height: 30px;
     top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '5px' : '16px')};
@@ -50,7 +50,7 @@ export const MediumShip = styled.img`
   left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '20px' : '-30px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     position: absolute;
     height: 35px;
     top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-0px' : '30px')};
@@ -65,7 +65,7 @@ export const LargeShip = styled.img`
   left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '15px' : '-60px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     position: absolute;
     height: 45px;
     top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-5px' : '40px')};
@@ -80,7 +80,7 @@ export const VeryLargeShip = styled.img`
   left: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '15px' : '-85px')};
   transform: ${(props: ImageProps) => (props.orientation === 'vertical' ? `rotate(90deg) rotateY(180deg)` : ` rotate(0) rotateY(0)`)};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     position: absolute;
     height: 55px;
     top: ${(props: ImageProps) => (props.orientation === 'horizontal' ? '-5px' : '50px')};

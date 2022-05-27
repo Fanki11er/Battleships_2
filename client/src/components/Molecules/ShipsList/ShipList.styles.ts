@@ -10,10 +10,10 @@ export const List = styled.ul`
   display: flex;
   flex-direction: row;
   list-style: none;
-  justify-content: space-around;
+  justify-content: space-evenly;
 
-  @media screen and (max-width: 560px) {
-    flex-flow: wrap row;
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    flex-flow: row wrap;
     width: 95%;
     padding: 0 10px;
     height: auto;
@@ -46,7 +46,7 @@ export const ListElement = styled.li`
     z-index: 0;
   }
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     margin: 10px 5px;
   }
 `;

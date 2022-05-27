@@ -18,6 +18,3 @@ const TargetingBoard = () => {
 };
 
 export default TargetingBoard;
-/*
- <UserTargetingBackgroundBoard shots={myShots} boardSize={boardSize} />
-*/

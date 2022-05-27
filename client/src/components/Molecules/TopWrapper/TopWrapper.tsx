@@ -10,14 +10,15 @@ const Wrapper = styled.div`
   width: 100%;
   height: 150px;
   display: grid;
-  grid-template-columns: 1fr 20% 15%;
+  //grid-template-columns: 1fr 20% 15%;
   justify-content: space-between;
   padding: 0 10px;
   align-items: center;
   @media screen and (max-width: 1920px) {
     grid-template-columns: 1fr 40% 25%;
   }
-  @media screen and (max-width: 960px) {
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-template-columns: 1fr 25% 30%;
   }
 

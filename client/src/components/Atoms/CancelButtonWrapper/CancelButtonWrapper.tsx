@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 860px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     width: 150px;
   }
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {

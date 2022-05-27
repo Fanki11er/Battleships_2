@@ -13,7 +13,8 @@ const AppLogo = styled(Logo)`
     height: 90px;
     margin: 30px;
   }
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: 80px;
     height: 80px;
     margin: 30px;

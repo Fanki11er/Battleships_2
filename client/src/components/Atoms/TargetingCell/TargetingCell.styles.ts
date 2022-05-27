@@ -18,7 +18,7 @@ export const Cell = styled.div`
     cursor: ${(props: StyledProps & CellProps) => (props.isMyTurn ? 'crosshair' : 'not-allowed')};
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }

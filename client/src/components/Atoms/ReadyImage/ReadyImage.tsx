@@ -20,9 +20,13 @@ const StyledImage = styled.img`
     }
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-column: 1/2;
     grid-row: 2/3;
+    width: 100%;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     width: 140%;
   }
 `;

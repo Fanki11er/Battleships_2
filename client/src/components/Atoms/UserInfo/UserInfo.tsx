@@ -16,6 +16,11 @@ const Wrapper = styled.div`
     width: 150px;
   }
 
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-row: 1/2;
+    grid-column: 2/3;
+  }
+
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-row: 2/3;
   }
@@ -30,7 +35,7 @@ const StyledImage = styled.img`
     margin-right: 30px;
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: 20%;
     height: 20%;
     margin-right: 15px;
@@ -44,7 +49,7 @@ const UserName = styled.div`
   @media screen and (min-width: 3000px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XL};
   }
-  @media screen and (max-width: 860px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   }
 `;
@@ -57,7 +62,7 @@ const RoomName = styled.div`
     font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
   }
 
-  @media screen and (max-width: 860px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   }
 `;

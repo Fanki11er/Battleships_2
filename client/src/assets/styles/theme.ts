@@ -34,7 +34,8 @@ export const theme: Theme = {
     largeCellSize: 60,
   },
   devices: {
-    small: `max-width: 650px`,
+    small: `max-width: 720px`,
+    medium: `max-width: 1024px`,
   },
 };
 
@@ -77,6 +78,9 @@ export type Theme = {
 
   devices: {
     small: string;
+    medium: string;
+    large: string;
+    veryLarge: string;
   };
 };
 
