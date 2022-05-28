@@ -16,9 +16,13 @@ export const StyledCell = styled.div`
   height: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
   border: 2px solid
     ${(props: StyledProps & AppearanceProps) =>
-      props.isSomethingDragging ? props.theme.colors.green : setCellColor(props.canDrop, props.theme.colors.green, props.theme.colors.red)};
+      props.isSomethingDragging
+        ? props.theme.colors.green
+        : setCellColor(props.canDrop, props.isOver, props.theme.colors.green, props.theme.colors.red, props.theme.colors.orange)};
   background-color: ${(props: AppearanceProps & StyledProps) =>
-    props.isSomethingDragging ? props.theme.colors.darkBlue : setCellColor(props.canDrop, props.theme.colors.green, props.theme.colors.red)};
+    props.isSomethingDragging
+      ? props.theme.colors.darkBlue
+      : setCellColor(props.canDrop, props.isOver, props.theme.colors.green, props.theme.colors.red, props.theme.colors.orange)};
   cursor: ${(props: AppearanceProps) => (props.canDrop ? 'none' : 'default')};
 
   &::before {
@@ -30,8 +34,17 @@ export const StyledCell = styled.div`
     top: auto;
     background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
   }
-`;
 
+  @media screen and (min-width: 3000px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`};
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
+`;
 export const ShipMarker = styled.div`
   width: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
   height: ${(props: StyledProps) => props.theme.otherDimensions.cellSize};
@@ -49,5 +62,15 @@ export const ShipMarker = styled.div`
     left: auto;
     top: auto;
     background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
+  }
+
+  @media screen and (min-width: 3000px) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
+    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }
 `;

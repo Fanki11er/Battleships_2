@@ -53,6 +53,7 @@ const PreparingPage = () => {
       opponent: undefined,
     } as SortedUsers;
     socketId &&
+      users &&
       users.forEach((user) => {
         if (user.id === socketId) {
           sorted.me = user;
@@ -74,7 +75,7 @@ const PreparingPage = () => {
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
-          {ships.length === 10 ? (
+          {ships.length === 1 ? (
             <ReadyButton isActive={true} onClick={handleSendBoard} className={sortedUsers.me?.status === 'ready' ? 'hide' : 'show'}>
               Ready
             </ReadyButton>

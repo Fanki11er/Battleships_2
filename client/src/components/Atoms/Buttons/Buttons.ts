@@ -22,8 +22,27 @@ export const StandardButton = styled.button`
   color: ${(props: StyledProps & Props) => choseColor(props)};
   background-color: transparent;
   user-select: ${(props: StyledProps & Props) => (props.isActive ? 'auto' : 'none')};
+  transition: background-color 0.5s;
   &:hover {
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
+    background-color: ${(props: StyledProps) => props.theme.colors.transparentOrange};
+  }
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+    width: 200px;
+    height: 55px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+    width: 130px;
+    height: 40px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+    width: 95px;
+    height: 35px;
   }
 `;
 
@@ -65,7 +84,6 @@ export const CancelButton = styled(StandardButton)`
   color: ${(props: StyledProps) => props.theme.colors.red};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.red};
   cursor: pointer;
-  transition: background-color 0.5s;
   &:hover {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
   }

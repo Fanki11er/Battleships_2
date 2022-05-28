@@ -6,14 +6,24 @@ import phaseTwo from '../../../assets/animation/Animation_phase_two.svg';
 import AppLogo from '../AppLogo/AppLogo';
 
 const Wrapper = styled.div`
-  width: 250px;
-  height: 145px;
+  width: 240px;
+  height: 140px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 50px;
   overflow: hidden;
+
+  @media screen and (max-width: 1540px) {
+    width: 180px;
+    height: 100px;
+  }
+
+  @media screen and (max-width: 860px) {
+    width: 170px;
+    height: 80px;
+  }
 `;
 
 const PhaseOne = styled.img`
@@ -42,6 +52,11 @@ const PhaseOne = styled.img`
       transform: scale(1);
     }
   }
+
+  /*@media screen and (max-width: 860px) {
+    width: 90%;
+    height: 90%;
+  }*/
 `;
 
 const PhaseTwo = styled.div`
@@ -78,6 +93,11 @@ const PhaseTwo = styled.div`
       visibility: hidden;
     }
   }
+
+  @media screen and (max-width: 860px) {
+    width: 101%;
+    height: 102%;
+  }
 `;
 
 const Video = styled.video`
@@ -90,6 +110,10 @@ const Video = styled.video`
   animation-fill-mode: forwards;
   opacity: 0;
   z-index: 1;
+  @media screen and (max-width: 860px) {
+    width: 195px;
+    height: 140px;
+  }
 
   @keyframes videoIntro {
     5% {
@@ -128,7 +152,7 @@ const Logo = styled(AppLogo)`
     }
     100% {
       opacity: 1;
-      transform: translateX(-50px);
+      transform: translateX(-20%);
     }
   }
 `;

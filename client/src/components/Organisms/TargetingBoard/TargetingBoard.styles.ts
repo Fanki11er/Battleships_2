@@ -14,4 +14,18 @@ export const Wrapper = styled.div`
   justify-self: flex-start;
   align-self: center;
   margin: 0 20px;
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
+    justify-self: center;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-column: 1/2;
+    grid-row: 2/3;
+
+    @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+      grid-column: 1/2;
+    }
+  }
 `;

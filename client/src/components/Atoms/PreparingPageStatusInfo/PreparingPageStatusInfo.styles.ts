@@ -24,12 +24,25 @@ export const Wrapper = styled.div`
   user-select: none;
   backdrop-filter: blur(4px);
   background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 300px;
+    height: 100px;
+    padding: 15px 20px;
+    justify-self: center;
+  }
 `;
 
 export const UserInfo = styled.span`
   color: ${(props: StyledProps & UserProps) => selectColor(props)};
   font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   font-weight: bold;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+  }
 `;
 
 type UserProps = {

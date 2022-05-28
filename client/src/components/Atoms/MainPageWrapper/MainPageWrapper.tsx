@@ -23,7 +23,8 @@ const selectBackground = (pathname: string) => {
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,8 +33,12 @@ export const Wrapper = styled.div`
   background-color: ${(props: StyledProps & Props) => props.theme.colors.darkBlue};
   background-size: cover;
   background-blend-mode: luminosity;
-  background-position: 0 40%;
+  background-position: 50% 40%;
   background-attachment: fixed;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    justify-content: initial;
+  }
 `;
 type Props = {
   pathname: string;

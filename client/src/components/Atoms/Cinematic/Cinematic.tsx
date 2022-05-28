@@ -7,6 +7,20 @@ const Wrapper = styled.div`
   border: 3px solid ${(props: StyledProps) => props.theme.colors.myBlue};
   border-radius: 20px;
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
+
+  @media screen and (min-width: 3000px) {
+    width: 900px;
+    height: 700px;
+  }
+
+  @media screen and (max-width: 860px) {
+    width: 500px;
+    height: 300px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 300px;
+    height: 200px;
+  }
 `;
 const Cinematic = () => <Wrapper></Wrapper>;
 

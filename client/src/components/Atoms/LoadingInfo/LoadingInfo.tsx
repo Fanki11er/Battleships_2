@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   padding: 15px;
   margin-top: 50px;
 `;
+
 const LoadingSvg = styled(Loading)`
   width: 75%;
   height: 75%;
@@ -21,6 +22,11 @@ const LoadingSvg = styled(Loading)`
   animation-duration: 3s;
   animation-iteration-count: infinite;
   transition: transform ease-in-out;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: 50%;
+    height: 50%;
+  }
   @keyframes rotation {
     to {
       transform: rotate(360deg);
@@ -35,6 +41,10 @@ const Text = styled.span`
   user-select: none;
   text-align: center;
   letter-spacing: 5px;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XL};
+  }
 `;
 
 const LoadingInfo = () => (

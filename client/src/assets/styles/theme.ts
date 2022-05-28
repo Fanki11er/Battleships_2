@@ -18,16 +18,25 @@ export const theme: Theme = {
     transparentOrange: 'rgba(255, 140, 0, 0.3)',
   },
   fontSizes: {
+    XS: '12px',
     S: '16px',
     M: '20px',
     L: '25px',
     XL: '30px',
     XXL: '40px',
     XXXL: '50px',
+    XXXXL: '65px',
   },
   otherDimensions: {
     cellSizeNumber: 50,
     cellSize: '50px',
+    smallCellSize: 30,
+    largeCellSize: 60,
+  },
+  devices: {
+    small: `max-width: 720px`,
+    medium: `max-width: 1200px`,
+    large: 'max-width: 2500px',
   },
 };
 
@@ -51,17 +60,27 @@ export type Theme = {
     transparentOrange: string;
   };
   fontSizes: {
+    XS: string;
     S: string;
     M: string;
     L: string;
     XL: string;
     XXL: string;
     XXXL: string;
+    XXXXL: string;
   };
 
   otherDimensions: {
     cellSize: string;
     cellSizeNumber: number;
+    smallCellSize: number;
+    largeCellSize: number;
+  };
+
+  devices: {
+    small: string;
+    medium: string;
+    large: string;
   };
 };
 

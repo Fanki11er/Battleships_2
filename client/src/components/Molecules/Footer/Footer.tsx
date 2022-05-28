@@ -11,6 +11,16 @@ const Wrapper = styled.footer`
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  @media screen and (min-width: 3000px) {
+    height: 180px;
+  }
+
+  @media screen and (max-width: 860px) {
+    grid-template-columns: 30% 40% 30%;
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 60% 40%;
+  }
 `;
 
 const IconsWrapper = styled.div`
@@ -21,6 +31,17 @@ const IconsWrapper = styled.div`
   justify-self: center;
   align-self: center;
   grid-column: 2/2;
+
+  @media screen and (min-width: 3000px) {
+    width: 500px;
+  }
+  @media screen and (max-width: 860px) {
+    width: 270px;
+  }
+  @media screen and (max-width: 600px) {
+    grid-column: 1/2;
+    width: 190px;
+  }
 `;
 
 const Footer = () => {

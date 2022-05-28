@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { StyledProps } from '../../../assets/styles/theme';
 import { GameContext } from '../../../providers/gameProvider';
 import { UserContext } from '../../../providers/userProvider';
 import { routes } from '../../../router/routes';
@@ -8,10 +9,18 @@ import { CancelButton } from '../Buttons/Buttons';
 
 const Wrapper = styled.div`
   width: 250px;
-  height: 100%;
+  height: auto;
   display: flex;
+  justify-self: center;
   align-items: center;
   justify-content: center;
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: 150px;
+  }
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
 `;
 
 const CancelButtonWrapper = () => {

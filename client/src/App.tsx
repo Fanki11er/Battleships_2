@@ -12,8 +12,8 @@ import MainPage from './Views/MainPage/MainPage';
 import SocketProvider from './providers/socketProvider';
 import UserProvider from './providers/userProvider';
 
-export const APP_VERSION = '0.01';
-export const YEAR = '2021';
+export const APP_VERSION = '1.0.0';
+export const YEAR = '2022';
 
 function App() {
   const { landingPage, mainPage } = routes;

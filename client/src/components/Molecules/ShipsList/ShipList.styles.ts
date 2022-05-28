@@ -2,14 +2,22 @@ import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
 export const List = styled.ul`
-  width: fit-content;
+  //width: fit-content;
   padding: 0 50px;
-  max-width: 90%;
+  width: 90%;
+  //max-width: 550px;
   height: 130px;
   display: flex;
   flex-direction: row;
   list-style: none;
-  justify-content: space-around;
+  justify-content: space-evenly;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    flex-flow: row wrap;
+    width: 95%;
+    padding: 0 10px;
+    height: auto;
+  }
 `;
 
 export const ListElement = styled.li`
@@ -36,5 +44,9 @@ export const ListElement = styled.li`
     top: auto;
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.35));
     z-index: 0;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    margin: 10px 5px;
   }
 `;

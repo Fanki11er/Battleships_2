@@ -15,6 +15,21 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 200px 200px 700px 700px 100px 150px;
   row-gap: 50px;
+
+  @media screen and (min-width: 3000px) {
+    grid-template-rows: 250px 250px 850px 850px 250px 200px;
+    row-gap: 100px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    grid-template-rows: 150px 150px 450px 600px 100px 100px;
+    background-position: 50% 40%;
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-rows: 270px 150px 250px 300px 100px 100px;
+    row-gap: 25px;
+  }
 `;
 
 export const TopWrapper = styled.div`
@@ -23,6 +38,15 @@ export const TopWrapper = styled.div`
   display: grid;
   grid-template-columns: 70% 30%;
   align-items: center;
+
+  @media screen and (max-width: 1920px) {
+    grid-template-columns: 40% 60%;
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const ContentWrapper = styled.div`

@@ -13,6 +13,29 @@ export const Wrapper = styled.div`
   align-items: center;
   font-family: 'Montserrat';
   user-select: none;
+
+  @media screen and (min-width: 3000px) {
+    width: 270px;
+    height: 70px;
+    padding: 0 35px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    width: 35%;
+    height: 35px;
+  }
+
+  @media screen and (max-width: 860px) {
+    width: 150px;
+  }
+
+  @media screen and (max-width: 560px) {
+    width: 45%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 0 5%;
+    justify-content: space-around;
+  }
 `;
 
 export const Label = styled.div`
@@ -22,9 +45,32 @@ export const Label = styled.div`
   color: ${(props: StyledProps) => props.theme.colors.myBlue};
   text-transform: uppercase;
   margin-left: 30px;
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.L};
+    margin-left: 45px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+  }
+
+  @media screen and (max-width: 560px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+    margin-left: 5px;
+  }
 `;
 
 export const StyledEmptyIcon = styled(IconEmpty)`
   width: 20px;
   height: 20px;
+
+  @media screen and (min-width: 3000px) {
+    width: 35px;
+    height: 35px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    width: 15px;
+    height: 15px;
+  }
 `;

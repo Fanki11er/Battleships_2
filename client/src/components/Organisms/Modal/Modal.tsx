@@ -5,14 +5,14 @@ import { StyledProps } from '../../../assets/styles/theme';
 
 const ModalWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 150vh;
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  //background-color: rgba(1, 1, 1, 0.8);
+  align-items: flex-start;
+  overflow-x: hidden;
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
   opacity: 0;
   animation-name: show;
