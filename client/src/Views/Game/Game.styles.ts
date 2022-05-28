@@ -6,11 +6,15 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1.6fr 160px 1fr 160px 1.6fr;
+  grid-template-columns: 1.6fr 250px 1fr 250px 1.6fr;
   grid-template-rows: 1fr;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  column-gap: 30px;
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-template-columns: 1.6fr 160px 1fr 160px 1.6fr;
+  }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-template-columns: 320px 1fr;

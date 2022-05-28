@@ -121,7 +121,7 @@ io.on('connection', (socket) => {
         selectedRoom.endGame();
         selectedRoom.resetUsers();
         selectedRoom.setIsLocked(false);
-      }, 5000);
+      }, 8000);
     }
   });
 

@@ -21,6 +21,7 @@ export const TargetCell = styled.div`
   user-select: none;
   cursor: not-allowed;
   grid-auto-flow: dense;
+  border: none;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
@@ -32,5 +33,8 @@ export const Board = styled(StyledBoard)`
   grid-auto-flow: dense;
   user-select: none;
   cursor: none;
-  grid-gap: 0;
+  grid-gap: 2px;
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    grid-gap: 1px;
+  }
 `;

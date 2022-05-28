@@ -12,6 +12,8 @@ type ImageProps = {
 export const ExperimentalCell = styled.div`
   width: ${(props: Settings & ImageProps & StyledProps) =>
     props.settings?.setContainerWidth(props.orientation, props.settings.shipSize, props.theme.otherDimensions.cellSizeNumber)};
+  height: ${(props: Settings & ImageProps & StyledProps) =>
+    props.settings?.setContainerHeight(props.orientation, props.settings.shipSize, props.theme.otherDimensions.cellSizeNumber)};
   background-color: ${(props: StyledProps) => props.theme.colors.water};
   position: relative;
   grid-row: ${(props: Settings) => props.settings?.row};

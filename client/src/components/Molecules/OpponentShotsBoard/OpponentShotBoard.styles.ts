@@ -9,8 +9,8 @@ export type BoardProps = {
 };
 
 export const Board = styled(StyledBoard)`
-  //width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
-  //height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
   grid-gap: 0;
   position: absolute;
   left: 0;
@@ -18,7 +18,7 @@ export const Board = styled(StyledBoard)`
   color: transparent;
   font-size: 0;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     height: ${(props: StyledProps & BoardProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     grid-gap: 0;

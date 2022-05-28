@@ -7,8 +7,8 @@ type CellProps = {
 };
 
 export const UsedCell = styled.div`
-  //width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
-  //height: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
+  width: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
+  height: ${(props: StyledProps) => `${props.theme.otherDimensions.cellSizeNumber}px`};
   border: none;
   grid-row: ${(props: CellProps & StyledProps) => `${props.coordinates.x}/${props.coordinates.x + 1}`};
   grid-column: ${(props: CellProps & StyledProps) => `${props.coordinates.y}/${props.coordinates.y + 1}`};
