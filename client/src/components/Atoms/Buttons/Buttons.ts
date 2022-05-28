@@ -33,9 +33,9 @@ export const StandardButton = styled.button`
     height: 55px;
   }
 
-  @media screen and (max-width: 1540px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
-    width: 120px;
+    width: 130px;
     height: 40px;
   }
 

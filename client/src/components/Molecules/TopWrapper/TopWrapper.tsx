@@ -14,9 +14,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding: 0 10px;
   align-items: center;
-  @media screen and (max-width: 1920px) {
-    grid-template-columns: 1fr 40% 25%;
-  }
+  grid-template-columns: 1fr 40% 25%;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-template-columns: 1fr 25% 30%;

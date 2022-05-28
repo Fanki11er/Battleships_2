@@ -11,8 +11,8 @@ type WrapperProps = {
 };
 
 const Wrapper = styled.div`
-  //width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
-  //height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
+  height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.cellSizeNumber * props.boardSize}px`};
   position: relative;
   grid-column: 1/2;
   grid-row: 1/2;
@@ -20,13 +20,16 @@ const Wrapper = styled.div`
   align-self: center;
   margin: 0 20px;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     height: ${(props: StyledProps & WrapperProps) => `${props.theme.otherDimensions.smallCellSize * props.boardSize}px`};
     margin: 0 20px;
+    justify-self: center;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-column: 1/2;
     grid-row: 3/4;
-    justify-self: center;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {

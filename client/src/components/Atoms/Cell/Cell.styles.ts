@@ -40,7 +40,7 @@ export const StyledCell = styled.div`
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.largeCellSize}px`};
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }
@@ -69,7 +69,7 @@ export const ShipMarker = styled.div`
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
   }

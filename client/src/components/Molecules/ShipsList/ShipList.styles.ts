@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
 export const List = styled.ul`
-  width: fit-content;
+  //width: fit-content;
   padding: 0 50px;
   width: 90%;
-  max-width: 550px;
+  //max-width: 550px;
   height: 130px;
   display: flex;
   flex-direction: row;
   list-style: none;
   justify-content: space-evenly;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     flex-flow: row wrap;
     width: 95%;
     padding: 0 10px;
@@ -46,7 +46,7 @@ export const ListElement = styled.li`
     z-index: 0;
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     margin: 10px 5px;
   }
 `;

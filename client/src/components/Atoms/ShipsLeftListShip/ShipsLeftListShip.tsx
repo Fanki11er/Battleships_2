@@ -12,7 +12,7 @@ const Wrapper = styled.li`
   background-color: transparent;
   margin: 5px 0;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: 160px;
   }
 `;

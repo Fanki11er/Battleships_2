@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  //grid-template-columns: 1.6fr 160px 1fr 160px 1.6fr;
-  // grid-template-rows: 1fr;
+  grid-template-columns: 1.6fr 160px 1fr 160px 1.6fr;
+  grid-template-rows: 1fr;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
@@ -24,8 +24,8 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledMyList = styled(ShipsLeftList)`
-  // grid-row: 1/2;
-  //grid-column: 2/3;
+  grid-row: 1/2;
+  grid-column: 2/3;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-row: 3/4;
@@ -39,13 +39,12 @@ export const StyledMyList = styled(ShipsLeftList)`
 `;
 
 export const StyledOpponentList = styled(ShipsLeftList)`
-  // grid-row: 1/2;
-  //grid-column: 2/3;
+  grid-row: 1/2;
+  grid-column: 4/5;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-row: 2/3;
     grid-column: 2/3;
-    background-color: red;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {

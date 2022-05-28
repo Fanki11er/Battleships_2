@@ -23,7 +23,7 @@ const LoadingSvg = styled(Loading)`
   animation-iteration-count: infinite;
   transition: transform ease-in-out;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: 50%;
     height: 50%;
   }
@@ -42,7 +42,7 @@ const Text = styled.span`
   text-align: center;
   letter-spacing: 5px;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.XL};
   }
 `;

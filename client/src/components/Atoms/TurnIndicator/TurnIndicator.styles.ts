@@ -6,8 +6,8 @@ type TurnProps = {
 };
 
 export const Wrapper = styled.div`
-  //width: 300px;
-  //height: 80px;
+  width: 300px;
+  height: 80px;
   border: 3px solid ${(props: StyledProps) => props.theme.colors.green};
   border-radius: 15px;
   grid-row: 1/2;
@@ -21,10 +21,13 @@ export const Wrapper = styled.div`
   backdrop-filter: blur(5px);
   background-color: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
-    grid-column: 1/3;
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: 200px;
     height: 45px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-column: 1/3;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
@@ -38,7 +41,7 @@ export const TurnInfo = styled.span`
   color: ${(props: StyledProps & TurnProps) => (props.isMyTurn ? props.theme.colors.okGreen : props.theme.colors.orange)};
   font-weight: bold;
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   }
 `;

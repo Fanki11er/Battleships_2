@@ -16,13 +16,14 @@ const Wrapper = styled.div`
     width: 150px;
   }
 
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices}) {
     grid-row: 1/2;
     grid-column: 2/3;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-row: 2/3;
+    grid-column: 1/2;
   }
 `;
 

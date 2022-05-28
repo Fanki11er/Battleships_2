@@ -11,13 +11,15 @@ const Wrapper = styled.div`
   width: 250px;
   height: auto;
   display: flex;
+  justify-self: center;
   align-items: center;
   justify-content: center;
-  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: 150px;
   }
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-row: 2/3;
+    grid-column: 2/3;
   }
 `;
 

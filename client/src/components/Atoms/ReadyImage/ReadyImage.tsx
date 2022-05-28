@@ -9,9 +9,10 @@ const StyledImage = styled.img`
   animation-duration: 2.5s;
   animation-fill-mode: forwards;
   grid-column: 1/4;
-  grid-row: 1/2;
+  grid-row: 1/3;
   justify-self: center;
   user-select: none;
+  width: 80%;
 
   @keyframes showImage {
     to {
@@ -20,10 +21,15 @@ const StyledImage = styled.img`
     }
   }
 
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    grid-row: 1/3;
+    align-self: center;
+    justify-self: center;
+  }
+
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-column: 1/2;
     grid-row: 2/3;
-    width: 100%;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
