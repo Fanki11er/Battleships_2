@@ -1,10 +1,10 @@
 import { Board } from '../Board/Board';
 import { Game } from '../Game/Game';
 import { UserStatus } from '../Helpers/Types';
-import { User } from '../User/user';
+import { Computer, User } from '../User/user';
 
 export class Room {
-  private users: User[] = [];
+  protected users: User[] = [];
   private roomName;
   private boards: Board[] = [];
   private game: Game | undefined;
@@ -105,4 +105,32 @@ export class Room {
       board.resetBoard();
     });
   };
+}
+
+export class SpecialRoom extends Room {
+  constructor(roomName: string, computer: Computer) {
+    super(roomName);
+    this.users.push(computer);
+  }
+  addUser(user: User): void {
+    this.users.push(user);
+    this.users[0].setStatus('ready');
+  }
+
+  resetUsers() {
+    this.users = this.users.filter((user) => {
+      return user.getIsComputer() === true;
+    });
+    this.users[0] && this.users[0].setStatus('preparing');
+  }
+
+  clearDisconnectedUsers(userId: string): void {
+    this.users = this.users.filter((user) => {
+      return user.getId() != userId;
+    });
+    if (this.users.length < 2) {
+      this.setIsLocked(false);
+      this.users[0] && this.users[0].setStatus('preparing');
+    }
+  }
 }

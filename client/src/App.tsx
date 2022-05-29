@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 //import { useEffect } from 'react';
 //import axios from "axios";
 //import { useState } from 'react';
@@ -11,7 +11,6 @@ import LandingPage from './Views/LandingPage/LandingPage';
 import MainPage from './Views/MainPage/MainPage';
 import SocketProvider from './providers/socketProvider';
 import UserProvider from './providers/userProvider';
-//import { setShipsOnRandomPositions } from './Helpers/Helpers';
 
 export const APP_VERSION = '1.0.0';
 export const YEAR = '2022';
@@ -22,11 +21,6 @@ function App() {
     axios.get("http://localhost:8090").then(({ data }) => { 
       console.log(data);
     }); 
-  }, []);*/
-
-  /*useEffect(() => {
-    const sizes = [5, 4, 4];
-    setShipsOnRandomPositions(sizes);
   }, []);*/
 
   return (

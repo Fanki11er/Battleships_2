@@ -2,8 +2,8 @@ import express from 'express';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import http from 'http';
-import { Room } from './Room/room';
-import { User } from './User/user';
+import { Room, SpecialRoom } from './Room/room';
+import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Shot } from './Helpers/Types';
 
@@ -35,6 +35,7 @@ server.listen(PORT, () => {
   for (let i = 1; i <= NUMBER_OF_ROOMS; i++) {
     rooms.push(new Room(`Room_#${i}`));
   }
+  rooms.push(new SpecialRoom('Room_C1', new Computer('RT2D2', '0')));
 });
 
 //? User Connection //
