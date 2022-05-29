@@ -34,8 +34,6 @@ export type ShipSettings = {
   column: string;
   row: string;
   shipSize: number;
-  //width: string;
-  //height: string;
 };
 
 export type Status = 'miss' | 'hit' | '';
@@ -67,4 +65,10 @@ export type shipsLeftListElement = {
   size: number;
   isSunk: boolean;
   id: string;
+};
+
+export type RandomShipCoordinates = {
+  randomX: number;
+  randomY: number;
+  orientation: Position;
 };

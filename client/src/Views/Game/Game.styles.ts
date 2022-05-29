@@ -29,7 +29,7 @@ export const Wrapper = styled.div`
 
 export const StyledMyList = styled(ShipsLeftList)`
   grid-row: 1/2;
-  grid-column: 2/3;
+  grid-column: 4/5;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-row: 3/4;
@@ -44,7 +44,7 @@ export const StyledMyList = styled(ShipsLeftList)`
 
 export const StyledOpponentList = styled(ShipsLeftList)`
   grid-row: 1/2;
-  grid-column: 4/5;
+  grid-column: 2/3;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-row: 2/3;

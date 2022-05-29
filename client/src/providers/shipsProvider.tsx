@@ -1,7 +1,12 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { BattleShip, Coordinates, Position } from '../Class/BattleShip';
 import { ShipsToTake, shipsList, ShipListCreator } from '../Data/shipsList';
-import { checkAviableSpacesForHorizontalShipPosition, checkAviableSpacesForVerticalShipPosition, makeCoordinates } from '../Helpers/Helpers';
+import {
+  checkAviableSpacesForHorizontalShipPosition,
+  checkAviableSpacesForVerticalShipPosition,
+  makeCoordinates,
+  setShipsOnRandomPositions,
+} from '../Helpers/Helpers';
 import { Identifier } from '../Types/types';
 
 export const ShipsContext = createContext({
@@ -12,6 +17,7 @@ export const ShipsContext = createContext({
   canMoveShip: (identifier: Identifier, coordinates: Coordinates, hasShip: boolean): boolean => false,
   handleShipRotate: (identifier: number | undefined) => {},
   handleResetShips: () => {},
+  setRandomShips: () => {},
   boardSize: 0,
 });
 
@@ -21,6 +27,12 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [shipsToTake, setShipsToTake] = useState<ShipsToTake[]>([]);
   const [ships, setShips] = useState<BattleShip[]>([]);
   const [coordinates, setCoordinates] = useState<Coordinates[]>([]);
+
+  const setRandomShips = () => {
+    setShips([]);
+    setShips(setShipsOnRandomPositions([5, 4, 4, 3, 3, 3, 2, 2, 2, 2]));
+    setShipsToTake([]);
+  };
 
   const addShip = (coordinates: Coordinates, position: Position, size: number) => {
     ships.push(new BattleShip(size, coordinates, position));
@@ -112,6 +124,7 @@ const ShipsProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     canMoveShip,
     handleShipRotate,
     handleResetShips,
+    setRandomShips,
     boardSize: BOARD_SIZE,
   };
   return <ShipsContext.Provider value={shipsContext}>{children}</ShipsContext.Provider>;
