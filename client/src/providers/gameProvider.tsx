@@ -35,8 +35,12 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
   const checkIfItIsMyTurn = useCallback(
     (currentTurnId: string) => {
+      console.log('Turn', currentTurnId);
       if (currentTurnId === socket?.id) {
         setIsMyTurn(true);
+      } else if (currentTurnId !== socket?.id && currentTurnId.includes('AIP#')) {
+        setIsMyTurn(false);
+        socket?.emit('requestAIShot');
       } else {
         setIsMyTurn(false);
       }

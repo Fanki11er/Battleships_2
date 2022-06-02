@@ -14,6 +14,12 @@ export class Board {
     });
   }
 
+  pushComputerShips = (ships: BattleShip[]) => {
+    ships.forEach((ship) => {
+      this.ships.push(ship);
+    });
+  };
+
   setUserId(userId: string) {
     this.userId = userId;
   }

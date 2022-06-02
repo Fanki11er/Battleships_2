@@ -7,6 +7,11 @@ export type RoomInfo = {
 };
 export type UserStatus = 'preparing' | 'ready' | '';
 export type Coordinates = { x: number; y: number };
+export type RandomShipCoordinates = {
+  randomX: number;
+  randomY: number;
+  orientation: Position;
+};
 export type Position = 'horizontal' | 'vertical';
 
 export type Ship = Omit<BattleShip, 'isSunk'> & Omit<BattleShip, 'hits'> & Position;

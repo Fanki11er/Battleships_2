@@ -1,4 +1,7 @@
-import { UserStatus } from '../Helpers/Types';
+import { Server, Socket } from 'socket.io';
+import { Game } from '../Game/Game';
+import { Shot, UserStatus } from '../Helpers/Types';
+import { Room } from '../Room/room';
 
 export class User {
   private name;
@@ -28,8 +31,13 @@ export class User {
 
 export class Computer extends User {
   readonly isComputer = true;
+
   protected status: UserStatus = 'preparing';
   constructor(name: string = 'Unknown', id: string) {
     super(name, id);
   }
+
+  takeAShot = () => {
+    return { coordinates: { x: 1, y: 1 }, userId: this.getId() } as Shot;
+  };
 }

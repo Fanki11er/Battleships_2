@@ -5,7 +5,7 @@ import http from 'http';
 import { Room, SpecialRoom } from './Room/room';
 import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
-import { Shot } from './Helpers/Types';
+import { Shot, ShotResult } from './Helpers/Types';
 
 const PORT = 8090 || process.env.PORT;
 /*const USER_STATUSES = {
@@ -35,10 +35,14 @@ server.listen(PORT, () => {
   for (let i = 1; i <= NUMBER_OF_ROOMS; i++) {
     rooms.push(new Room(`Room_#${i}`));
   }
-  rooms.push(new SpecialRoom('Room_C1', new Computer('RT2D2', '0')));
+
+  rooms.push(new SpecialRoom('Room_#AI1', new Computer('RT2D2', 'AIP#0')));
 });
 
 //? User Connection //
+/*   if (roomName.includes('AI#')) {
+  console.log(console.log('PLay with compuetr'));
+}*/
 
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ userName, roomName }) => {
@@ -103,12 +107,52 @@ io.on('connection', (socket) => {
   });
 
   socket.on('shot', (shot: Shot) => {
+    let shotResult: ShotResult | undefined;
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     const game = selectedRoom?.getGame();
-    const shotResult = game?.handleShot(shot);
-    const winner = game?.isSomeBodyWon();
+    shotResult = game?.handleShot(shot);
     const currentPlayer = game?.getCurrentPlayer();
+    const winner = game?.isSomeBodyWon();
+
+    if (selectedRoom && shotResult) {
+      io.to(selectedRoom.getRoomName()).emit('shotResult', {
+        shotResult,
+        currentPlayer,
+      });
+    }
+
+    if (winner && selectedRoom) {
+      io.to(selectedRoom.getRoomName()).emit('Winner', winner);
+      setTimeout(() => {
+        io.to(selectedRoom.getRoomName()).emit('GameEnded');
+        selectedRoom.endGame();
+        selectedRoom.resetUsers();
+        selectedRoom.setIsLocked(false);
+      }, 8000);
+    }
+  });
+
+  socket.on('requestAIShot', () => {
+    let shotResult: ShotResult | undefined;
+    let currentPlayer;
+    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+    const game = selectedRoom?.getGame();
+    currentPlayer = game?.getCurrentPlayer();
+    if (currentPlayer) {
+      const ai = game?.getPlayerById(currentPlayer) as Computer | undefined;
+
+      if (ai && ai.getIsComputer()) {
+        const shot: Shot = ai.takeAShot();
+        shotResult = game?.handleShot(shot);
+      }
+    } else {
+      console.log('SOME WEIRD ERROR');
+    }
+    currentPlayer = game?.getCurrentPlayer();
+    const winner = game?.isSomeBodyWon();
+
     if (selectedRoom && shotResult) {
       io.to(selectedRoom.getRoomName()).emit('shotResult', {
         shotResult,

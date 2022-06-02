@@ -1,6 +1,6 @@
-import { Board, Status } from "../Board/Board";
-import { Result, Shot, ShotResult } from "../Helpers/Types";
-import { User } from "../User/user";
+import { Board } from '../Board/Board';
+import { Result, Shot, ShotResult } from '../Helpers/Types';
+import { User } from '../User/user';
 
 export class Game {
   private boards: Board[] = [];
@@ -35,14 +35,14 @@ export class Game {
     const { userId, coordinates } = shot;
     let selectedBoard: Board[] = [];
     let result: Result = {
-      status: "notTouched",
+      status: 'notTouched',
       sunkShipSize: 0,
     };
     if (this.checkIfItsCurrentUserShot(userId)) {
       selectedBoard = this.boards.filter((board) => {
         return board.getUserId() !== userId;
       });
-     
+
       if (selectedBoard[0].notUsedCoordinates(coordinates)) {
         selectedBoard[0].addUsedCoordinates(coordinates);
         result = selectedBoard[0].checkShips(coordinates);
@@ -51,17 +51,25 @@ export class Game {
         }
       }
       this.setCurrentPlayer(selectedBoard[0].getUserId());
+
       return new ShotResult(coordinates, result, userId);
     }
     return undefined;
     //!Error handler
   };
 
-  setTheWinner = (winner: string)=> {
-    this.theWinner = winner
-  }
+  setTheWinner = (winner: string) => {
+    this.theWinner = winner;
+  };
 
   isSomeBodyWon = () => {
     return this.theWinner;
+  };
+
+  getPlayerById = (id: string) => {
+    const [user] = this.users.filter((user) => {
+      return user.getId() === id;
+    });
+    return user;
   };
 }

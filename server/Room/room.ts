@@ -1,12 +1,13 @@
 import { Board } from '../Board/Board';
 import { Game } from '../Game/Game';
+import { setComputerShips } from '../Helpers/helpers';
 import { UserStatus } from '../Helpers/Types';
 import { Computer, User } from '../User/user';
 
 export class Room {
   protected users: User[] = [];
   private roomName;
-  private boards: Board[] = [];
+  protected boards: Board[] = [];
   private game: Game | undefined;
   private isLocked: boolean;
 
@@ -94,6 +95,7 @@ export class Room {
   }
 
   startGame = () => {
+    //console.log(this.boards, this.users, 'STARTREd');
     this.game = new Game(this.boards, this.users);
   };
   getGame = () => {
@@ -108,12 +110,25 @@ export class Room {
 }
 
 export class SpecialRoom extends Room {
-  constructor(roomName: string, computer: Computer) {
+  constructor(roomName: string, computerUser: Computer) {
     super(roomName);
-    this.users.push(computer);
+    this.addComputerUser(computerUser);
   }
+  addComputerUser = (computer: Computer) => {
+    this.users.push(computer);
+  };
+
+  getComputer = () => {
+    return this.users.filter((user) => {
+      return user.getIsComputer() === true;
+    });
+  };
+
   addUser(user: User): void {
     this.users.push(user);
+    const board = this.getFreeBoard();
+    board!.pushComputerShips(setComputerShips([5, 4, 4, 3, 3, 3, 2, 2, 2, 2]));
+    board!.setUserId(this.users[0].getId());
     this.users[0].setStatus('ready');
   }
 
