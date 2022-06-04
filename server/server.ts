@@ -129,13 +129,13 @@ io.on('connection', (socket) => {
         selectedRoom.endGame();
         selectedRoom.resetUsers();
         selectedRoom.setIsLocked(false);
-      }, 8000);
+      }, 6000);
     }
   });
 
   socket.on('requestAIShot', () => {
     let shotResult: ShotResult | undefined;
-    let currentPlayer;
+    let currentPlayer: string | undefined;
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     const game = selectedRoom?.getGame();
@@ -146,6 +146,7 @@ io.on('connection', (socket) => {
       if (ai && ai.getIsComputer()) {
         const shot: Shot = ai.takeAShot();
         shotResult = game?.handleShot(shot);
+        ai.checkShotResult(shotResult);
       }
     } else {
       console.log('SOME WEIRD ERROR');
@@ -154,10 +155,12 @@ io.on('connection', (socket) => {
     const winner = game?.isSomeBodyWon();
 
     if (selectedRoom && shotResult) {
-      io.to(selectedRoom.getRoomName()).emit('shotResult', {
-        shotResult,
-        currentPlayer,
-      });
+      setTimeout(() => {
+        io.to(selectedRoom.getRoomName()).emit('shotResult', {
+          shotResult,
+          currentPlayer,
+        });
+      }, 1000);
     }
     if (winner && selectedRoom) {
       io.to(selectedRoom.getRoomName()).emit('Winner', winner);

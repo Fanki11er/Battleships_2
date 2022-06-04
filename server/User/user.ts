@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
+import { Battle } from '../Battle/Battle';
 import { Game } from '../Game/Game';
-import { Shot, UserStatus } from '../Helpers/Types';
+import { Shot, ShotResult, UserStatus } from '../Helpers/Types';
 import { Room } from '../Room/room';
 
 export class User {
@@ -31,6 +32,7 @@ export class User {
 
 export class Computer extends User {
   readonly isComputer = true;
+  private battle: Battle | undefined;
 
   protected status: UserStatus = 'preparing';
   constructor(name: string = 'Unknown', id: string) {
@@ -38,6 +40,21 @@ export class Computer extends User {
   }
 
   takeAShot = () => {
-    return { coordinates: { x: 1, y: 1 }, userId: this.getId() } as Shot;
+    return {
+      coordinates: this.battle?.takeShot(),
+      userId: this.getId(),
+    } as Shot;
+  };
+
+  checkShotResult = (shotResult: ShotResult | undefined) => {
+    shotResult && this.battle?.checkResult(shotResult);
+  };
+
+  startBattle = () => {
+    this.battle = new Battle();
+  };
+
+  stopBattle = () => {
+    this.battle = undefined;
   };
 }

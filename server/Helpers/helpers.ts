@@ -63,7 +63,6 @@ export class Helpers {
   }
 
   public static cancelGame = (selectedRoom: Room, io: Server) => {
-    console.log('CANCELED');
     selectedRoom.getUsers().forEach((user) => {
       selectedRoom.getGame()?.setTheWinner(user.getId());
     });
@@ -148,8 +147,4 @@ export const setComputerShips = (shipSizes: number[]) => {
     }
   }
   return ships;
-};
-
-const test = (socket: Socket) => {
-  console.log(socket);
 };

@@ -37,6 +37,7 @@ export class Game {
     let result: Result = {
       status: 'notTouched',
       sunkShipSize: 0,
+      sunkShipCoordinates: undefined,
     };
     if (this.checkIfItsCurrentUserShot(userId)) {
       selectedBoard = this.boards.filter((board) => {

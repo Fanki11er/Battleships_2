@@ -125,18 +125,22 @@ export class SpecialRoom extends Room {
   };
 
   addUser(user: User): void {
+    const computer = this.users[0] as Computer;
     this.users.push(user);
     const board = this.getFreeBoard();
     board!.pushComputerShips(setComputerShips([5, 4, 4, 3, 3, 3, 2, 2, 2, 2]));
     board!.setUserId(this.users[0].getId());
-    this.users[0].setStatus('ready');
+    computer.startBattle();
+    computer.setStatus('ready');
   }
 
   resetUsers() {
     this.users = this.users.filter((user) => {
       return user.getIsComputer() === true;
     });
-    this.users[0] && this.users[0].setStatus('preparing');
+    const computer = this.users[0] as Computer;
+    computer && computer.setStatus('preparing');
+    computer && computer.stopBattle();
   }
 
   clearDisconnectedUsers(userId: string): void {
@@ -145,7 +149,9 @@ export class SpecialRoom extends Room {
     });
     if (this.users.length < 2) {
       this.setIsLocked(false);
-      this.users[0] && this.users[0].setStatus('preparing');
+      const computer = this.users[0] as Computer;
+      computer && computer.setStatus('preparing');
+      computer && computer.stopBattle();
     }
   }
 }

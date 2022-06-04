@@ -26,16 +26,21 @@ export class ShotResult {
   status: Status;
   userId: string;
   sunkShip: number;
+  sunkShipCoordinates: Coordinates[] | undefined;
 
   constructor(coordinates: Coordinates, result: Result, userId: string) {
     this.coordinates = coordinates;
     this.status = result.status;
     this.userId = userId;
     this.sunkShip = result.sunkShipSize;
+    this.sunkShipCoordinates = result.sunkShipCoordinates;
   }
 }
 
 export type Result = {
   status: Status;
   sunkShipSize: number;
+  sunkShipCoordinates: Coordinates[] | undefined;
 };
+
+export type ShotPossibility = 'TOP' | 'DOWN' | 'LEFT' | 'RIGHT';
