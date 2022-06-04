@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { StyledMyList, StyledOpponentList, Wrapper } from './Game.styles';
+import { Wrapper } from './Game.styles';
 import { LoseStatus, WonStatus } from '../../components/Atoms/EndGameStatus/EndGameStatus';
 import TurnIndicator from '../../components/Atoms/TurnIndicator/TurnIndicator';
 import Modal from '../../components/Organisms/Modal/Modal';
@@ -10,6 +10,7 @@ import useModal from '../../Hooks/useModal';
 import { GameContext } from '../../providers/gameProvider';
 import { SocketContext } from '../../providers/socketProvider';
 import { routes } from '../../router/routes';
+import ShipsLeftList from '../../components/Molecules/ShipsLeftList/ShipsLeftList';
 
 const Game = () => {
   const { roomsList } = routes;
@@ -34,8 +35,8 @@ const Game = () => {
     <Wrapper>
       <TurnIndicator />
       <TargetingBoard />
-      <StyledMyList shipsLeft={myShipsList} />
-      <StyledOpponentList shipsLeft={opponentShipsList} />
+      <ShipsLeftList shipsLeft={myShipsList} owner="ME" />
+      <ShipsLeftList shipsLeft={opponentShipsList} owner={'OPPONENT'} />
       <UserGameBoard />
 
       {isOpen && socket ? <Modal>{socket?.id === winner ? <WonStatus /> : <LoseStatus />}</Modal> : null}
@@ -44,3 +45,4 @@ const Game = () => {
 };
 
 export default Game;
+//

@@ -113,8 +113,6 @@ const getRandomCoordinate = (max: number): RandomShipCoordinates => {
     randomX = getRandomNumber(max);
   }
 
-  console.log(randomX, '  ', randomY);
-
   return {
     randomX,
     randomY,
@@ -140,10 +138,8 @@ const isThereCollision = (usedCoordinates: Coordinates[], coordinates: Coordinat
   for (let i = 0; i < extendedCoordinates.length; i++) {
     const { x: newX, y: newY } = extendedCoordinates[i];
     const collisions = usedCoordinates.filter(({ x, y }) => {
-      console.log('C', x, ' ', y, ' ', newX, ' ', newY);
       return x === newX && y === newY;
     });
-    console.log(collisions);
     if (collisions.length) {
       return true;
     }
@@ -161,7 +157,6 @@ export const setShipsOnRandomPositions = (shipSizes: number[]) => {
     const coordinates = getRandomCoordinate(sizes[0]);
     if (!isThereCollision(usedCoordinates, { x: coordinates.randomX, y: coordinates.randomY }, sizes[0], coordinates.orientation)) {
       const ship = new BattleShip(sizes[0], { x: coordinates.randomX, y: coordinates.randomY }, coordinates.orientation);
-      console.log(ship);
       ships.push(ship);
       sizes.shift();
       usedCoordinates.push(...ship.coordinates);
