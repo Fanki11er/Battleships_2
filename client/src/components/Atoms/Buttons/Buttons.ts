@@ -88,3 +88,21 @@ export const CancelButton = styled(StandardButton)`
     background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
   }
 `;
+
+export const SetRandomShipsButton = styled(StandardButton)`
+  color: ${(props: StyledProps) => props.theme.colors.lighterBlue};
+  border: 3px solid ${(props: StyledProps) => props.theme.colors.lighterBlue};
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props: StyledProps) => props.theme.colors.transparentLighterBlue};
+  }
+`;
+
+export const ResetShipsButton = styled(StandardButton)`
+  color: ${(props: StyledProps) => props.theme.colors.salmon};
+  border: 3px solid ${(props: StyledProps) => props.theme.colors.salmon};
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props: StyledProps) => props.theme.colors.transparentSalmon};
+  }
+`;

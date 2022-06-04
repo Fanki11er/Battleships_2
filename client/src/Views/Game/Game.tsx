@@ -34,9 +34,10 @@ const Game = () => {
     <Wrapper>
       <TurnIndicator />
       <TargetingBoard />
+      <StyledMyList shipsLeft={myShipsList} />
       <StyledOpponentList shipsLeft={opponentShipsList} />
       <UserGameBoard />
-      <StyledMyList shipsLeft={myShipsList} />
+
       {isOpen && socket ? <Modal>{socket?.id === winner ? <WonStatus /> : <LoseStatus />}</Modal> : null}
     </Wrapper>
   );

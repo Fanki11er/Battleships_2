@@ -11,8 +11,8 @@ import { useState } from 'react';
 import { SortedUsers, User } from '../../Types/types';
 import { routes } from '../../router/routes';
 import PreparingPageStatusInfo from '../../components/Atoms/PreparingPageStatusInfo/PreparingPageStatusInfo';
-import { ShipsListWrapper, StyledBoard, Wrapper } from './PreparingPage.styles';
-import { ReadyButton } from '../../components/Atoms/Buttons/Buttons';
+import { RandomShipsButtonsWrapper, ShipsListWrapper, StyledBoard, Wrapper } from './PreparingPage.styles';
+import { ReadyButton, ResetShipsButton, SetRandomShipsButton } from '../../components/Atoms/Buttons/Buttons';
 import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 import { GameContext } from '../../providers/gameProvider';
 import { UserContext } from '../../providers/userProvider';
@@ -21,7 +21,7 @@ const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
   const { isGameStarted, isPreparationCanceled } = useContext(GameContext);
   const { socket } = useContext(SocketContext);
-  const { ships, handleResetShips } = useContext(ShipsContext);
+  const { ships, handleResetShips, setRandomShips } = useContext(ShipsContext);
   const [users, setUsers] = useState<User[]>([]);
   const { roomName } = useContext(UserContext);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
@@ -36,6 +36,7 @@ const PreparingPage = () => {
       socket?.off('usersStatusInRoom');
     };
   }, [socket, roomName]);
+
   useEffect(() => {
     handleResetShips();
   }, [handleResetShips]);
@@ -72,10 +73,20 @@ const PreparingPage = () => {
   return (
     <Wrapper>
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
+      {sortedUsers.me?.status === 'ready' ? null : (
+        <RandomShipsButtonsWrapper>
+          <SetRandomShipsButton isActive onClick={() => setRandomShips()}>
+            Randomize
+          </SetRandomShipsButton>
+          <ResetShipsButton isActive onClick={() => handleResetShips()}>
+            Reset Ships
+          </ResetShipsButton>
+        </RandomShipsButtonsWrapper>
+      )}
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
-          {ships.length === 1 ? (
+          {ships.length === 10 ? (
             <ReadyButton isActive={true} onClick={handleSendBoard} className={sortedUsers.me?.status === 'ready' ? 'hide' : 'show'}>
               Ready
             </ReadyButton>

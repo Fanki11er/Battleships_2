@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: grid;
   grid-template-columns: 33% 1fr 33%;
-  grid-template-rows: 0.65fr 0.5fr;
+  grid-template-rows: 0.65fr 200px 0.3fr;
   justify-content: center;
   align-items: center;
   padding: 0 35px;
@@ -17,14 +17,14 @@ export const Wrapper = styled.div`
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     padding: 5px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 350px 1fr;
+    grid-template-rows: 350px 200px 0.6fr;
     margin: 20px 0;
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     padding: 5px;
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 350px 1fr;
+    grid-template-rows: 200px 350px 150px 1fr;
   }
 `;
 
@@ -46,17 +46,34 @@ export const StyledBoard = styled(Board)`
 export const ShipsListWrapper = styled.div`
   display: flex;
   grid-column: 1/4;
-  grid-row: 2/3;
+  grid-row: 3/4;
   justify-content: center;
   align-items: center;
   width: 100%;
-  /*@media screen and (${(props: StyledProps) => props.theme.devices.large}) {
-    grid-column: 3/4;
-    grid-row: 1/2;
-  }*/
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     grid-column: 1/2;
+    grid-row: 5/4;
+  }
+`;
+
+export const RandomShipsButtonsWrapper = styled.div`
+  display: flex;
+  width: 600px;
+  padding: 10px 30px;
+  justify-content: space-between;
+  justify-self: center;
+  grid-column: 2/3;
+  grid-row: 2/3;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    width: 400px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-column: 1/1;
     grid-row: 3/4;
+    width: 90%;
+    max-width: 450px;
   }
 `;

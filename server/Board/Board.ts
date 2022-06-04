@@ -1,5 +1,5 @@
 import { BattleShip } from '../Battleship/Battleship';
-import { Coordinates, Ship } from '../Helpers/Types';
+import { Coordinates, Result, Ship } from '../Helpers/Types';
 
 export class Board {
   private userId: string = '';
@@ -13,6 +13,12 @@ export class Board {
       this.ships.push(new BattleShip(coordinates, size));
     });
   }
+
+  pushComputerShips = (ships: BattleShip[]) => {
+    ships.forEach((ship) => {
+      this.ships.push(ship);
+    });
+  };
 
   setUserId(userId: string) {
     this.userId = userId;
@@ -58,19 +64,22 @@ export class Board {
           return {
             status: 'hit' as Status,
             sunkShipSize: this.ships[i].size,
-          };
+            sunkShipCoordinates: this.ships[i].coordinates,
+          } as Result;
         } else {
           return {
             status: 'hit' as Status,
             sunkShipSize: 0,
-          };
+            sunkShipCoordinates: undefined,
+          } as Result;
         }
       }
     }
     return {
       status: 'miss' as Status,
       sunkShipSize: 0,
-    };
+      sunkShipCoordinates: undefined,
+    } as Result;
   };
 
   addSunkShip = () => {

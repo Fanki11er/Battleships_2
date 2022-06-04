@@ -64,11 +64,6 @@ export const ShipMarker = styled.div`
     background: linear-gradient(-45deg, rgba(1, 1, 1, 0.07), rgba(1, 1, 1, 0.2));
   }
 
-  @media screen and (min-width: 3000px) {
-    width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
-    height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
-  }
-
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};
     height: ${(props: StyledProps) => `${props.theme.otherDimensions.smallCellSize}px`};

@@ -1,12 +1,13 @@
 import { Board } from '../Board/Board';
 import { Game } from '../Game/Game';
+import { setComputerShips } from '../Helpers/helpers';
 import { UserStatus } from '../Helpers/Types';
-import { User } from '../User/user';
+import { Computer, User } from '../User/user';
 
 export class Room {
-  private users: User[] = [];
+  protected users: User[] = [];
   private roomName;
-  private boards: Board[] = [];
+  protected boards: Board[] = [];
   private game: Game | undefined;
   private isLocked: boolean;
 
@@ -94,6 +95,7 @@ export class Room {
   }
 
   startGame = () => {
+    //console.log(this.boards, this.users, 'STARTREd');
     this.game = new Game(this.boards, this.users);
   };
   getGame = () => {
@@ -105,4 +107,51 @@ export class Room {
       board.resetBoard();
     });
   };
+}
+
+export class SpecialRoom extends Room {
+  constructor(roomName: string, computerUser: Computer) {
+    super(roomName);
+    this.addComputerUser(computerUser);
+  }
+  addComputerUser = (computer: Computer) => {
+    this.users.push(computer);
+  };
+
+  getComputer = () => {
+    return this.users.filter((user) => {
+      return user.getIsComputer() === true;
+    });
+  };
+
+  addUser(user: User): void {
+    const computer = this.users[0] as Computer;
+    this.users.push(user);
+    const board = this.getFreeBoard();
+    board!.pushComputerShips(setComputerShips([5, 4, 4, 3, 3, 3, 2, 2, 2, 2]));
+    board!.setUserId(this.users[0].getId());
+    computer.startBattle();
+    computer.setStatus('ready');
+  }
+
+  resetUsers() {
+    this.users = this.users.filter((user) => {
+      return user.getIsComputer() === true;
+    });
+    const computer = this.users[0] as Computer;
+    computer && computer.setStatus('preparing');
+    computer && computer.stopBattle();
+  }
+
+  clearDisconnectedUsers(userId: string): void {
+    this.users = this.users.filter((user) => {
+      return user.getId() != userId;
+    });
+    if (this.users.length < 2) {
+      this.setIsLocked(false);
+      const computer = this.users[0] as Computer;
+      computer && computer.setStatus('preparing');
+      computer && computer.stopBattle();
+    }
+  }
 }
