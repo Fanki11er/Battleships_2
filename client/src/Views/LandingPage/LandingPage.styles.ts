@@ -13,20 +13,21 @@ export const Wrapper = styled.div`
   background-position: 0 40%;
   background-attachment: fixed;
   display: grid;
-  grid-template-rows: 200px 200px 700px 700px 100px 150px;
-  row-gap: 50px;
+  grid-template-rows: 250px 250px 850px 850px 250px 200px;
+  row-gap: 100px;
 
-  @media screen and (min-width: 3000px) {
-    grid-template-rows: 250px 250px 850px 850px 250px 200px;
-    row-gap: 100px;
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    grid-template-rows: 200px 200px 700px 700px 100px 150px;
+    row-gap: 50px;
   }
 
-  @media screen and (max-width: 1540px) {
-    grid-template-rows: 150px 150px 450px 600px 100px 100px;
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    grid-template-rows: 150px 150px 450px 500px 100px 100px;
     background-position: 50% 40%;
+    row-gap: 35px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
     grid-template-rows: 270px 150px 250px 300px 100px 100px;
     row-gap: 25px;
   }
