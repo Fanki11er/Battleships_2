@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { PropsWithChildren, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/styles/theme';
 

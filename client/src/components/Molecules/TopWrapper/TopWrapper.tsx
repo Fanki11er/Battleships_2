@@ -32,7 +32,7 @@ const TopWrapper = () => {
   return (
     <Wrapper>
       <AppLogo />
-      <UserInfo userName={userName} roomName={roomName} />
+      <UserInfo userName={userName ? userName : ''} roomName={roomName ? roomName : ''} />
       <CancelButtonWrapper />
     </Wrapper>
   );

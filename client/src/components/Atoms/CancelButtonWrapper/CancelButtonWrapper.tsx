@@ -27,7 +27,7 @@ const CancelButtonWrapper = () => {
   const { pathname } = useLocation();
   const { handlePreparationCancel } = useContext(GameContext);
   const { roomName } = useContext(UserContext);
-  const { room, game, roomsList } = routes;
+  const { room, game, roomsList, error } = routes;
 
   const switchButton = (pathname: string) => {
     switch (pathname) {
@@ -48,6 +48,13 @@ const CancelButtonWrapper = () => {
       }
 
       case roomsList: {
+        return (
+          <CancelButton isActive onClick={() => console.log('Back')}>
+            Back
+          </CancelButton>
+        );
+      }
+      case error: {
         return (
           <CancelButton isActive onClick={() => console.log('Back')}>
             Back
