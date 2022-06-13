@@ -4,6 +4,8 @@ import { ShipListCreator, shipsList } from '../Data/shipsList';
 import { Result, shipsLeftListElement, Shot, ShotResult } from '../Types/types';
 import { SocketContext } from './socketProvider';
 import { v4 as uuid } from 'uuid';
+import { Redirect } from 'react-router-dom';
+import { routes } from '../router/routes';
 
 export const GameContext = createContext({
   myShots: [] as ShotResult[],
@@ -32,6 +34,8 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [isPreparationCanceled, setIsPreparationCanceled] = useState(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
   const [winner, setWinner] = useState('');
+  const [isServerError, setIsServerError] = useState(false);
+  const { error } = routes;
 
   const checkIfItIsMyTurn = useCallback(
     (currentTurnId: string) => {
@@ -169,6 +173,19 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     setMyShipsList(myList);
     setOpponentShipsList(opponentsList);
   };
+
+  useEffect(() => {
+    socket?.once('error', () => {
+      setIsServerError(true);
+    });
+    return () => {
+      socket?.off('error');
+    };
+  }, [myShots, opponentShots, socket, checkIfItIsMyTurn, handleSunkShip]);
+
+  if (isServerError) {
+    return <Redirect to={{ pathname: error }} />;
+  }
 
   const gameContext = {
     myShots,

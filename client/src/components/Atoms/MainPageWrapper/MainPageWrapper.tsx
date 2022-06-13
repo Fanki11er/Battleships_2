@@ -4,11 +4,11 @@ import { StyledProps } from '../../../assets/styles/theme';
 import roomsListBackgroundImage from '../../../assets/backgrounds/rooms-list-background.svg';
 import roomBackgroundImage from '../../../assets/backgrounds/preparing-background-image.svg';
 import gameBackground from '../../../assets/backgrounds/game-background.svg';
-import errorBackground from '../../../assets/backgrounds/error-background.svg';
+
 import { routes } from '../../../router/routes';
 
 const selectBackground = (pathname: string) => {
-  const { roomsList, room, game, error } = routes;
+  const { roomsList, room, game } = routes;
   switch (pathname) {
     case roomsList: {
       return roomsListBackgroundImage;
@@ -18,9 +18,6 @@ const selectBackground = (pathname: string) => {
     }
     case game: {
       return gameBackground;
-    }
-    case error: {
-      return errorBackground;
     }
   }
 };

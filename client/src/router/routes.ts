@@ -4,5 +4,5 @@ export const routes = {
   room: '/main/room',
   game: '/main/game',
   roomsList: '/main/rooms',
-  error: '/main/error',
+  error: '/error',
 };

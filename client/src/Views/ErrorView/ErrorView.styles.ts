@@ -1,13 +1,22 @@
 import styled from 'styled-components';
 import { StyledProps } from '../../assets/styles/theme';
+import errorBackground from '../../assets/backgrounds/error-background.svg';
 
 export const Wrapper = styled.div`
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
-  min-height: 60vh;
-  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 200px 1fr 200px;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background: url(${errorBackground});
+  background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};
+  background-size: cover;
+  background-blend-mode: luminosity;
+  background-position: 50% 40%;
+  background-attachment: fixed;
 `;
 
 export const ErrorInfo = styled.h1`

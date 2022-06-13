@@ -9,11 +9,10 @@ import TopWrapper from '../../components/Molecules/TopWrapper/TopWrapper';
 import Footer from '../../components/Molecules/Footer/Footer';
 import GameProvider from '../../providers/gameProvider';
 import MainPageWrapper from '../../components/Atoms/MainPageWrapper/MainPageWrapper';
-import ErrorView from '../ErrorView/ErrorView';
 
 const MainPage = () => {
   const { pathname } = useLocation();
-  const { room, game, roomsList, error } = routes;
+  const { room, game, roomsList } = routes;
   if (pathname === '/main') return <LandingPage />;
   return (
     <MainPageWrapper pathname={pathname}>
@@ -23,7 +22,6 @@ const MainPage = () => {
         <ShipsProvider>
           {pathname === room && <PreparingPage />}
           {pathname === game && <Game />}
-          {pathname === error && <ErrorView />}
         </ShipsProvider>
       </GameProvider>
       <Footer />
