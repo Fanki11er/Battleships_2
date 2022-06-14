@@ -45,40 +45,56 @@ server.listen(PORT, () => {
 }*/
 
 io.on('connection', (socket) => {
-  socket.on('joinRoom', ({ userName, roomName }) => {
-    const user = new User(userName, socket.id);
-    socket.join(roomName);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    user.setStatus('preparing');
-    selectedRoom?.addUser(user);
-    socket.emit('connectionAccepted', roomName);
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-  });
+  try {
+    socket.on('joinRoom', ({ userName, roomName }) => {
+      const user = new User(userName, socket.id);
+      socket.join(roomName);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      user.setStatus('preparing');
+      selectedRoom?.addUser(user);
+      socket.emit('connectionAccepted', roomName);
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
 
   socket.on('getRoomsList', () => {
     try {
       io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
     }
   });
 
-  socket.on('usersJoinTheRoom', (roomName) => {
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-  });
+  try {
+    socket.on('usersJoinTheRoom', (roomName) => {
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
 
-  socket.on('leaveTheRoom', (roomName) => {
-    socket.leave(roomName);
-    Helpers.removeDisconnectedUser(rooms, socket.id);
-    io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    Helpers.resetBoard(socket.id, selectedRoom);
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    if (selectedRoom?.getGame()) {
-      Helpers.cancelGame(selectedRoom, io);
-    }
-  });
+  try {
+    socket.on('leaveTheRoom', (roomName) => {
+      socket.leave(roomName);
+      Helpers.removeDisconnectedUser(rooms, socket.id);
+      io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      Helpers.resetBoard(socket.id, selectedRoom);
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+      if (selectedRoom?.getGame()) {
+        Helpers.cancelGame(selectedRoom, io);
+      }
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
 
   socket.on('setBoard', (ships) => {
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
@@ -90,105 +106,127 @@ io.on('connection', (socket) => {
       board?.pushShips(ships);
       board?.setUserId(socket.id);
       selectedRoom?.changeUserStatus(socket.id, 'ready');
-    } catch (err) {
-      console.log(err);
-    }
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-    areUsersReady = selectedRoom?.areUsersReady();
-    if (areUsersReady && selectedRoom) {
-      selectedRoom.startGame();
-      selectedRoom.getGame()?.getCurrentPlayer();
-      setTimeout(() => {
-        selectedRoom.setIsLocked(true);
-        io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
-      }, 2000);
-    }
-  });
-
-  socket.on('shot', (shot: Shot) => {
-    let shotResult: ShotResult | undefined;
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    const game = selectedRoom?.getGame();
-    shotResult = game?.handleShot(shot);
-    const currentPlayer = game?.getCurrentPlayer();
-    const winner = game?.isSomeBodyWon();
-
-    if (selectedRoom && shotResult) {
-      io.to(selectedRoom.getRoomName()).emit('shotResult', {
-        shotResult,
-        currentPlayer,
-      });
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
     }
 
-    if (winner && selectedRoom) {
-      io.to(selectedRoom.getRoomName()).emit('Winner', winner);
-      setTimeout(() => {
-        io.to(selectedRoom.getRoomName()).emit('GameEnded');
-        selectedRoom.endGame();
-        selectedRoom.resetUsers();
-        selectedRoom.setIsLocked(false);
-      }, 6000);
-    }
-  });
-
-  socket.on('requestAIShot', () => {
-    let shotResult: ShotResult | undefined;
-    let currentPlayer: string | undefined;
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    const game = selectedRoom?.getGame();
-    currentPlayer = game?.getCurrentPlayer();
-    if (currentPlayer) {
-      const ai = game?.getPlayerById(currentPlayer) as Computer | undefined;
-
-      if (ai && ai.getIsComputer()) {
-        const shot: Shot = ai.takeAShot();
-        shotResult = game?.handleShot(shot);
-        ai.checkShotResult(shotResult);
+    try {
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+      areUsersReady = selectedRoom?.areUsersReady();
+      if (areUsersReady && selectedRoom) {
+        selectedRoom.startGame();
+        selectedRoom.getGame()?.getCurrentPlayer();
+        setTimeout(() => {
+          selectedRoom.setIsLocked(true);
+          io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
+        }, 2000);
       }
-    } else {
-      console.log('SOME WEIRD ERROR');
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
     }
-    currentPlayer = game?.getCurrentPlayer();
-    const winner = game?.isSomeBodyWon();
+  });
 
-    if (selectedRoom && shotResult) {
-      setTimeout(() => {
+  try {
+    socket.on('shot', (shot: Shot) => {
+      let shotResult: ShotResult | undefined;
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      const game = selectedRoom?.getGame();
+      shotResult = game?.handleShot(shot);
+      const currentPlayer = game?.getCurrentPlayer();
+      const winner = game?.isSomeBodyWon();
+
+      if (selectedRoom && shotResult) {
         io.to(selectedRoom.getRoomName()).emit('shotResult', {
           shotResult,
           currentPlayer,
         });
-      }, 1000);
-    }
-    if (winner && selectedRoom) {
-      io.to(selectedRoom.getRoomName()).emit('Winner', winner);
-      setTimeout(() => {
-        io.to(selectedRoom.getRoomName()).emit('GameEnded');
-        selectedRoom.endGame();
-        selectedRoom.resetUsers();
-        selectedRoom.setIsLocked(false);
-      }, 8000);
-    }
-  });
+      }
+
+      if (winner && selectedRoom) {
+        io.to(selectedRoom.getRoomName()).emit('Winner', winner);
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('GameEnded');
+          selectedRoom.endGame();
+          selectedRoom.resetUsers();
+          selectedRoom.setIsLocked(false);
+        }, 6000);
+      }
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
+
+  try {
+    socket.on('requestAIShot', () => {
+      let shotResult: ShotResult | undefined;
+      let currentPlayer: string | undefined;
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      const game = selectedRoom?.getGame();
+      currentPlayer = game?.getCurrentPlayer();
+      if (currentPlayer) {
+        const ai = game?.getPlayerById(currentPlayer) as Computer | undefined;
+
+        if (ai && ai.getIsComputer()) {
+          const shot: Shot = ai.takeAShot();
+          shotResult = game?.handleShot(shot);
+          ai.checkShotResult(shotResult);
+        }
+      } else {
+        console.log('SOME WEIRD ERROR');
+      }
+      currentPlayer = game?.getCurrentPlayer();
+      const winner = game?.isSomeBodyWon();
+
+      if (selectedRoom && shotResult) {
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('shotResult', {
+            shotResult,
+            currentPlayer,
+          });
+        }, 1000);
+      }
+      if (winner && selectedRoom) {
+        io.to(selectedRoom.getRoomName()).emit('Winner', winner);
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('GameEnded');
+          selectedRoom.endGame();
+          selectedRoom.resetUsers();
+          selectedRoom.setIsLocked(false);
+        }, 8000);
+      }
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
 
   //? User disconnection //
 
-  socket.on('disconnect', () => {
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    Helpers.removeDisconnectedUser(rooms, socket.id);
-    Helpers.resetBoard(socket.id, selectedRoom);
+  try {
+    socket.on('disconnect', () => {
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      Helpers.removeDisconnectedUser(rooms, socket.id);
+      Helpers.resetBoard(socket.id, selectedRoom);
 
-    if (selectedRoom?.getGame()) {
-      Helpers.cancelGame(selectedRoom, io);
-    }
+      if (selectedRoom?.getGame()) {
+        Helpers.cancelGame(selectedRoom, io);
+      }
 
-    socket.leave(roomName);
-    socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-  });
+      socket.leave(roomName);
+      socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+    });
+  } catch (error) {
+    socket.emit('serverError');
+    console.log(error);
+  }
 
   io.on('error', (err) => {
     console.log(err, 'Error');

@@ -39,7 +39,6 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
 
   const checkIfItIsMyTurn = useCallback(
     (currentTurnId: string) => {
-      console.log('Turn', currentTurnId);
       if (currentTurnId === socket?.id) {
         setIsMyTurn(true);
       } else if (currentTurnId !== socket?.id && currentTurnId.includes('AIP#')) {
@@ -175,11 +174,11 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   };
 
   useEffect(() => {
-    socket?.once('error', () => {
+    socket?.once('serverError', () => {
       setIsServerError(true);
     });
     return () => {
-      socket?.off('error');
+      socket?.off('serverError');
     };
   }, [myShots, opponentShots, socket, checkIfItIsMyTurn, handleSunkShip]);
 
