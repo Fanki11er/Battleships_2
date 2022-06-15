@@ -7,7 +7,7 @@ const ModalWrapper = styled.div`
   width: 100vw;
   height: auto;
   min-height: 120vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
