@@ -35,4 +35,4 @@ const mockedShipsLeftList = [
   } as shipsLeftListElement,
 ];
 
-export const Default: Story = () => <ShipsLeftList shipsLeft={mockedShipsLeftList} />;
+export const Default: Story = () => <ShipsLeftList shipsLeft={mockedShipsLeftList} owner={'ME'} />;

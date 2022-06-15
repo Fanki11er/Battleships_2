@@ -2,18 +2,17 @@ import express from 'express';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import http from 'http';
+import 'dotenv/config';
+import sgMail from '@sendgrid/mail';
 import { Room, SpecialRoom } from './Room/room';
 import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
-import { Shot, ShotResult } from './Helpers/Types';
+import { Ship, Shot, ShotResult } from './Helpers/Types';
 
 const PORT = 8090 || process.env.PORT;
-/*const USER_STATUSES = {
-  preparing: 'preparing',
-  ready: 'ready'
-}*/
+sgMail.setApiKey(process.env.SENDGRID!);
+
 const NUMBER_OF_ROOMS = 2;
-//const BOARD_SIZE = 5;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -40,47 +39,65 @@ server.listen(PORT, () => {
 });
 
 //? User Connection //
-/*   if (roomName.includes('AI#')) {
-  console.log(console.log('PLay with compuetr'));
-}*/
 
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ userName, roomName }) => {
-    const user = new User(userName, socket.id);
-    socket.join(roomName);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    user.setStatus('preparing');
-    selectedRoom?.addUser(user);
-    socket.emit('connectionAccepted', roomName);
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+    try {
+      if (!userName || !roomName) {
+        throw new Error('Invalid user parameters');
+      }
+      const user = new User(userName, socket.id);
+      socket.join(roomName);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      user.setStatus('preparing');
+      selectedRoom?.addUser(user);
+      socket.emit('connectionAccepted', roomName);
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
   });
 
   socket.on('getRoomsList', () => {
     try {
       io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
-    } catch (err) {
-      console.log(err);
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
   });
 
   socket.on('usersJoinTheRoom', (roomName) => {
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-  });
-
-  socket.on('leaveTheRoom', (roomName) => {
-    socket.leave(roomName);
-    Helpers.removeDisconnectedUser(rooms, socket.id);
-    io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    Helpers.resetBoard(socket.id, selectedRoom);
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    if (selectedRoom?.getGame()) {
-      Helpers.cancelGame(selectedRoom, io);
+    try {
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
     }
   });
 
-  socket.on('setBoard', (ships) => {
+  socket.on('leaveTheRoom', (roomName) => {
+    try {
+      socket.leave(roomName);
+      Helpers.removeDisconnectedUser(rooms, socket.id);
+      io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      Helpers.resetBoard(socket.id, selectedRoom);
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+      if (selectedRoom?.getGame()) {
+        Helpers.cancelGame(selectedRoom, io);
+      }
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
+    }
+  });
+
+  socket.on('setBoard', (ships: Ship[]) => {
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     let areUsersReady: boolean | undefined = false;
@@ -90,107 +107,138 @@ io.on('connection', (socket) => {
       board?.pushShips(ships);
       board?.setUserId(socket.id);
       selectedRoom?.changeUserStatus(socket.id, 'ready');
-    } catch (err) {
-      console.log(err);
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
-    if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-    areUsersReady = selectedRoom?.areUsersReady();
-    if (areUsersReady && selectedRoom) {
-      selectedRoom.startGame();
-      selectedRoom.getGame()?.getCurrentPlayer();
-      setTimeout(() => {
-        selectedRoom.setIsLocked(true);
-        io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
-      }, 2000);
+
+    try {
+      if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+      areUsersReady = selectedRoom?.areUsersReady();
+      if (areUsersReady && selectedRoom) {
+        selectedRoom.startGame();
+        selectedRoom.getGame()?.getCurrentPlayer();
+        setTimeout(() => {
+          selectedRoom.setIsLocked(true);
+          io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
+        }, 2000);
+      }
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
   });
 
   socket.on('shot', (shot: Shot) => {
-    let shotResult: ShotResult | undefined;
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    const game = selectedRoom?.getGame();
-    shotResult = game?.handleShot(shot);
-    const currentPlayer = game?.getCurrentPlayer();
-    const winner = game?.isSomeBodyWon();
-
-    if (selectedRoom && shotResult) {
-      io.to(selectedRoom.getRoomName()).emit('shotResult', {
-        shotResult,
-        currentPlayer,
-      });
-    }
-
-    if (winner && selectedRoom) {
-      io.to(selectedRoom.getRoomName()).emit('Winner', winner);
-      setTimeout(() => {
-        io.to(selectedRoom.getRoomName()).emit('GameEnded');
-        selectedRoom.endGame();
-        selectedRoom.resetUsers();
-        selectedRoom.setIsLocked(false);
-      }, 6000);
-    }
-  });
-
-  socket.on('requestAIShot', () => {
-    let shotResult: ShotResult | undefined;
-    let currentPlayer: string | undefined;
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    const game = selectedRoom?.getGame();
-    currentPlayer = game?.getCurrentPlayer();
-    if (currentPlayer) {
-      const ai = game?.getPlayerById(currentPlayer) as Computer | undefined;
-
-      if (ai && ai.getIsComputer()) {
-        const shot: Shot = ai.takeAShot();
-        shotResult = game?.handleShot(shot);
-        ai.checkShotResult(shotResult);
+    try {
+      if (!shot.coordinates || !shot.userId) {
+        throw new Error('Invalid shot parameters');
       }
-    } else {
-      console.log('SOME WEIRD ERROR');
-    }
-    currentPlayer = game?.getCurrentPlayer();
-    const winner = game?.isSomeBodyWon();
+      let shotResult: ShotResult | undefined;
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      const game = selectedRoom?.getGame();
+      shotResult = game?.handleShot(shot);
+      const currentPlayer = game?.getCurrentPlayer();
+      const winner = game?.isSomeBodyWon();
 
-    if (selectedRoom && shotResult) {
-      setTimeout(() => {
+      if (selectedRoom && shotResult) {
         io.to(selectedRoom.getRoomName()).emit('shotResult', {
           shotResult,
           currentPlayer,
         });
-      }, 1000);
+      }
+
+      if (winner && selectedRoom) {
+        io.to(selectedRoom.getRoomName()).emit('Winner', winner);
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('GameEnded');
+          selectedRoom.endGame();
+          selectedRoom.resetUsers();
+          selectedRoom.setIsLocked(false);
+        }, 6000);
+      }
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
-    if (winner && selectedRoom) {
-      io.to(selectedRoom.getRoomName()).emit('Winner', winner);
-      setTimeout(() => {
-        io.to(selectedRoom.getRoomName()).emit('GameEnded');
-        selectedRoom.endGame();
-        selectedRoom.resetUsers();
-        selectedRoom.setIsLocked(false);
-      }, 8000);
+  });
+
+  socket.on('requestAIShot', () => {
+    try {
+      let shotResult: ShotResult | undefined;
+      let currentPlayer: string | undefined;
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      const game = selectedRoom?.getGame();
+      currentPlayer = game?.getCurrentPlayer();
+      if (currentPlayer) {
+        const ai = game?.getPlayerById(currentPlayer) as Computer | undefined;
+
+        if (ai && ai.getIsComputer()) {
+          const shot: Shot = ai.takeAShot();
+          shotResult = game?.handleShot(shot);
+          ai.checkShotResult(shotResult);
+        }
+      } else {
+        console.log('SOME WEIRD ERROR');
+      }
+      currentPlayer = game?.getCurrentPlayer();
+      const winner = game?.isSomeBodyWon();
+
+      if (selectedRoom && shotResult) {
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('shotResult', {
+            shotResult,
+            currentPlayer,
+          });
+        }, 1000);
+      }
+      if (winner && selectedRoom) {
+        io.to(selectedRoom.getRoomName()).emit('Winner', winner);
+        setTimeout(() => {
+          io.to(selectedRoom.getRoomName()).emit('GameEnded');
+          selectedRoom.endGame();
+          selectedRoom.resetUsers();
+          selectedRoom.setIsLocked(false);
+        }, 8000);
+      }
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
   });
 
   //? User disconnection //
 
   socket.on('disconnect', () => {
-    const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
-    const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
-    Helpers.removeDisconnectedUser(rooms, socket.id);
-    Helpers.resetBoard(socket.id, selectedRoom);
+    try {
+      const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
+      const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
+      Helpers.removeDisconnectedUser(rooms, socket.id);
+      Helpers.resetBoard(socket.id, selectedRoom);
 
-    if (selectedRoom?.getGame()) {
-      Helpers.cancelGame(selectedRoom, io);
+      if (selectedRoom?.getGame()) {
+        Helpers.cancelGame(selectedRoom, io);
+      }
+
+      socket.leave(roomName);
+      socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
+      io.emit('userStatus', Helpers.sanitizeRooms(rooms));
+    } catch (error: any) {
+      socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
+      console.log(error);
     }
-
-    socket.leave(roomName);
-    socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
-    io.emit('userStatus', Helpers.sanitizeRooms(rooms));
   });
+});
 
-  io.on('error', (err) => {
-    console.log(err, 'Error');
-  });
+server.on('error', (error) => {
+  console.log('Server', error);
+  Helpers.sendEmail(sgMail, error.toString());
 });

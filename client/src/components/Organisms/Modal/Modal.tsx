@@ -5,8 +5,9 @@ import { StyledProps } from '../../../assets/styles/theme';
 
 const ModalWrapper = styled.div`
   width: 100vw;
-  height: 150vh;
-  position: absolute;
+  height: auto;
+  min-height: 120vh;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;

@@ -5,7 +5,7 @@ import { StyledProps } from '../../../assets/styles/theme';
 import { GameContext } from '../../../providers/gameProvider';
 import { UserContext } from '../../../providers/userProvider';
 import { routes } from '../../../router/routes';
-import { CancelButton } from '../Buttons/Buttons';
+import { CancelButton, CancelLink } from '../Buttons/Buttons';
 
 const Wrapper = styled.div`
   width: 250px;
@@ -26,8 +26,8 @@ const Wrapper = styled.div`
 const CancelButtonWrapper = () => {
   const { pathname } = useLocation();
   const { handlePreparationCancel } = useContext(GameContext);
-  const { roomName } = useContext(UserContext);
-  const { room, game, roomsList } = routes;
+  const { roomName, handleSetUserName } = useContext(UserContext);
+  const { room, game, roomsList, error } = routes;
 
   const switchButton = (pathname: string) => {
     switch (pathname) {
@@ -42,17 +42,20 @@ const CancelButtonWrapper = () => {
       case game: {
         return (
           <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
-            Cancel game
+            Cancel
           </CancelButton>
         );
       }
 
       case roomsList: {
         return (
-          <CancelButton isActive onClick={() => console.log('Back')}>
+          <CancelLink to={''} onClick={() => handleSetUserName('')}>
             Back
-          </CancelButton>
+          </CancelLink>
         );
+      }
+      case error: {
+        return <CancelLink to={''}>Back</CancelLink>;
       }
       default: {
         return null;

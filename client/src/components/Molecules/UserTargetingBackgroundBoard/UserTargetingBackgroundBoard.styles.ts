@@ -10,7 +10,7 @@ export const Image = styled.img`
 
 export const ResultCell = styled(UsedCell)`
   user-select: none;
-  cursor: not-allowed;
+  cursor: pointer;
   background-color: ${(props: StyledProps) => props.theme.colors.water};
 `;
 

@@ -11,12 +11,13 @@ import LandingPage from './Views/LandingPage/LandingPage';
 import MainPage from './Views/MainPage/MainPage';
 import SocketProvider from './providers/socketProvider';
 import UserProvider from './providers/userProvider';
+import ErrorView from './Views/ErrorView/ErrorView';
 
 export const APP_VERSION = '1.0.0';
 export const YEAR = '2022';
 
 function App() {
-  const { landingPage, mainPage } = routes;
+  const { landingPage, mainPage, error } = routes;
   /*useEffect(() => {
     axios.get("http://localhost:8090").then(({ data }) => { 
       console.log(data);
@@ -32,6 +33,7 @@ function App() {
             <Switch>
               <Route exact path={landingPage} component={LandingPage}></Route>
               <Route path={mainPage} component={MainPage}></Route>
+              <Route path={error} component={ErrorView}></Route>
               <Route path={'*'} component={LandingPage} />
             </Switch>
           </UserProvider>

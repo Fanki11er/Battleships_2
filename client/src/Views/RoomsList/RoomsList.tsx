@@ -60,7 +60,6 @@ const RoomsList = () => {
         roomsList.map(({ roomName, users, isLocked }) => {
           return <Room isLocked={isLocked} roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
         })}
-      {status === 'error' && <div>Sorry... something went wrong</div>}
     </Wrapper>
   );
 };

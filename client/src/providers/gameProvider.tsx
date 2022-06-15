@@ -4,6 +4,8 @@ import { ShipListCreator, shipsList } from '../Data/shipsList';
 import { Result, shipsLeftListElement, Shot, ShotResult } from '../Types/types';
 import { SocketContext } from './socketProvider';
 import { v4 as uuid } from 'uuid';
+import { Redirect } from 'react-router-dom';
+import { routes } from '../router/routes';
 
 export const GameContext = createContext({
   myShots: [] as ShotResult[],
@@ -32,20 +34,23 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const [isPreparationCanceled, setIsPreparationCanceled] = useState(false);
   const [isMyTurn, setIsMyTurn] = useState(false);
   const [winner, setWinner] = useState('');
+  const [isServerError, setIsServerError] = useState(false);
+  const { error } = routes;
 
   const checkIfItIsMyTurn = useCallback(
     (currentTurnId: string) => {
-      console.log('Turn', currentTurnId);
       if (currentTurnId === socket?.id) {
         setIsMyTurn(true);
       } else if (currentTurnId !== socket?.id && currentTurnId.includes('AIP#')) {
         setIsMyTurn(false);
-        socket?.emit('requestAIShot');
+        if (!winner) {
+          socket?.emit('requestAIShot');
+        }
       } else {
         setIsMyTurn(false);
       }
     },
-    [socket]
+    [socket, winner]
   );
 
   const resetGame = useCallback(() => {
@@ -133,6 +138,9 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       setGameStarted(true);
       checkIfItIsMyTurn(currentPlayer as string);
     });
+    return () => {
+      socket?.off('startGame');
+    };
   });
 
   useEffect(() => {
@@ -149,6 +157,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       socket?.off('GameEnded');
     };
   }, [socket, resetGame]);
+
   const handleShot = (coordinates: Coordinates) => {
     socket?.emit('shot', { coordinates, userId: socket.id } as Shot);
   };
@@ -169,6 +178,28 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
     setMyShipsList(myList);
     setOpponentShipsList(opponentsList);
   };
+
+  useEffect(() => {
+    socket?.once('serverError', () => {
+      setIsServerError(true);
+    });
+    return () => {
+      socket?.off('serverError');
+    };
+  }, [myShots, opponentShots, socket, checkIfItIsMyTurn, handleSunkShip]);
+
+  useEffect(() => {
+    socket?.on('connect_error', () => {
+      setIsServerError(true);
+    });
+    return () => {
+      socket?.off('connect_error');
+    };
+  }, [socket]);
+
+  if (isServerError) {
+    return <Redirect to={{ pathname: error }} />;
+  }
 
   const gameContext = {
     myShots,

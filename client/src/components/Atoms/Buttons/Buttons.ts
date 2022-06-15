@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
@@ -81,16 +82,56 @@ export const ReadyButton = styled(StandardButton)`
 `;
 
 export const CancelButton = styled(StandardButton)`
+  color: ${(props: StyledProps & Props) => props.theme.colors.red};
+  border: 3px solid ${(props: StyledProps & Props) => props.theme.colors.red};
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props: StyledProps & Props) => props.theme.colors.transparentRed};
+  }
+`;
+
+export const CancelLink = styled(Link)`
+  width: 150px;
+  height: 45px;
+  border-radius: 10px;
+  font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+  font-weight: bold;
+  background-color: transparent;
+  transition: background-color 0.5s;
+
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
   color: ${(props: StyledProps) => props.theme.colors.red};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.red};
   cursor: pointer;
   &:hover {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
   }
+
+  @media screen and (min-width: 3000px) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
+    width: 200px;
+    height: 55px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+    width: 130px;
+    height: 40px;
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    font-size: ${(props: StyledProps) => props.theme.fontSizes.XS};
+    width: 95px;
+    height: 35px;
+  }
 `;
 
 export const SetRandomShipsButton = styled(StandardButton)`
-  color: ${(props: StyledProps) => props.theme.colors.lighterBlue};
+  color: ${(props: StyledProps & Props) => props.theme.colors.lighterBlue};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.lighterBlue};
   cursor: pointer;
   &:hover {

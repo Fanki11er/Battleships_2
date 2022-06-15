@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   grid-template-rows: repeat(10, ${(props: StyledProps) => props.theme.otherDimensions.cellSize});
   grid-template-columns: repeat(10, ${(props: StyledProps) => props.theme.otherDimensions.cellSize});
   grid-gap: 2px;
-  cursor: none;
+  cursor: not-allowed;
   border: none;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {

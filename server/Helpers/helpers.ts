@@ -75,6 +75,23 @@ export class Helpers {
       selectedRoom.setIsLocked(false);
     }, 5000);
   };
+
+  public static sendEmail = (sgMail: any, message: string) => {
+    const msg = {
+      to: 'dziedzic.kdz@gmail.com',
+      from: 'dziedzic.k@hotmail.com', // Change to your verified sender
+      subject: 'Server error occurred',
+      text: message,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent');
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
+  };
 }
 
 const getRandomNumber = (max: number) => {
