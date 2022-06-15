@@ -136,6 +136,9 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       setGameStarted(true);
       checkIfItIsMyTurn(currentPlayer as string);
     });
+    return () => {
+      socket?.off('startGame');
+    };
   });
 
   useEffect(() => {
@@ -152,6 +155,7 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       socket?.off('GameEnded');
     };
   }, [socket, resetGame]);
+
   const handleShot = (coordinates: Coordinates) => {
     socket?.emit('shot', { coordinates, userId: socket.id } as Shot);
   };
@@ -181,6 +185,15 @@ const GameProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
       socket?.off('serverError');
     };
   }, [myShots, opponentShots, socket, checkIfItIsMyTurn, handleSunkShip]);
+
+  useEffect(() => {
+    socket?.on('connect_error', () => {
+      setIsServerError(true);
+    });
+    return () => {
+      socket?.off('connect_error');
+    };
+  }, [socket]);
 
   if (isServerError) {
     return <Redirect to={{ pathname: error }} />;

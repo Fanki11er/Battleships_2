@@ -89,6 +89,14 @@ export const CancelButton = styled(StandardButton)`
   }
 `;
 
+export const CancelLink = styled(CancelButton)`
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const SetRandomShipsButton = styled(StandardButton)`
   color: ${(props: StyledProps) => props.theme.colors.lighterBlue};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.lighterBlue};

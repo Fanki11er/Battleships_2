@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 import { GameContext } from '../../../providers/gameProvider';
 import { UserContext } from '../../../providers/userProvider';
 import { routes } from '../../../router/routes';
-import { CancelButton } from '../Buttons/Buttons';
+import { CancelButton, CancelLink } from '../Buttons/Buttons';
 
 const Wrapper = styled.div`
   width: 250px;
@@ -55,10 +55,11 @@ const CancelButtonWrapper = () => {
         );
       }
       case error: {
+        handleSetUserName('');
         return (
-          <CancelButton isActive onClick={() => handleSetUserName('')}>
+          <CancelLink as={Link} isActive to={''}>
             Back
-          </CancelButton>
+          </CancelLink>
         );
       }
       default: {
