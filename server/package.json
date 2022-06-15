@@ -11,8 +11,10 @@
   "author": "KDZ",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@types/cors": "^2.8.11",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "socket.io": "^4.1.2"
   },

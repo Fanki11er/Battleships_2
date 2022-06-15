@@ -2,12 +2,15 @@ import express from 'express';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import http from 'http';
+import 'dotenv/config';
+import sgMail from '@sendgrid/mail';
 import { Room, SpecialRoom } from './Room/room';
 import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
 const PORT = 8090 || process.env.PORT;
+sgMail.setApiKey(process.env.SENDGRID!);
 
 const NUMBER_OF_ROOMS = 2;
 const app = express();
@@ -59,17 +62,15 @@ io.on('connection', (socket) => {
   socket.on('getRoomsList', () => {
     try {
       io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
 
   socket.on('usersJoinTheRoom', (roomName) => {
     try {
-      /* if (!roomName) {
-        throw new Error('Invalid room parameters');
-      }*/
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
       if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
     } catch (error) {
@@ -80,9 +81,6 @@ io.on('connection', (socket) => {
 
   socket.on('leaveTheRoom', (roomName) => {
     try {
-      /* if (!roomName) {
-        throw new Error('Invalid room parameters');
-      }*/
       socket.leave(roomName);
       Helpers.removeDisconnectedUser(rooms, socket.id);
       io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
@@ -92,8 +90,9 @@ io.on('connection', (socket) => {
       if (selectedRoom?.getGame()) {
         Helpers.cancelGame(selectedRoom, io);
       }
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -108,8 +107,9 @@ io.on('connection', (socket) => {
       board?.pushShips(ships);
       board?.setUserId(socket.id);
       selectedRoom?.changeUserStatus(socket.id, 'ready');
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
 
@@ -125,8 +125,9 @@ io.on('connection', (socket) => {
           io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
         }, 2000);
       }
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -160,8 +161,9 @@ io.on('connection', (socket) => {
           selectedRoom.setIsLocked(false);
         }, 6000);
       }
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -205,8 +207,9 @@ io.on('connection', (socket) => {
           selectedRoom.setIsLocked(false);
         }, 8000);
       }
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -227,8 +230,9 @@ io.on('connection', (socket) => {
       socket.leave(roomName);
       socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
       io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -236,4 +240,5 @@ io.on('connection', (socket) => {
 
 server.on('error', (error) => {
   console.log('Server', error);
+  Helpers.sendEmail(sgMail, error.toString());
 });
