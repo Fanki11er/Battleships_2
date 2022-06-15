@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 import { GameContext } from '../../../providers/gameProvider';
@@ -42,25 +42,20 @@ const CancelButtonWrapper = () => {
       case game: {
         return (
           <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
-            Cancel game
+            Cancel
           </CancelButton>
         );
       }
 
       case roomsList: {
         return (
-          <CancelButton isActive onClick={() => handleSetUserName('')}>
-            Back
-          </CancelButton>
-        );
-      }
-      case error: {
-        handleSetUserName('');
-        return (
-          <CancelLink as={Link} isActive to={''}>
+          <CancelLink to={''} onClick={() => handleSetUserName('')}>
             Back
           </CancelLink>
         );
+      }
+      case error: {
+        return <CancelLink to={''}>Back</CancelLink>;
       }
       default: {
         return null;

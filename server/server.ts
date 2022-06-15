@@ -5,15 +5,11 @@ import http from 'http';
 import { Room, SpecialRoom } from './Room/room';
 import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
-import { Shot, ShotResult } from './Helpers/Types';
+import { Ship, Shot, ShotResult } from './Helpers/Types';
 
 const PORT = 8090 || process.env.PORT;
-/*const USER_STATUSES = {
-  preparing: 'preparing',
-  ready: 'ready'
-}*/
+
 const NUMBER_OF_ROOMS = 2;
-//const BOARD_SIZE = 5;
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -40,13 +36,13 @@ server.listen(PORT, () => {
 });
 
 //? User Connection //
-/*   if (roomName.includes('AI#')) {
-  console.log(console.log('PLay with compuetr'));
-}*/
 
 io.on('connection', (socket) => {
-  try {
-    socket.on('joinRoom', ({ userName, roomName }) => {
+  socket.on('joinRoom', ({ userName, roomName }) => {
+    try {
+      if (!userName || !roomName) {
+        throw new Error('Invalid user parameters');
+      }
       const user = new User(userName, socket.id);
       socket.join(roomName);
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
@@ -54,11 +50,11 @@ io.on('connection', (socket) => {
       selectedRoom?.addUser(user);
       socket.emit('connectionAccepted', roomName);
       io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
+  });
 
   socket.on('getRoomsList', () => {
     try {
@@ -69,18 +65,24 @@ io.on('connection', (socket) => {
     }
   });
 
-  try {
-    socket.on('usersJoinTheRoom', (roomName) => {
+  socket.on('usersJoinTheRoom', (roomName) => {
+    try {
+      /* if (!roomName) {
+        throw new Error('Invalid room parameters');
+      }*/
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
       if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
+  });
 
-  try {
-    socket.on('leaveTheRoom', (roomName) => {
+  socket.on('leaveTheRoom', (roomName) => {
+    try {
+      /* if (!roomName) {
+        throw new Error('Invalid room parameters');
+      }*/
       socket.leave(roomName);
       Helpers.removeDisconnectedUser(rooms, socket.id);
       io.emit('RoomsList', Helpers.sanitizeRooms(rooms));
@@ -90,13 +92,13 @@ io.on('connection', (socket) => {
       if (selectedRoom?.getGame()) {
         Helpers.cancelGame(selectedRoom, io);
       }
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
+  });
 
-  socket.on('setBoard', (ships) => {
+  socket.on('setBoard', (ships: Ship[]) => {
     const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
     const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
     let areUsersReady: boolean | undefined = false;
@@ -129,8 +131,11 @@ io.on('connection', (socket) => {
     }
   });
 
-  try {
-    socket.on('shot', (shot: Shot) => {
+  socket.on('shot', (shot: Shot) => {
+    try {
+      if (!shot.coordinates || !shot.userId) {
+        throw new Error('Invalid shot parameters');
+      }
       let shotResult: ShotResult | undefined;
       const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
@@ -155,14 +160,14 @@ io.on('connection', (socket) => {
           selectedRoom.setIsLocked(false);
         }, 6000);
       }
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
+  });
 
-  try {
-    socket.on('requestAIShot', () => {
+  socket.on('requestAIShot', () => {
+    try {
       let shotResult: ShotResult | undefined;
       let currentPlayer: string | undefined;
       const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
@@ -200,16 +205,16 @@ io.on('connection', (socket) => {
           selectedRoom.setIsLocked(false);
         }, 8000);
       }
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
+  });
 
   //? User disconnection //
 
-  try {
-    socket.on('disconnect', () => {
+  socket.on('disconnect', () => {
+    try {
       const roomName = Helpers.findRoomNameByUserId(rooms, socket.id);
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
       Helpers.removeDisconnectedUser(rooms, socket.id);
@@ -222,13 +227,13 @@ io.on('connection', (socket) => {
       socket.leave(roomName);
       socket.broadcast.emit('usersStatusInRoom', selectedRoom?.getUsers());
       io.emit('userStatus', Helpers.sanitizeRooms(rooms));
-    });
-  } catch (error) {
-    socket.emit('serverError');
-    console.log(error);
-  }
-
-  io.on('error', (err) => {
-    console.log(err, 'Error');
+    } catch (error) {
+      socket.emit('serverError');
+      console.log(error);
+    }
   });
+});
+
+server.on('error', (error) => {
+  console.log('Server', error);
 });
