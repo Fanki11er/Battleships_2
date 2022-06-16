@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../../../assets/Images/ready-image.svg';
+import image from '../../../assets/Images/ready-image.png';
 import { StyledProps } from '../../../assets/styles/theme';
 
 const StyledImage = styled.img`

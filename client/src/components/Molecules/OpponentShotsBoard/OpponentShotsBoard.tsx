@@ -1,5 +1,5 @@
 import { ShotResult } from '../../../Types/types';
-import hit from '../../../assets/Images/hit-image.svg';
+import hit from '../../../assets/Images/hit-image.png';
 import miss from '../../../assets/Images/miss-image.svg';
 import { UsedCell } from '../../Atoms/UsedCell/UsedCell';
 import { Board, BoardProps, Image } from './OpponentShotBoard.styles';
