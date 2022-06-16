@@ -55,7 +55,11 @@ const CancelButtonWrapper = () => {
         );
       }
       case error: {
-        return <CancelLink to={''}>Back</CancelLink>;
+        return (
+          <CancelLink to={''} onClick={() => handleSetUserName('')}>
+            Back
+          </CancelLink>
+        );
       }
       default: {
         return null;

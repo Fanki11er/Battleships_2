@@ -9,7 +9,7 @@ import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
-const PORT = 8090 || process.env.PORT;
+const PORT = process.env.PORT || 8090;
 sgMail.setApiKey(process.env.SENDGRID!);
 
 const NUMBER_OF_ROOMS = 2;
