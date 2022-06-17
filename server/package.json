@@ -1,8 +1,8 @@
 {
   "name": "server",
-  "version": "0.0.1",
-  "description": "",
-  "main": "server.js",
+  "version": "1.0.0",
+  "description": "Battleship server",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.ts",

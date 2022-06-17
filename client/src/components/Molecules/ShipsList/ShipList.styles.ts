@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { StyledProps } from '../../../assets/styles/theme';
 
 export const List = styled.ul`
-  //width: fit-content;
+  width: fit-content;
   padding: 0 50px;
   width: 90%;
   //max-width: 550px;
@@ -10,11 +10,12 @@ export const List = styled.ul`
   display: flex;
   flex-direction: row;
   list-style: none;
-  justify-content: space-evenly;
+  //justify-content: space-evenly;
+  justify-content: center;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     flex-flow: row wrap;
-    width: 95%;
+    //width: 95%;
     padding: 0 10px;
     height: auto;
   }
