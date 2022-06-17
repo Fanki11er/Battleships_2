@@ -48,13 +48,13 @@ const Footer = () => {
   return (
     <Wrapper>
       <IconsWrapper>
-        <FooterDefaultIcon>
+        <FooterDefaultIcon goTo={'https://www.linkedin.com/in/dziedzic-k/'}>
           <LinkedInIcon />
         </FooterDefaultIcon>
-        <FooterDefaultIcon>
+        <FooterDefaultIcon goTo={'https://github.com/Fanki11er'}>
           <GithubIcon />
         </FooterDefaultIcon>
-        <FooterDefaultIcon>
+        <FooterDefaultIcon goTo={'https://dziedzic-about-me.firebaseapp.com/?utm_source=Battleships'}>
           <MyLogoIcon />
         </FooterDefaultIcon>
       </IconsWrapper>

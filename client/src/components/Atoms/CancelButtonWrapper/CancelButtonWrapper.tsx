@@ -33,7 +33,7 @@ const CancelButtonWrapper = () => {
     switch (pathname) {
       case room: {
         return (
-          <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
+          <CancelButton isActive onClick={() => handlePreparationCancel(roomName)} title={'Exit from this room'}>
             Leave room
           </CancelButton>
         );
@@ -41,7 +41,7 @@ const CancelButtonWrapper = () => {
 
       case game: {
         return (
-          <CancelButton isActive onClick={() => handlePreparationCancel(roomName)}>
+          <CancelButton isActive onClick={() => handlePreparationCancel(roomName)} title={'Leave the current game'}>
             Cancel
           </CancelButton>
         );
@@ -49,14 +49,14 @@ const CancelButtonWrapper = () => {
 
       case roomsList: {
         return (
-          <CancelLink to={''} onClick={() => handleSetUserName('')}>
+          <CancelLink to={''} onClick={() => handleSetUserName('')} title={'Return to landing page'}>
             Back
           </CancelLink>
         );
       }
       case error: {
         return (
-          <CancelLink to={''} onClick={() => handleSetUserName('')}>
+          <CancelLink to={''} onClick={() => handleSetUserName('')} title={'Return to landing page'}>
             Back
           </CancelLink>
         );

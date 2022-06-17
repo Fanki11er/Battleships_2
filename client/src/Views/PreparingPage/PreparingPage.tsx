@@ -79,10 +79,10 @@ const PreparingPage = () => {
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
       {sortedUsers.me?.status === 'ready' ? null : (
         <RandomShipsButtonsWrapper>
-          <SetRandomShipsButton isActive onClick={() => setRandomShips()}>
+          <SetRandomShipsButton isActive onClick={() => setRandomShips()} title={'Set ships by random'}>
             Randomize
           </SetRandomShipsButton>
-          <ResetShipsButton isActive onClick={() => handleResetShips()}>
+          <ResetShipsButton isActive onClick={() => handleResetShips()} title={'Reset board'}>
             Reset Ships
           </ResetShipsButton>
         </RandomShipsButtonsWrapper>
@@ -91,7 +91,12 @@ const PreparingPage = () => {
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
           {ships.length === 10 ? (
-            <ReadyButton isActive={true} onClick={handleSendBoard} className={sortedUsers.me?.status === 'ready' ? 'hide' : 'show'}>
+            <ReadyButton
+              isActive={true}
+              onClick={handleSendBoard}
+              className={sortedUsers.me?.status === 'ready' ? 'hide' : 'show'}
+              title={'Press when you are ready for the game'}
+            >
               Ready
             </ReadyButton>
           ) : (

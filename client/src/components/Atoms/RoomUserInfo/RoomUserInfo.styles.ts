@@ -3,6 +3,7 @@ import { StyledProps } from '../../../assets/styles/theme';
 import { UserStatus } from '../../../Types/types';
 import { ReactComponent as PersonIcon } from '../../../assets/icons/icon-person.svg';
 import { ReactComponent as ComputerIcon } from '../../../assets/icons/icon-computer.svg';
+import { ReactComponent as QuestionMarkIcon } from '../../../assets/icons/icon-question-mark.svg';
 
 type Props = {
   userStatus: UserStatus;
@@ -103,5 +104,32 @@ export const StyledComputerIcon = styled(ComputerIcon)`
   @media screen and (max-width: 1540px) {
     width: 15px;
     height: 15px;
+  }
+`;
+
+export const StyledQuestionMarkIcon = styled(QuestionMarkIcon)`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transition: all 0.3s;
+  @media screen and (min-width: 3000px) {
+    width: 35px;
+    height: 35px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    width: 30px;
+    height: 30px;
+  }
+
+  @media screen and (max-width: 860px) {
+    visibility: none;
+    display: none;
+  }
+
+  :hover {
+    transform: rotate(20deg);
   }
 `;
