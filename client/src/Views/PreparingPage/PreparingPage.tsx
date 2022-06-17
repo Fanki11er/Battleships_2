@@ -27,6 +27,10 @@ const PreparingPage = () => {
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     socket?.emit('usersJoinTheRoom', roomName);
     socket?.on('usersStatusInRoom', (users) => {
       setUsers(users);

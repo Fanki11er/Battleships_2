@@ -32,6 +32,7 @@ const Form = styled.form`
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(12.5px);
     border-radius: 20px;
+    user-select: none;
   }
   @media screen and (min-width: 3000px) {
     width: 700px;
@@ -69,49 +70,3 @@ const UserNameForm = () => {
   );
 };
 export default UserNameForm;
-/*const Form = styled.form`
-  width: 500px;
-  height: 260px;
-  border: 3px solid ${(props: StyledProps) => props.theme.colors.myBlue};
-  border-radius: 20px;
-  padding: 25px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  justify-self: center;
-  position: relative;
-  z-index: 1;
-  ::after {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: '';
-    z-index: -1;
-    background: ${(props: StyledProps) => props.theme.colors.transparentDarkBlue};
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(12.5px);
-    border-radius: 20px;
-  }
-`;
-
-const UserNameForm = () => {
-  const { register, handleSubmit } = useForm();
-  const { handleSetUserName } = useContext(UserContext);
-  return (
-    <Form
-      onSubmit={handleSubmit((data) => {
-        handleSetUserName(data['userName']);
-      })}
-    >
-      <FormField type="text" name={'userName'} label={'What is your name?'} id={'userName'} register={register} />
-      <StandardButton isActive={true} type="submit">
-        Submit
-      </StandardButton>
-    </Form>
-  );
-};
-export default UserNameForm; */

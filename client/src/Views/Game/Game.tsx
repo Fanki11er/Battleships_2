@@ -19,6 +19,10 @@ const Game = () => {
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (winner) {
       handleOpenModal();
     }

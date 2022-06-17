@@ -12,7 +12,7 @@ const StyledImage = styled.img`
   grid-row: 1/3;
   justify-self: center;
   user-select: none;
-  width: 80%;
+  width: 60%;
 
   @keyframes showImage {
     to {
@@ -33,7 +33,7 @@ const StyledImage = styled.img`
   }
 
   @media screen and (${(props: StyledProps) => props.theme.devices.small}) {
-    width: 140%;
+    width: 90%;
   }
 `;
 

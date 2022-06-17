@@ -28,6 +28,7 @@ export const StandardButton = styled.button`
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
     background-color: ${(props: StyledProps) => props.theme.colors.transparentOrange};
   }
+  user-select: none;
   @media screen and (min-width: 3000px) {
     font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
     width: 200px;
@@ -98,7 +99,7 @@ export const CancelLink = styled(Link)`
   font-weight: bold;
   background-color: transparent;
   transition: background-color 0.5s;
-
+  user-select: none;
   display: flex;
   text-decoration: none;
   text-align: center;

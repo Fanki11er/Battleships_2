@@ -30,6 +30,7 @@ const Wrapper = styled.div`
 const StyledImage = styled.img`
   margin-right: 20px;
   align-self: center;
+  user-select: none;
   @media screen and (min-width: 3000px) {
     width: 25%;
     height: 25%;

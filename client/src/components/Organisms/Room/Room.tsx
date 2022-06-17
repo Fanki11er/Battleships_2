@@ -3,6 +3,7 @@ import { User } from '../../../Types/types';
 import { RoomName, UserSlotsWrapper, Wrapper } from './Room.styles';
 import { StandardButton } from '../../Atoms/Buttons/Buttons';
 import EmptyRoomInfo from '../../Atoms/EmptyRoomInfo/EmptyRoomInfo';
+import { useEffect } from 'react';
 
 type Props = {
   roomName: string;
@@ -12,6 +13,9 @@ type Props = {
 };
 const Room = (props: Props) => {
   const { roomName, users, isLocked, handleJoinToTheRoom } = props;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Wrapper>
