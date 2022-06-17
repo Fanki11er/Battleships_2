@@ -10,17 +10,24 @@ RUN npm install
 
 COPY --chown=node:node client .
 
-RUN npx browserslist@latest --update-db
+ENV REACT_APP_SERVER=$REACT_APP_SERVER
+
+ENV REACT_APP_PORT=$PORT
 
 RUN npm run build
 
-ENV REACT_APP_SERVER=$REACT_APP_SERVER
-
-EXPOSE $PORT
+EXPOSE $APP_PORT
 
 CMD [ "npm", "build" ]
 
-FROM nginx:alpine
+FROM node:14-alpine
 
-COPY --from=build /client/build /usr/share/nginx/html
+RUN npm install -g serve
 
+USER node
+
+WORKDIR /client
+
+COPY --chown=node:node --from=build /client/build build
+
+CMD serve build

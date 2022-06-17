@@ -8,11 +8,11 @@ export const SocketContext = createContext({
 const SocketProvider = (props: React.PropsWithChildren<React.ReactNode>) => {
   const { children } = props;
 
-  //const URL = 'http://localhost:8090';
   //const URL = 'http://192.168.10.101:8090';
   //const URL = 'http://192.168.1.129:8090';
-  //const URL = 'http://0.0.0.0:8090';
-  const URL = process.env.REACT_APP_SERVER || 'http://192.168.10.101:8090';
+
+  const URL = 'https://kdz-battleships-server.herokuapp.com/' || 'https//localhost:8090';
+
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   useEffect(() => {
     setSocket(io(URL, { autoConnect: false }));

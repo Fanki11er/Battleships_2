@@ -1,7 +1,3 @@
-import React from 'react';
-//import { useEffect } from 'react';
-//import axios from "axios";
-//import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './assets/styles/GlobalStyle';
 import { theme } from './assets/styles/theme';
@@ -18,11 +14,6 @@ export const YEAR = '2022';
 
 function App() {
   const { landingPage, mainPage, error } = routes;
-  /*useEffect(() => {
-    axios.get("http://localhost:8090").then(({ data }) => { 
-      console.log(data);
-    }); 
-  }, []);*/
 
   return (
     <ThemeProvider theme={theme}>

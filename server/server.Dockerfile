@@ -12,6 +12,8 @@ COPY --chown=node:node /server .
 
 ENV SENDGRID=$SENDGRID
 
+ENV NUBER_OF_ROOMS=$NUMBER_OF_ROOMS
+
 EXPOSE $PORT
 
 CMD [ "npm", "start" ]
