@@ -31,13 +31,12 @@ const rooms: Room[] = [];
 server.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
   console.log('Nr of rooms: ', process.env.NUMBER_OF_ROOMS);
+  rooms.push(new SpecialRoom('Room_#AI1', new Computer('RT2D2', 'AIP#0')));
+  rooms.push(new SpecialRoom('Room_#AI2', new Computer('C3PO', 'AIP#1')));
 
   for (let i = 1; i <= NUMBER_OF_ROOMS; i++) {
     rooms.push(new Room(`Room_#${i}`));
   }
-
-  rooms.push(new SpecialRoom('Room_#AI1', new Computer('RT2D2', 'AIP#0')));
-  rooms.push(new SpecialRoom('Room_#AI2', new Computer('C3PO', 'AIP#1')));
 });
 
 //? User Connection //

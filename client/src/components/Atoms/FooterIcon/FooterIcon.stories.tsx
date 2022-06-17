@@ -8,19 +8,19 @@ export default {
 } as Meta;
 
 export const LinkedIn: Story = (args: Args) => (
-  <FooterDefaultIcon {...args}>
+  <FooterDefaultIcon goTo="" {...args}>
     <LinkedInIcon {...args} />
   </FooterDefaultIcon>
 );
 
 export const Github: Story = (args: Args) => (
-  <FooterDefaultIcon {...args}>
+  <FooterDefaultIcon goTo="" {...args}>
     <GithubIcon {...args} />
   </FooterDefaultIcon>
 );
 
 export const MyLogo: Story = (args: Args) => (
-  <FooterDefaultIcon {...args}>
+  <FooterDefaultIcon goTo="" {...args}>
     <MyLogoIcon {...args} />
   </FooterDefaultIcon>
 );

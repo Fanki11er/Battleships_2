@@ -4,6 +4,10 @@ import { ReactComponent as GitHub } from '../../../assets/icons/icon-github.svg'
 import { ReactComponent as LinkedIn } from '../../../assets/icons/icon-linkedin.svg';
 import { ReactComponent as MyLogo } from '../../../assets/icons/icon-my-logo.svg';
 
+type HrefProp = {
+  goTo: string;
+};
+
 export const GithubIcon = styled(GitHub)`
   width: 100%;
   height: 100%;
@@ -44,4 +48,12 @@ const IconWrapper = styled.a`
   }
 `;
 
-export const FooterDefaultIcon = (props: PropsWithChildren<ReactNode>) => <IconWrapper>{props.children}</IconWrapper>;
+export const FooterDefaultIcon = (props: PropsWithChildren<ReactNode> & HrefProp) => {
+  const { goTo } = props;
+
+  return (
+    <IconWrapper href={goTo} target={'_blank'}>
+      {props.children}
+    </IconWrapper>
+  );
+};

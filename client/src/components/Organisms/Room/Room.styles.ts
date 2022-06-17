@@ -3,6 +3,7 @@ import { StyledProps } from '../../../assets/styles/theme';
 
 export const Wrapper = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 520px;
   height: 250px;

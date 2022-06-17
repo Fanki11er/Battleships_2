@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  user-select: none;
 `;
 
 const Header = styled.h1`
@@ -54,8 +55,8 @@ const SubHeader = styled.h2`
 
 const HeroText = () => (
   <Wrapper>
-    <Header>Free, browser, multiplayer battleships game.</Header>
-    <SubHeader>Captain, join and check yourself in epic naval battle.</SubHeader>
+    <Header>Free browser multiplayer battleships game</Header>
+    <SubHeader>Captain join and check yourself in epic naval battle</SubHeader>
   </Wrapper>
 );
 
