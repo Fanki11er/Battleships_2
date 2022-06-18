@@ -5,12 +5,14 @@ import shipSize_3 from '../../../assets/Images/ship-size-3-image.svg';
 import shipSize_4 from '../../../assets/Images/ship-size-4-image.svg';
 import shipSize_5 from '../../../assets/Images/ship-size-5-image.svg';
 import { StyledProps } from '../../../assets/styles/theme';
+import ShipSizeInfo from '../ShipSizeInfo/ShipSizeInfo';
 
 const Wrapper = styled.li`
   width: 200px;
   height: 45px;
   background-color: transparent;
   margin: 5px 0;
+  position: relative;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     width: 160px;
@@ -63,6 +65,19 @@ const Background = styled.img`
   width: 100%;
 `;
 
+const SizesWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  background-color: transparent;
+  left: 0;
+  bottom: -1px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+`;
+
 type Props = {
   size: number;
   isSunk: boolean;
@@ -79,8 +94,12 @@ const ShipsLeftListShip = (props: Props) => {
         {size === 4 && <Ship src={shipSize_4} alt={'Ship'} />}
         {size === 5 && <Ship src={shipSize_5} alt={'Ship'} />}
       </ShipContainer>
+      <SizesWrapper>
+        <ShipSizeInfo size={size} />
+      </SizesWrapper>
     </Wrapper>
   );
 };
 
 export default ShipsLeftListShip;
+//
