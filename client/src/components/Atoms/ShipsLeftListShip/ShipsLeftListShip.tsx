@@ -74,7 +74,8 @@ const SizesWrapper = styled.div`
   height: 10px;
   display: flex;
   align-items: center;
-  justify-content: center; ;
+  justify-content: center;
+  opacity: 0.6;
 `;
 
 type Props = {

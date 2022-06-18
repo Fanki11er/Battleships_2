@@ -9,7 +9,7 @@ import SocketProvider from './providers/socketProvider';
 import UserProvider from './providers/userProvider';
 import ErrorView from './Views/ErrorView/ErrorView';
 
-export const APP_VERSION = '1.0.0 (Beta)';
+export const APP_VERSION = '1.0.1 (Beta)';
 export const YEAR = '2022';
 
 function App() {
