@@ -10,6 +10,11 @@
 
 <br/>
 <br/>
+
+<p align="center">
+<img src="https://github.com/Fanki11er/Battleships_2/raw/main/client/src/assets/Images/sample-image.png" width="400px" >
+</p>
+
 <br/>
 
 </br>

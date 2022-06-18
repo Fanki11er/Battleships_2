@@ -76,11 +76,11 @@ export class Helpers {
     }, 5000);
   };
 
-  public static sendEmail = (sgMail: any, message: string) => {
+  public static sendEmail = (sgMail: any, message: string, subject?: string) => {
     const msg = {
       to: 'dziedzic.kdz@gmail.com',
       from: 'dziedzic.k@hotmail.com', // Change to your verified sender
-      subject: 'Server error occurred',
+      subject: subject || 'Server error occurred',
       text: message,
     };
     sgMail
@@ -92,6 +92,13 @@ export class Helpers {
         console.error(error);
       });
   };
+
+  public static proceedAiNamesString(aiNamesString: string | undefined) {
+    if (!aiNamesString) {
+      return undefined;
+    }
+    return aiNamesString.split(',');
+  }
 }
 
 const getRandomNumber = (max: number) => {

@@ -9,10 +9,18 @@ import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
+const SERVER_VERSION = '1.0.1';
+
 const PORT = process.env.PORT || 8090;
+
 sgMail.setApiKey(process.env.SENDGRID!);
 
+const aiNames = Helpers.proceedAiNamesString(process.env.AI_NAMES) || ['R2-D2', 'C-3PO'];
+
 const NUMBER_OF_ROOMS = process.env.NUMBER_OF_ROOMS || 4;
+
+const sendingPeriod = Number(process.env.SENDING_PERIOD) || 10;
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -27,12 +35,16 @@ app.use(cors());
   res.send('Server is running');
 });*/
 const rooms: Room[] = [];
+let connectedUsers = 0;
+let playedGames = 0;
 
 server.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
-  console.log('Nr of rooms: ', process.env.NUMBER_OF_ROOMS);
-  rooms.push(new SpecialRoom('Room_#AI1', new Computer('RT2D2', 'AIP#0')));
-  rooms.push(new SpecialRoom('Room_#AI2', new Computer('C3PO', 'AIP#1')));
+  console.log(`Server version: ${SERVER_VERSION}`);
+
+  for (let i = 0; i < aiNames.length; i++) {
+    rooms.push(new SpecialRoom(`Room_#AI${i + 1}`, new Computer(aiNames[i], `AIP#${i + 1}`)));
+  }
 
   for (let i = 1; i <= NUMBER_OF_ROOMS; i++) {
     rooms.push(new Room(`Room_#${i}`));
@@ -42,6 +54,8 @@ server.listen(PORT, () => {
 //? User Connection //
 
 io.on('connection', (socket) => {
+  connectedUsers++;
+  console.log('Connections: ', connectedUsers);
   socket.on('joinRoom', ({ userName, roomName }) => {
     try {
       if (!userName || !roomName) {
@@ -74,8 +88,9 @@ io.on('connection', (socket) => {
     try {
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
       if (selectedRoom) io.to(selectedRoom.getRoomName()).emit('usersStatusInRoom', selectedRoom.getUsers());
-    } catch (error) {
+    } catch (error: any) {
       socket.emit('serverError');
+      Helpers.sendEmail(sgMail, error.toString());
       console.log(error);
     }
   });
@@ -125,6 +140,11 @@ io.on('connection', (socket) => {
           selectedRoom.setIsLocked(true);
           io.to(selectedRoom.getRoomName()).emit('startGame', selectedRoom.getGame()?.getCurrentPlayer());
         }, 2000);
+        playedGames++;
+        if (playedGames % sendingPeriod === 0 && playedGames != 0) {
+          Helpers.sendEmail(sgMail, `Played games: ${playedGames}`, 'Played games info');
+        }
+        console.log('Played games: ', playedGames);
       }
     } catch (error: any) {
       socket.emit('serverError');
