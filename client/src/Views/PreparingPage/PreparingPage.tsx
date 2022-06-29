@@ -1,6 +1,6 @@
 import { DndProvider } from 'react-dnd';
-import MultiBackend from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch';
+import MultiBackend, { TouchTransition } from 'react-dnd-multi-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import { ShipsContext } from '../../providers/shipsProvider';
 import ShipsList from '../../components/Molecules/ShipsList/ShipsList';
 import { Redirect } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { ReadyButton, ResetShipsButton, SetRandomShipsButton } from '../../compo
 import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 import { GameContext } from '../../providers/gameProvider';
 import { UserContext } from '../../providers/userProvider';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
@@ -69,6 +70,21 @@ const PreparingPage = () => {
     setSortedUsers(sorted);
   };
 
+  const MyBackend = {
+    backends: [
+      {
+        backend: HTML5Backend,
+      },
+      {
+        backend: TouchBackend,
+
+        delay: 500,
+        preview: true,
+        transition: TouchTransition,
+      },
+    ],
+  };
+
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
   if (isPreparationCanceled) return <Redirect to={{ pathname: roomsRoute }} />;
   if (!socket) return <Redirect to={{ pathname: landingPage }} />;
@@ -87,7 +103,7 @@ const PreparingPage = () => {
           </ResetShipsButton>
         </RandomShipsButtonsWrapper>
       )}
-      <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
+      <DndProvider backend={MultiBackend as any} options={MyBackend}>
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
           {ships.length === 10 ? (
