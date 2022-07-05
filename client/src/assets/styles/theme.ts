@@ -20,6 +20,7 @@ export const theme: Theme = {
     transparentSalmon: 'rgba(255, 119, 61, 0.3)',
     lighterBlue: 'rgba(72, 119, 221)',
     transparentLighterBlue: 'rgba(72, 119, 221, 0.3)',
+    pink: 'rgba(232, 169,169,1)',
   },
   fontSizes: {
     XS: '12px',
@@ -66,6 +67,7 @@ export type Theme = {
     transparentSalmon: string;
     lighterBlue: string;
     transparentLighterBlue: string;
+    pink: string;
   };
   fontSizes: {
     XS: string;

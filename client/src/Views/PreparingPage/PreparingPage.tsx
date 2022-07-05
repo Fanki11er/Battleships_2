@@ -78,7 +78,7 @@ const PreparingPage = () => {
       {
         backend: TouchBackend,
 
-        delay: 500,
+        delay: 100,
         preview: true,
         transition: TouchTransition,
       },
