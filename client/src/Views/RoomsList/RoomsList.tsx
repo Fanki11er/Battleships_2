@@ -9,6 +9,7 @@ import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 import { Wrapper } from './RoomsList.styles';
 import { UserContext } from '../../providers/userProvider';
 import { GameContext } from '../../providers/gameProvider';
+import { StyledQuestionMarkIcon } from '../../components/Atoms/RoomUserInfo/RoomUserInfo.styles';
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -55,6 +56,7 @@ const RoomsList = () => {
   return (
     <Wrapper>
       {status === 'loading' && <LoadingInfo />}
+      {status === 'ready' && roomsList.length && <StyledQuestionMarkIcon title={'Click for help'} />}
       {status === 'ready' &&
         roomsList.length &&
         roomsList.map(({ roomName, users, isLocked }) => {

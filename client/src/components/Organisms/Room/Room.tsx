@@ -4,7 +4,6 @@ import { RoomName, UserSlotsWrapper, Wrapper } from './Room.styles';
 import { StandardButton } from '../../Atoms/Buttons/Buttons';
 import EmptyRoomInfo from '../../Atoms/EmptyRoomInfo/EmptyRoomInfo';
 import { useEffect } from 'react';
-import { StyledQuestionMarkIcon } from '../../Atoms/RoomUserInfo/RoomUserInfo.styles';
 
 type Props = {
   roomName: string;
@@ -20,13 +19,6 @@ const Room = (props: Props) => {
 
   return (
     <Wrapper>
-      <StyledQuestionMarkIcon
-        title={
-          users.length && users[0].isComputer
-            ? 'In this room you can fight a battle with computer player'
-            : 'In this room you can fight a battle with human player'
-        }
-      />
       <RoomName>{roomName}</RoomName>
       <UserSlotsWrapper>
         {users[0] ? <RoomUserInfo isComputer={users[0].isComputer} userName={users[0].name} userStatus={users[0].status} /> : <EmptyRoomInfo />}

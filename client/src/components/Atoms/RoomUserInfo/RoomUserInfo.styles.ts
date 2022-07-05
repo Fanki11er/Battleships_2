@@ -108,28 +108,42 @@ export const StyledComputerIcon = styled(ComputerIcon)`
 `;
 
 export const StyledQuestionMarkIcon = styled(QuestionMarkIcon)`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+  width: 35px;
+  height: 35px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
   transition: all 0.3s;
-  @media screen and (min-width: 3000px) {
-    width: 35px;
-    height: 35px;
-  }
+  background-color: transparent;
+  border-radius: 50%;
+  animation-name: bump;
+  animation-delay: 1s;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 3;
 
-  @media screen and (max-width: 1540px) {
-    width: 30px;
-    height: 30px;
+  :hover {
+    border: 3px solid ${(props: StyledProps) => props.theme.colors.orange};
   }
 
   @media screen and (max-width: 860px) {
-    visibility: none;
-    display: none;
+    top: 10px;
+    right: 5px;
   }
 
-  :hover {
-    transform: rotate(20deg);
+  @keyframes bump {
+    0% {
+      transform: scale(1);
+      background-color: transparent;
+    }
+    50% {
+      transform: scale(1.5);
+      background-color: orange;
+    }
+
+    100% {
+      transform: scale(1);
+      background-color: transparent;
+    }
   }
 `;
