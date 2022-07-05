@@ -9,7 +9,7 @@ import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
-const SERVER_VERSION = '1.0.1';
+const SERVER_VERSION = '1.0.2';
 
 const PORT = process.env.PORT || 8090;
 
@@ -31,16 +31,21 @@ const io = new Server(server, {
 });
 
 app.use(cors());
-/*app.get('/', (req, res) => {
-  res.send('Server is running');
-});*/
+app.get('/visit', (req, res) => {
+  //res.send('Server is running');
+  visits++;
+  console.log('Visits: ', visits);
+});
 const rooms: Room[] = [];
 let connectedUsers = 0;
 let playedGames = 0;
+let visits = 0;
 
 server.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
   console.log(`Server version: ${SERVER_VERSION}`);
+  console.log('Started: ', Helpers.getCurrentDateAndTime());
+  //Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
 
   for (let i = 0; i < aiNames.length; i++) {
     rooms.push(new SpecialRoom(`Room_#AI${i + 1}`, new Computer(aiNames[i], `AIP#${i + 1}`)));
