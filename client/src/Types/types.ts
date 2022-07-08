@@ -72,3 +72,8 @@ export type RandomShipCoordinates = {
   randomY: number;
   orientation: Position;
 };
+
+export type HelpPage = {
+  helpText: string;
+  imageSrc: string;
+};

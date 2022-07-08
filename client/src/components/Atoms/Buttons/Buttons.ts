@@ -148,3 +148,35 @@ export const ResetShipsButton = styled(StandardButton)`
     background-color: ${(props: StyledProps) => props.theme.colors.transparentSalmon};
   }
 `;
+
+export const PageControlButton = styled.button`
+  color: ${(props: StyledProps & Props) => (props.isActive ? props.theme.colors.myBlue : props.theme.colors.inactiveGrey)};
+  font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
+  font-weight: bold;
+  border-radius: 5px;
+  width: 60px;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: ${(props: Props) => (props.isActive ? 'pointer' : 'not-allowed')};
+  user-select: ${(props: Props) => (props.isActive ? 'auto' : 'none')};
+
+  :hover {
+    border: ${(props: StyledProps & Props) => (props.isActive ? `2px solid  ${props.theme.colors.myBlue}` : 'none')};
+  }
+`;
+
+export const SmallCancelButton = styled(StandardButton)`
+  color: ${(props: StyledProps & Props) => props.theme.colors.red};
+  border: 2px solid ${(props: StyledProps & Props) => props.theme.colors.red};
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props: StyledProps & Props) => props.theme.colors.transparentRed};
+  }
+
+  width: 60px;
+  height: 25px;
+  align-self: center;
+  justify-self: center;
+`;
