@@ -9,6 +9,7 @@ export const HelpSectionWrapper = styled.section`
   padding: 20px;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   @media screen and (max-width: 560px) {
     width: 95%;

@@ -16,8 +16,8 @@ const DotsIndicator = (props: DotsProps) => {
         dots.push(0);
       }
     }
-    return dots.map((dot) => {
-      return <StyledDot progress={dot} />;
+    return dots.map((dot, index) => {
+      return <StyledDot progress={dot} key={index} />;
     });
   };
   return <>{renderDots(length, progress)}</>;
