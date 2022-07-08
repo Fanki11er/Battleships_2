@@ -23,8 +23,8 @@ const HelpModal = (props: HelpModalProps) => {
   }, [closeModal]);
 
   return (
-    <HelpModalWrapper isOpen={isOpen}>
-      <HelpSection helpPages={helpPages} closeModal={closeModal} onClick={() => console.log('TEST')} />
+    <HelpModalWrapper isOpen={isOpen} onClick={() => closeModal()} onTouchStart={() => closeModal()}>
+      <HelpSection helpPages={helpPages} closeModal={closeModal} isVisible={isOpen} />
     </HelpModalWrapper>
   );
 };

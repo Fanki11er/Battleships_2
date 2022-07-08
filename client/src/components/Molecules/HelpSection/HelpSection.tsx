@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HelpPage } from '../../../Types/types';
 import { PageControlButton, SmallCancelButton } from '../../Atoms/Buttons/Buttons';
 import DotsIndicator from '../DotsIndicator/DotsIndicator';
@@ -7,17 +7,25 @@ import { ControlsWrapper, HelpContentWrapper, HelpImage, HelpSectionWrapper, Hel
 
 type HelpSectionProps = {
   helpPages: HelpPage[];
+  isVisible: boolean;
   closeModal: () => void;
 };
 
-const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<any>) => {
-  const { helpPages, closeModal } = props;
+const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<React.ReactNode>) => {
+  const { helpPages, closeModal, isVisible } = props;
   const [pageNumber, setPageNumber] = useState(0);
   const [touchStartPosition, setTouchStartPosition] = useState<null | number>(null);
+
+  useEffect(() => {
+    if (!isVisible && pageNumber > 0) {
+      setPageNumber(0);
+    }
+  }, [isVisible, pageNumber]);
 
   const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
     const touchDown = e.touches[0].clientX;
     setTouchStartPosition(touchDown);
+    e.stopPropagation();
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
@@ -53,7 +61,7 @@ const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<any>) => 
     }
   };
   return (
-    <HelpSectionWrapper onTouchStart={(e) => handleTouchStart(e)} onTouchMove={(e) => handleTouchMove(e)}>
+    <HelpSectionWrapper onTouchStart={(e) => handleTouchStart(e)} onTouchMove={(e) => handleTouchMove(e)} onClick={(e) => e.stopPropagation()}>
       <HelpContentWrapper>
         <HelpText>{helpPages[pageNumber].helpText}</HelpText>
         <HelpImage src={helpPages[pageNumber].imageSrc} />
