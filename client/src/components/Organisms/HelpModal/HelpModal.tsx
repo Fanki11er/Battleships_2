@@ -12,7 +12,7 @@ const HelpModal = (props: HelpModalProps) => {
   const { helpPages, isOpen, closeModal } = props;
   return (
     <HelpModalWrapper isOpen={isOpen}>
-      <HelpSection helpPages={helpPages} closeModal={closeModal} />
+      <HelpSection helpPages={helpPages} closeModal={closeModal} onClick={() => console.log('TEST')} />
     </HelpModalWrapper>
   );
 };
