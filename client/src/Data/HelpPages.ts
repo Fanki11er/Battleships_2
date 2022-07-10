@@ -1,7 +1,7 @@
 import { HelpPage } from '../Types/types';
-import roomsHelp_computer from '../assets/Help-Images/H-Rooms-Computer.png';
-import roomsHelp_friend from '../assets/Help-Images/H-Rooms-Friend.png';
-import roomsHelp_other from '../assets/Help-Images/H-Rooms-Other.png';
+import roomsHelp_computer from '../assets/Help-Images/H-Rooms-Computer.svg';
+import roomsHelp_friend from '../assets/Help-Images/H-Rooms-Friend.svg';
+import roomsHelp_other from '../assets/Help-Images/H-Rooms-Other.svg';
 
 export const roomsListHelpPages: HelpPage[] = [
   {

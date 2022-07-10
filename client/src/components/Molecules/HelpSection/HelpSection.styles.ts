@@ -17,7 +17,7 @@ export const HelpSectionWrapper = styled.section`
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     max-width: 420px;
-    grid-template-rows: 225px 25px 30px;
+    grid-template-rows: 240px 25px 30px;
     grid-gap: 5px;
     line-height: 1.3;
     padding: 20px;
@@ -38,11 +38,11 @@ export const HelpText = styled.span`
 `;
 
 export const HelpImage = styled.img`
-  transform: scale(1.5);
+  height: 120%;
   justify-self: center;
   align-self: center;
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
-    transform: scale(1.2);
+    height: 100%;
   }
 `;
 
@@ -59,7 +59,7 @@ export const HelpContentWrapper = styled.div`
   animation-fill-mode: forwards;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
-    grid-template-rows: 105x 115px;
+    grid-template-rows: 105x 130px;
   }
 
   @keyframes show {
