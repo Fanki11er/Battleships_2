@@ -24,7 +24,9 @@ export const StandardButton = styled.button`
   background-color: transparent;
   user-select: ${(props: StyledProps & Props) => (props.isActive ? 'auto' : 'none')};
   transition: background-color 0.5s;
-  &:hover {
+  outline: none;
+  &:hover,
+  :focus {
     cursor: ${(props: Props) => (props.isActive ? 'pointer' : ' not-allowed')};
     background-color: ${(props: StyledProps) => props.theme.colors.transparentOrange};
   }
@@ -86,7 +88,8 @@ export const CancelButton = styled(StandardButton)`
   color: ${(props: StyledProps & Props) => props.theme.colors.red};
   border: 3px solid ${(props: StyledProps & Props) => props.theme.colors.red};
   cursor: pointer;
-  &:hover {
+  &:hover,
+  :focus {
     background-color: ${(props: StyledProps & Props) => props.theme.colors.transparentRed};
   }
 `;
@@ -107,8 +110,10 @@ export const CancelLink = styled(Link)`
   align-items: center;
   color: ${(props: StyledProps) => props.theme.colors.red};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.red};
+  outline: none;
   cursor: pointer;
-  &:hover {
+  &:hover,
+  :focus {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentRed};
   }
 
@@ -135,7 +140,8 @@ export const SetRandomShipsButton = styled(StandardButton)`
   color: ${(props: StyledProps & Props) => props.theme.colors.lighterBlue};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.lighterBlue};
   cursor: pointer;
-  &:hover {
+  &:hover,
+  :focus {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentLighterBlue};
   }
 `;
@@ -143,8 +149,10 @@ export const SetRandomShipsButton = styled(StandardButton)`
 export const ResetShipsButton = styled(StandardButton)`
   color: ${(props: StyledProps) => props.theme.colors.salmon};
   border: 3px solid ${(props: StyledProps) => props.theme.colors.salmon};
+  outline: none;
   cursor: pointer;
-  &:hover {
+  &:hover,
+  :focus {
     background-color: ${(props: StyledProps) => props.theme.colors.transparentSalmon};
   }
 `;
@@ -154,29 +162,42 @@ export const PageControlButton = styled.button`
   font-size: ${(props: StyledProps) => props.theme.fontSizes.S};
   font-weight: bold;
   border-radius: 5px;
-  width: 60px;
+  width: 70px;
   height: 100%;
   background-color: transparent;
   outline: none;
   border: none;
   cursor: ${(props: Props) => (props.isActive ? 'pointer' : 'not-allowed')};
   user-select: ${(props: Props) => (props.isActive ? 'auto' : 'none')};
+  outline: none;
 
-  :hover {
+  :hover,
+  :focus {
     border: ${(props: StyledProps & Props) => (props.isActive ? `2px solid  ${props.theme.colors.myBlue}` : 'none')};
+  }
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    width: 60px;
   }
 `;
 
 export const SmallCancelButton = styled(StandardButton)`
   color: ${(props: StyledProps & Props) => props.theme.colors.red};
   border: 2px solid ${(props: StyledProps & Props) => props.theme.colors.red};
+  outline: none;
   cursor: pointer;
-  &:hover {
+  &:hover,
+  :focus {
     background-color: ${(props: StyledProps & Props) => props.theme.colors.transparentRed};
   }
 
-  width: 60px;
-  height: 25px;
+  width: 80px;
+  height: 35px;
   align-self: center;
   justify-self: center;
+
+  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+    width: 60px;
+    height: 25px;
+  }
 `;

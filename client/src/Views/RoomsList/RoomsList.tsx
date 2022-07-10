@@ -54,6 +54,12 @@ const RoomsList = () => {
     socket?.emit('joinRoom', { userName: userName, roomName });
   };
 
+  const handleClickEnter = (e: React.KeyboardEvent<SVGSVGElement>) => {
+    if (e.key === 'Enter') {
+      handleOpenModal();
+    }
+  };
+
   if (!userName) return <Redirect to={{ pathname: landingPage }} />;
 
   if (roomName) return <Redirect to={{ pathname: room, state: { roomName } }} />;
@@ -61,7 +67,9 @@ const RoomsList = () => {
     <Wrapper>
       <HelpModal helpPages={roomsListHelpPages} isOpen={isOpen} closeModal={handleCloseModal} />
       {status === 'loading' && <LoadingInfo />}
-      {status === 'ready' && roomsList.length && <StyledQuestionMarkIcon title={'Click for help'} onClick={handleOpenModal} />}
+      {status === 'ready' && roomsList.length && (
+        <StyledQuestionMarkIcon tabIndex={0} title={'Click for help'} onClick={handleOpenModal} onKeyUp={(e) => handleClickEnter(e)} />
+      )}
       {status === 'ready' &&
         roomsList.length &&
         roomsList.map(({ roomName, users, isLocked }) => {

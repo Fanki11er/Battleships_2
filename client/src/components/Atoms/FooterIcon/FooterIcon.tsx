@@ -28,7 +28,9 @@ const IconWrapper = styled.a`
   width: 52px;
   height: 52px;
   text-decoration: none;
-  &:hover {
+  outline: none;
+  &:hover,
+  :focus {
     transform: scale(1.2) rotate(5deg);
     transition: transform 0.3s 0.1s;
     cursor: pointer;

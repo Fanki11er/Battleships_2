@@ -121,8 +121,10 @@ export const StyledQuestionMarkIcon = styled(QuestionMarkIcon)`
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-iteration-count: 3;
+  outline: none;
 
-  :hover {
+  :hover,
+  :focus {
     border: 3px solid ${(props: StyledProps) => props.theme.colors.orange};
   }
 

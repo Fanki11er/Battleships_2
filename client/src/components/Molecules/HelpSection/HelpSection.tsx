@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HelpPage } from '../../../Types/types';
 import { PageControlButton, SmallCancelButton } from '../../Atoms/Buttons/Buttons';
 import DotsIndicator from '../DotsIndicator/DotsIndicator';
@@ -21,6 +21,15 @@ const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<React.Rea
       setPageNumber(0);
     }
   }, [isVisible, pageNumber]);
+
+  const controlRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (controlRef && controlRef.current) {
+      const button = controlRef.current;
+      button.focus();
+    }
+  });
 
   const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
     const touchDown = e.touches[0].clientX;
@@ -67,11 +76,17 @@ const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<React.Rea
         <HelpImage src={helpPages[pageNumber].imageSrc} />
       </HelpContentWrapper>
       <ControlsWrapper>
-        <PageControlButton isActive={pageNumber > 0 ? true : false} onClick={() => prevPage()}>
+        <PageControlButton isActive={pageNumber > 0 ? true : false} disabled={!isVisible} onClick={() => prevPage()}>
           Prev
         </PageControlButton>
         <DotsIndicator length={helpPages.length} progress={pageNumber} />
-        <PageControlButton isActive={pageNumber < helpPages.length - 1 ? true : false} onClick={() => nextPage()}>
+        <PageControlButton
+          isActive={pageNumber < helpPages.length - 1 ? true : false}
+          disabled={!isVisible}
+          onClick={() => nextPage()}
+          autoFocus={true}
+          ref={controlRef}
+        >
           Next
         </PageControlButton>
       </ControlsWrapper>
@@ -81,6 +96,7 @@ const HelpSection = (props: HelpSectionProps & React.PropsWithChildren<React.Rea
           closeModal();
           setPageNumber(0);
         }}
+        disabled={!isVisible}
       >
         Close
       </SmallCancelButton>
