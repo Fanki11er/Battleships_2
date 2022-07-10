@@ -186,6 +186,7 @@ export const SmallCancelButton = styled(StandardButton)`
   border: 2px solid ${(props: StyledProps & Props) => props.theme.colors.red};
   outline: none;
   cursor: pointer;
+
   &:hover,
   :focus {
     background-color: ${(props: StyledProps & Props) => props.theme.colors.transparentRed};

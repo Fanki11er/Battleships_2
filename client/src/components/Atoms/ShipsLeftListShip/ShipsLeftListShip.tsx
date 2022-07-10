@@ -94,12 +94,9 @@ const ShipsLeftListShip = (props: Props) => {
         {size === 4 && <Ship src={shipSize_4} alt={'Ship'} />}
         {size === 5 && <Ship src={shipSize_5} alt={'Ship'} />}
       </ShipContainer>
-      <SizesWrapper>
-        <ShipSizeInfo size={size} />
-      </SizesWrapper>
+      <SizesWrapper>{!isSunk ? <ShipSizeInfo size={size} /> : null}</SizesWrapper>
     </Wrapper>
   );
 };
 
 export default ShipsLeftListShip;
-//
