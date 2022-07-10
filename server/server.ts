@@ -150,6 +150,7 @@ io.on('connection', (socket) => {
           Helpers.sendEmail(sgMail, `Played games: ${playedGames}`, 'Played games info');
         }
         console.log('Played games: ', playedGames);
+        console.log(`Game between: ${selectedRoom.getUsersNames()[0]} AND ${selectedRoom.getUsersNames()[1]}`);
       }
     } catch (error: any) {
       socket.emit('serverError');
