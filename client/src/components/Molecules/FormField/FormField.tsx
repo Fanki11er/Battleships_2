@@ -16,8 +16,9 @@ const FormField = (props: Props) => {
 
   return (
     <Wrapper>
-      <Input id={id} type={type} data-testid={label} placeholder={label} {...register(name, { required: true, minLength: 3 })} />
-      {errors[name] && <StyledFormError>Minimum length is 3 characters</StyledFormError>}
+      <Input id={id} type={type} data-testid={label} placeholder={label} {...register(name, { required: true, minLength: 3, maxLength: 12 })} />
+      {errors[name] && errors[name].type === 'minLength' && <StyledFormError>Minimum length is 3 characters</StyledFormError>}
+      {errors[name] && errors[name].type === 'maxLength' && <StyledFormError>Maximum length is 12 characters</StyledFormError>}
     </Wrapper>
   );
 };
