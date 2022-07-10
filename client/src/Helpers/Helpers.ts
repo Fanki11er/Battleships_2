@@ -164,3 +164,9 @@ export const setShipsOnRandomPositions = (shipSizes: number[]) => {
   }
   return ships;
 };
+
+export const handleClickEnter = (e: React.KeyboardEvent<SVGSVGElement>, callback: Function) => {
+  if (e.key === 'Enter') {
+    callback();
+  }
+};

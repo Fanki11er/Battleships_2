@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   align-items: center;
   padding: 0 35px;
   overflow-x: hidden;
+  position: relative;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     padding: 5px;

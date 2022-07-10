@@ -13,6 +13,7 @@ import { StyledQuestionMarkIcon } from '../../components/Atoms/RoomUserInfo/Room
 import HelpModal from '../../components/Organisms/HelpModal/HelpModal';
 import { roomsListHelpPages } from '../../Data/HelpPages';
 import useModal from '../../Hooks/useModal';
+import { handleClickEnter } from '../../Helpers/Helpers';
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -54,12 +55,6 @@ const RoomsList = () => {
     socket?.emit('joinRoom', { userName: userName, roomName });
   };
 
-  const handleClickEnter = (e: React.KeyboardEvent<SVGSVGElement>) => {
-    if (e.key === 'Enter') {
-      handleOpenModal();
-    }
-  };
-
   if (!userName) return <Redirect to={{ pathname: landingPage }} />;
 
   if (roomName) return <Redirect to={{ pathname: room, state: { roomName } }} />;
@@ -68,7 +63,12 @@ const RoomsList = () => {
       <HelpModal helpPages={roomsListHelpPages} isOpen={isOpen} closeModal={handleCloseModal} />
       {status === 'loading' && <LoadingInfo />}
       {status === 'ready' && roomsList.length && (
-        <StyledQuestionMarkIcon tabIndex={0} title={'Click for help'} onClick={handleOpenModal} onKeyUp={(e) => handleClickEnter(e)} />
+        <StyledQuestionMarkIcon
+          tabIndex={0}
+          title={'Click for help'}
+          onClick={handleOpenModal}
+          onKeyUp={(e) => handleClickEnter(e, handleOpenModal)}
+        />
       )}
       {status === 'ready' &&
         roomsList.length &&

@@ -178,6 +178,7 @@ export const PageControlButton = styled.button`
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     width: 60px;
+    height: 30px;
   }
 `;
 

@@ -17,6 +17,11 @@ import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 import { GameContext } from '../../providers/gameProvider';
 import { UserContext } from '../../providers/userProvider';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { StyledQuestionMarkIcon } from '../../components/Atoms/RoomUserInfo/RoomUserInfo.styles';
+import { handleClickEnter } from '../../Helpers/Helpers';
+import useModal from '../../Hooks/useModal';
+import HelpModal from '../../components/Organisms/HelpModal/HelpModal';
+import { preparePageHelpPages } from '../../Data/HelpPages';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
@@ -26,6 +31,7 @@ const PreparingPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const { roomName } = useContext(UserContext);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
+  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -92,6 +98,8 @@ const PreparingPage = () => {
 
   return (
     <Wrapper>
+      <StyledQuestionMarkIcon tabIndex={0} title={'Click for help'} onClick={handleOpenModal} onKeyUp={(e) => handleClickEnter(e, handleOpenModal)} />
+      <HelpModal helpPages={preparePageHelpPages} isOpen={isOpen} closeModal={handleCloseModal} />
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
       {sortedUsers.me?.status === 'ready' ? null : (
         <RandomShipsButtonsWrapper>

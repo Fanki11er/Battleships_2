@@ -14,6 +14,7 @@ export const HelpSectionWrapper = styled.section`
   max-width: 700px;
   grid-template-rows: 250px 80px 40px;
   line-height: 1.5;
+  grid-template-columns: 1fr;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
     max-width: 420px;
@@ -25,9 +26,9 @@ export const HelpSectionWrapper = styled.section`
 `;
 
 export const HelpText = styled.span`
-  width: 100%;
+  min-width: 100%;
   height: 100%;
-  color: ${(props: StyledProps) => props.theme.colors.myBlue};
+  color: ${(props: StyledProps) => props.theme.colors.green};
   font-size: ${(props: StyledProps) => props.theme.fontSizes.M};
   font-weight: bold;
   text-align: justify;
@@ -59,7 +60,7 @@ export const HelpContentWrapper = styled.div`
   animation-fill-mode: forwards;
 
   @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
-    grid-template-rows: 105x 130px;
+    grid-template-rows: 90px 130px;
   }
 
   @keyframes show {
@@ -74,7 +75,7 @@ export const HelpContentWrapper = styled.div`
 
 export const ControlsWrapper = styled.div`
   width: 100%;
-  max-width: 450px;
+  max-width: 460px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
