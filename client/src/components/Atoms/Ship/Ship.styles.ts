@@ -14,6 +14,7 @@ export const StyledShip = styled.div`
   transform: ${(props: Props) => (props.position === 'horizontal' ? 'rotate(0deg) rotateY(0deg)' : 'rotate(90deg) rotateY(180deg)')};
   background-color: ${(props: Props & StyledProps) => (props.size ? 'transparent' : props.theme.colors.shipRectangle)};
   transition: transform 0.3s;
+  touch-action: none;
 `;
 
 export const Wrapper = styled.div`
@@ -31,4 +32,5 @@ export const Wrapper = styled.div`
     border: 3px solid ${(props: Props & StyledProps) => (props.size ? props.theme.colors.orange : 'transparent')};
   }
   transition: border 0.5s;
+  touch-action: none;
 `;

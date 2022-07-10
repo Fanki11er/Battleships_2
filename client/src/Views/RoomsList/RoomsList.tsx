@@ -9,6 +9,11 @@ import LoadingInfo from '../../components/Atoms/LoadingInfo/LoadingInfo';
 import { Wrapper } from './RoomsList.styles';
 import { UserContext } from '../../providers/userProvider';
 import { GameContext } from '../../providers/gameProvider';
+import { StyledQuestionMarkIcon } from '../../components/Atoms/RoomUserInfo/RoomUserInfo.styles';
+import HelpModal from '../../components/Organisms/HelpModal/HelpModal';
+import { roomsListHelpPages } from '../../Data/HelpPages';
+import useModal from '../../Hooks/useModal';
+import { handleClickEnter } from '../../Helpers/Helpers';
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -19,6 +24,7 @@ const RoomsList = () => {
   const [status, setStatus] = useState<Status>('loading');
   const { userName, roomName, handleSetRoomName } = useContext(UserContext);
   const { resetPreparationCancelStatus } = useContext(GameContext);
+  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   useEffect(() => {
     handleSetRoomName('');
@@ -54,7 +60,16 @@ const RoomsList = () => {
   if (roomName) return <Redirect to={{ pathname: room, state: { roomName } }} />;
   return (
     <Wrapper>
+      <HelpModal helpPages={roomsListHelpPages} isOpen={isOpen} closeModal={handleCloseModal} />
       {status === 'loading' && <LoadingInfo />}
+      {status === 'ready' && roomsList.length && (
+        <StyledQuestionMarkIcon
+          tabIndex={0}
+          title={'Click for help'}
+          onClick={handleOpenModal}
+          onKeyUp={(e) => handleClickEnter(e, handleOpenModal)}
+        />
+      )}
       {status === 'ready' &&
         roomsList.length &&
         roomsList.map(({ roomName, users, isLocked }) => {

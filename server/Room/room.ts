@@ -32,11 +32,24 @@ export class Room {
   public getUsers() {
     return this.users;
   }
+
+  public getUsersNames() {
+    const userNames = [];
+    if (this.users.length === 2) {
+      userNames.push(this.users[0]?.getName());
+      userNames.push(this.users[1]?.getName());
+      return userNames;
+    }
+    userNames.push('Err');
+    userNames.push('Err');
+    return userNames;
+  }
   addUser(user: User) {
     if (this.users.length < 2) {
       this.users.push(user);
     }
   }
+
   getNumberOfUsers() {
     return this.users.length;
   }

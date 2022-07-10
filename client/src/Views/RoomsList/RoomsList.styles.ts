@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  position: relative;
 
   @media screen and (max-width: 1280px) {
     align-content: flex-start;

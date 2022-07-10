@@ -1,6 +1,6 @@
 import { DndProvider } from 'react-dnd';
-import MultiBackend from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/dist/cjs/HTML5toTouch';
+import MultiBackend, { TouchTransition } from 'react-dnd-multi-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import { ShipsContext } from '../../providers/shipsProvider';
 import ShipsList from '../../components/Molecules/ShipsList/ShipsList';
 import { Redirect } from 'react-router-dom';
@@ -16,6 +16,12 @@ import { ReadyButton, ResetShipsButton, SetRandomShipsButton } from '../../compo
 import ReadyImage from '../../components/Atoms/ReadyImage/ReadyImage';
 import { GameContext } from '../../providers/gameProvider';
 import { UserContext } from '../../providers/userProvider';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { StyledQuestionMarkIcon } from '../../components/Atoms/RoomUserInfo/RoomUserInfo.styles';
+import { handleClickEnter } from '../../Helpers/Helpers';
+import useModal from '../../Hooks/useModal';
+import HelpModal from '../../components/Organisms/HelpModal/HelpModal';
+import { preparePageHelpPages } from '../../Data/HelpPages';
 
 const PreparingPage = () => {
   const { roomsList: roomsRoute, landingPage, game } = routes;
@@ -25,6 +31,7 @@ const PreparingPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const { roomName } = useContext(UserContext);
   const [sortedUsers, setSortedUsers] = useState<SortedUsers>({ me: undefined, opponent: undefined });
+  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -69,6 +76,21 @@ const PreparingPage = () => {
     setSortedUsers(sorted);
   };
 
+  const MyBackend = {
+    backends: [
+      {
+        backend: HTML5Backend,
+      },
+      {
+        backend: TouchBackend,
+
+        delay: 100,
+        preview: true,
+        transition: TouchTransition,
+      },
+    ],
+  };
+
   if (!roomName) return <Redirect to={{ pathname: roomsRoute }} />;
   if (isPreparationCanceled) return <Redirect to={{ pathname: roomsRoute }} />;
   if (!socket) return <Redirect to={{ pathname: landingPage }} />;
@@ -76,6 +98,8 @@ const PreparingPage = () => {
 
   return (
     <Wrapper>
+      <StyledQuestionMarkIcon tabIndex={0} title={'Click for help'} onClick={handleOpenModal} onKeyUp={(e) => handleClickEnter(e, handleOpenModal)} />
+      <HelpModal helpPages={preparePageHelpPages} isOpen={isOpen} closeModal={handleCloseModal} />
       <PreparingPageStatusInfo sortedUsers={sortedUsers} />
       {sortedUsers.me?.status === 'ready' ? null : (
         <RandomShipsButtonsWrapper>
@@ -87,7 +111,7 @@ const PreparingPage = () => {
           </ResetShipsButton>
         </RandomShipsButtonsWrapper>
       )}
-      <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
+      <DndProvider backend={MultiBackend as any} options={MyBackend}>
         {sortedUsers.me?.status === 'ready' ? <ReadyImage /> : <StyledBoard />}
         <ShipsListWrapper>
           {ships.length === 10 ? (

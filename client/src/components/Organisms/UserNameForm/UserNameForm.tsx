@@ -54,7 +54,11 @@ const Form = styled.form`
 `;
 
 const UserNameForm = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { handleSetUserName } = useContext(UserContext);
   return (
     <Form
@@ -62,7 +66,7 @@ const UserNameForm = () => {
         handleSetUserName(data['userName']);
       })}
     >
-      <FormField type="text" name={'userName'} label={'What is your name?'} id={'userName'} register={register} />
+      <FormField type="text" name={'userName'} label={'What is your name?'} id={'userName'} register={register} errors={errors} />
       <StandardButton isActive={true} type="submit">
         Submit
       </StandardButton>

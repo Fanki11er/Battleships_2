@@ -33,6 +33,7 @@ export const ListElement = styled.li`
   padding: 10px;
   margin: 0 25px;
   position: relative;
+  touch-action: none;
 
   &::before {
     content: '';
