@@ -66,6 +66,7 @@ io.on('connection', (socket) => {
       if (!userName || !roomName) {
         throw new Error('Invalid user parameters');
       }
+      console.log(`Player ${userName} joined ${roomName}`);
       const user = new User(userName, socket.id);
       socket.join(roomName);
       const selectedRoom = Helpers.findSelectedRoom(rooms, roomName);
