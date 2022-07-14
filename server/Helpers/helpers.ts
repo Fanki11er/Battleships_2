@@ -102,8 +102,8 @@ export class Helpers {
 
   public static getCurrentDateAndTime = () => {
     const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
+    const date = now.toLocaleDateString('PL', { timeZone: 'Europe/Warsaw' });
+    const time = now.toLocaleTimeString('PL', { timeZone: 'Europe/Warsaw' });
     return `[ ${date} ] [ ${time} ]`;
   };
 }
