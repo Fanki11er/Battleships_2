@@ -46,7 +46,7 @@ server.listen(PORT, () => {
   console.log(`Server version: ${SERVER_VERSION}`);
   console.log('Started: ', Helpers.getCurrentDateAndTime());
   //!! Email sending
-  Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
+  //Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
 
   for (let i = 0; i < aiNames.length; i++) {
     rooms.push(new SpecialRoom(`Room_#AI${i + 1}`, new Computer(aiNames[i], `AIP#${i + 1}`)));

@@ -80,3 +80,19 @@ const RoomsList = () => {
 };
 
 export default RoomsList;
+/*
+{status === 'loading' && <LoadingInfo />}
+ {status === 'ready' && roomsList.length && (
+        <StyledQuestionMarkIcon
+          tabIndex={0}
+          title={'Click for help'}
+          onClick={handleOpenModal}
+          onKeyUp={(e) => handleClickEnter(e, handleOpenModal)}
+        />
+      )}
+      {status === 'ready' &&
+        roomsList.length &&
+        roomsList.map(({ roomName, users, isLocked }) => {
+          return <Room isLocked={isLocked} roomName={roomName} users={users} key={roomName} handleJoinToTheRoom={handleJoinToTheRoom} />;
+        })}
+*/
