@@ -10,7 +10,7 @@ import UserProvider from './providers/userProvider';
 import ErrorView from './Views/ErrorView/ErrorView';
 import axios from 'axios';
 
-export const APP_VERSION = '1.0.4';
+export const APP_VERSION = '1.0.3';
 export const YEAR = '2022';
 //export const URL = 'http://192.168.10.102:8090/';
 export const URL = 'http://192.168.1.103:8090/';
