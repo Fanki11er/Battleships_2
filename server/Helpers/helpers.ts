@@ -59,6 +59,9 @@ export class Helpers {
       if (board.getUserId() === userId) {
         board.resetBoard();
       }
+      if (board.getUserId().includes('AIP#')) {
+        board.resetBoard();
+      }
     });
   }
 
