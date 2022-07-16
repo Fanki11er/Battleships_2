@@ -9,7 +9,7 @@ import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
-const SERVER_VERSION = '1.0.3';
+const SERVER_VERSION = '1.0.4';
 
 const PORT = process.env.PORT || 8090;
 
@@ -46,7 +46,7 @@ server.listen(PORT, () => {
   console.log(`Server version: ${SERVER_VERSION}`);
   console.log('Started: ', Helpers.getCurrentDateAndTime());
   //!! Email sending
-  //Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
+  Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
 
   for (let i = 0; i < aiNames.length; i++) {
     rooms.push(new SpecialRoom(`Room_#AI${i + 1}`, new Computer(aiNames[i], `AIP#${i + 1}`)));
