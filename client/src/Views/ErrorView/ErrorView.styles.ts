@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { StyledProps } from '../../assets/styles/theme';
-import errorBackground from '../../assets/backgrounds/error-background.svg';
+import errorBackground from '../../assets/backgrounds/error-background.png';
 
 export const Wrapper = styled.div`
   background-color: ${(props: StyledProps) => props.theme.colors.darkBlue};

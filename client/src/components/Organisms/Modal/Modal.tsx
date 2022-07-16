@@ -18,7 +18,7 @@ const ModalWrapper = styled.div`
   opacity: 0;
   animation-name: show;
   animation-duration: 2s;
-  animation-delay: 0.5s;
+  animation-delay: 1s;
   animation-fill-mode: forwards;
 
   @keyframes show {

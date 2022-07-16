@@ -9,7 +9,7 @@ import { Computer, User } from './User/user';
 import { Helpers } from './Helpers/helpers';
 import { Ship, Shot, ShotResult } from './Helpers/Types';
 
-const SERVER_VERSION = '1.0.2';
+const SERVER_VERSION = '1.0.4';
 
 const PORT = process.env.PORT || 8090;
 
@@ -32,7 +32,7 @@ const io = new Server(server, {
 
 app.use(cors());
 app.get('/visit', (req, res) => {
-  //res.send('Server is running');
+  res.send(`Server version: ${SERVER_VERSION} status: OK`);
   visits++;
   console.log('Visits: ', visits);
 });
@@ -46,7 +46,7 @@ server.listen(PORT, () => {
   console.log(`Server version: ${SERVER_VERSION}`);
   console.log('Started: ', Helpers.getCurrentDateAndTime());
   //!! Email sending
-  //Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
+  Helpers.sendEmail(sgMail, 'Server started: ' + Helpers.getCurrentDateAndTime(), 'Server info');
 
   for (let i = 0; i < aiNames.length; i++) {
     rooms.push(new SpecialRoom(`Room_#AI${i + 1}`, new Computer(aiNames[i], `AIP#${i + 1}`)));
@@ -152,7 +152,7 @@ io.on('connection', (socket) => {
           Helpers.sendEmail(sgMail, `Played games: ${playedGames}`, 'Played games info');
         }
         console.log('Played games: ', playedGames);
-        console.log(`Game between: ${selectedRoom.getUsersNames()[0]} AND ${selectedRoom.getUsersNames()[1]}`);
+        console.log(`Started game between: ${selectedRoom.getUsersNames()[0]} AND ${selectedRoom.getUsersNames()[1]}`);
       }
     } catch (error: any) {
       socket.emit('serverError');
@@ -234,7 +234,7 @@ io.on('connection', (socket) => {
           selectedRoom.endGame();
           selectedRoom.resetUsers();
           selectedRoom.setIsLocked(false);
-        }, 8000);
+        }, 6000);
       }
     } catch (error: any) {
       socket.emit('serverError');

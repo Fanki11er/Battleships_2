@@ -10,11 +10,11 @@ import UserProvider from './providers/userProvider';
 import ErrorView from './Views/ErrorView/ErrorView';
 import axios from 'axios';
 
-export const APP_VERSION = '1.0.3';
+export const APP_VERSION = '1.0.4';
 export const YEAR = '2022';
-//export const URL = 'http://192.168.10.102:8090';
-//export const URL = 'http://192.168.1.103:8090';
-//export const URL = 'http://192.168.0.130:8090';
+//export const URL = 'http://192.168.10.102:8090/';
+//export const URL = 'http://192.168.1.103:8090/';
+//export const URL = 'http://192.168.0.130:8090/';
 export const URL = 'https://kdz-battleships-server.herokuapp.com/' || 'https//localhost:8090';
 function App() {
   const { landingPage, mainPage, error } = routes;
@@ -25,7 +25,7 @@ function App() {
       //console.log(response);
     })
     .catch((error) => {
-      console.log(error);
+      //console.log(error);
     });
 
   return (
