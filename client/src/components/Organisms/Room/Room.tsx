@@ -27,6 +27,7 @@ const Room = (props: Props) => {
 
       <StandardButton
         isActive={users.length < 2 && !isLocked ? true : false}
+        disabled={users.length === 2 || isLocked ? true : false}
         onClick={() => handleJoinToTheRoom(roomName)}
         title={'Prepare for the battle'}
       >

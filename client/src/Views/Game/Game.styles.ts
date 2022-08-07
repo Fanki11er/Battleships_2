@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
   overflow-x: hidden;
   column-gap: 30px;
-  @media screen and (${(props: StyledProps) => props.theme.devices.medium}) {
+  @media screen and (${(props: StyledProps) => props.theme.devices.large}) {
     grid-template-columns: 1.6fr 160px 1fr 160px 1.6fr;
   }
 

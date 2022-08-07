@@ -40,7 +40,7 @@ export const theme: Theme = {
   },
   devices: {
     small: `max-width: 720px`,
-    medium: `max-width: 1200px`,
+    medium: `max-width: 1280px`,
     large: 'max-width: 2500px',
   },
 };
