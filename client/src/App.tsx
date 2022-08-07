@@ -10,9 +10,9 @@ import UserProvider from './providers/userProvider';
 import ErrorView from './Views/ErrorView/ErrorView';
 import axios from 'axios';
 
-export const APP_VERSION = '1.0.4';
+export const APP_VERSION = '1.0.5';
 export const YEAR = '2022';
-//export const URL = 'http://192.168.10.102:8090/';
+//export const URL = 'http://192.168.10.105:8090/';
 //export const URL = 'http://192.168.1.103:8090/';
 //export const URL = 'http://192.168.0.130:8090/';
 export const URL = 'https://kdz-battleships-server.herokuapp.com/' || 'https//localhost:8090';
